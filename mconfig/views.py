@@ -334,7 +334,7 @@ def create_user(request, action):
         try:
             profile = Profile.objects.get(email=request.POST['email'])
         except Profile.DoesNotExist:
-            user = None
+            profile = None
         
         
         if user is None:
@@ -374,6 +374,7 @@ def create_user(request, action):
                 
         profile.save()        
         user.save()
+        return
         msg = '''\
 <html>
   <head></head>

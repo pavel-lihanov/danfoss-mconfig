@@ -323,7 +323,7 @@ def create_user(request, action):
             context = {}
         return HttpResponse(template.render(context, request))
     elif request.method == 'POST':
-        print(request.POST['email'], request.POST['password'])
+        #print(request.POST['email'], request.POST['password'])
         access_level = int(request.POST['role'])
         
         try:
@@ -334,7 +334,7 @@ def create_user(request, action):
         try:
             profile = Profile.objects.get(email=request.POST['email'])
         except Profile.DoesNotExist:
-            user = None
+            profile = None
         
         
         if user is None:
