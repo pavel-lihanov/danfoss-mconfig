@@ -51,7 +51,7 @@ import json
 #import rpdb2
 #rpdb2.start_embedded_debugger('123qwe')
 
-locale.setlocale(locale.LC_ALL, 'ru')
+#locale.setlocale(locale.LC_ALL, 'ru')
 
 #wizard instances are stored here
 sessions = {}
