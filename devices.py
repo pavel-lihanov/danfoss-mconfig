@@ -7,8 +7,8 @@ import codecs
 import types
 import delivery
 
-import docx
-from docx.oxml.shared import qn
+#import docx
+#from docx.oxml.shared import qn
 
 from django.utils.translation import ugettext as _
 
@@ -20,6 +20,7 @@ class NotInPricelist(Exception):
     pass
 '''
 
+'''
 def get_bookmark_par_element(document, bookmark_name):
     """
     Return the named bookmark element
@@ -39,7 +40,9 @@ def get_bookmark_par_element(document, bookmark_name):
             else:
                 return par
     raise KeyError('Bookmark not found', bookmark_name)
-    
+'''
+
+'''    
 def insert_text(par, text):            
     tmp_doc = docx.Document()
     tmp_doc.add_paragraph(text)
@@ -49,7 +52,7 @@ def insert_text(par, text):
         bookmark_par_parent.insert(index, child)
         index = index + 1
     #bookmark_par_parent.remove(par)
-
+'''
 
 class Device:
     '''
@@ -145,7 +148,7 @@ class VEDADrive(Device):
     def make_offer_template(self, path):            
         assert(self.is_package)
         assert(self.price)
-        
+        '''
         doc = docx.Document('offer_template.docx')
         par = get_bookmark_par_element(doc, "order_code")
         insert_text(par, self.order_code())
@@ -154,6 +157,7 @@ class VEDADrive(Device):
         insert_text(par, self.price.sale_price)
         
         doc.save(path)
+        '''
         
     def short_descr(self):
         return _('VEDADRIVE {0}kV, {1} kVA, {2}, {3} {4}').format(self.attributes['voltage']//1000, self.attributes['kVA'], _('Air-cooled') if self.options['cooling']=='Air' else __('Liquid_cooled') ,self.options['enclosure'], self.options['Service access'])
