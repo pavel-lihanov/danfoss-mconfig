@@ -1,0 +1,52 @@
+{% load i18n %}
+
+<html>
+<head>
+<style>
+.main_area {
+    padding: 10px;
+}
+
+.left_bar {
+    border: 1px solid #d8d9db;
+    padding: 12px;
+    text-align: center;
+    vertical-align: top;
+    width: 146px;
+}
+
+.question {
+    border: 1px solid #d8d9db;
+    padding: 4px;
+    text-align: center;
+    vertical-align: top;
+	margin: 4px;
+}
+</style>
+</head>
+
+<body>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<table class="mainContainer" style="border: 1px solid; padding: 10px;">
+	<tr>
+		<td class="main_area">					
+			<div id="main_area">
+				<form name="question_form" style="border: 1px solid; padding: 10px;">
+					{% for package in question.packages %}
+						{% include package.template with package=package unpriced=True only %}
+						<br>
+					{% endfor %}
+				</form>
+			</div>
+		</td>
+	</tr>
+</table>
+
+<form action="prev" method="post" style="display: inline; float: left; padding: 10px;">
+	{% csrf_token %}
+	<input type="submit" value="{% trans 'Prev' %}"/>
+</form>
+
+</body>

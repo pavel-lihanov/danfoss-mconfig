@@ -1,0 +1,64 @@
+<NotepadPlus>
+    <Project name="mconfig">
+        <Folder name="hints">
+            <File name="mconfig\templates\mconfig\hints\braking_mode.html" />
+            <File name="mconfig\templates\mconfig\hints\cable_len.html" />
+            <File name="mconfig\templates\mconfig\hints\control_mode.html" />
+            <File name="mconfig\templates\mconfig\hints\cooling.html" />
+            <File name="mconfig\templates\mconfig\hints\delivery_address.html" />
+            <File name="mconfig\templates\mconfig\hints\delivery_type.html" />
+            <File name="mconfig\templates\mconfig\hints\drive_bypass.html" />
+            <File name="mconfig\templates\mconfig\hints\drive_voltage.html" />
+            <File name="mconfig\templates\mconfig\hints\enclosure.html" />
+            <File name="mconfig\templates\mconfig\hints\exciter.html" />
+            <File name="mconfig\templates\mconfig\hints\fieldbus.html" />
+            <File name="mconfig\templates\mconfig\hints\motor_current.html" />
+            <File name="mconfig\templates\mconfig\hints\motor_mains.html" />
+            <File name="mconfig\templates\mconfig\hints\motor_type.html" />
+            <File name="mconfig\templates\mconfig\hints\motor_voltage.html" />
+            <File name="mconfig\templates\mconfig\hints\multimotor.html" />
+            <File name="mconfig\templates\mconfig\hints\overload.html" />
+            <File name="mconfig\templates\mconfig\hints\power_cell_bypass.html" />
+            <File name="mconfig\templates\mconfig\hints\power_mains.html" />
+            <File name="mconfig\templates\mconfig\hints\service_access.html" />
+        </Folder>
+        <Folder name="templates">
+            <File name="mconfig\templates\mconfig\choice.html" />
+            <File name="mconfig\templates\mconfig\compound.html" />
+            <File name="mconfig\templates\mconfig\edit.html" />
+            <File name="mconfig\templates\mconfig\header.html" />
+            <File name="mconfig\templates\mconfig\logged_out.html" />
+            <File name="mconfig\templates\mconfig\login.html" />
+            <File name="mconfig\templates\mconfig\oneofmany.html" />
+            <File name="mconfig\templates\mconfig\order.html" />
+            <File name="mconfig\templates\mconfig\package.html" />
+            <File name="mconfig\templates\mconfig\password_change_done.html" />
+            <File name="mconfig\templates\mconfig\password_change_form.html" />
+            <File name="mconfig\templates\mconfig\password_reset_complete.html" />
+            <File name="mconfig\templates\mconfig\password_reset_confirm.html" />
+            <File name="mconfig\templates\mconfig\password_reset_done.html" />
+            <File name="mconfig\templates\mconfig\password_reset_email.html" />
+            <File name="mconfig\templates\mconfig\password_reset_form.html" />
+            <File name="mconfig\templates\mconfig\preview.html" />
+            <File name="mconfig\templates\mconfig\question.html" />
+            <File name="mconfig\templates\mconfig\request_access.html" />
+            <File name="mconfig\templates\mconfig\result.html" />
+            <File name="mconfig\templates\mconfig\result_unpriced.html" />
+            <File name="mconfig\templates\mconfig\searchchoice.html" />
+            <File name="mconfig\templates\mconfig\start.html" />
+            <File name="mconfig\templates\mconfig\streetaddress.html" />
+            <File name="mconfig\templates\mconfig\VEDADrive.html" />
+        </Folder>
+        <File name="config_try.py" />
+        <File name="devices.py" />
+        <File name="field_views.py" />
+        <File name="price.py" />
+        <File name="questions.py" />
+        <File name="rules.py" />
+        <File name="wizard.py" />
+        <File name="mconfig\models.py" />
+        <File name="mconfig\urls.py" />
+        <File name="mconfig\views.py" />
+        <File name="delivery.py" />
+    </Project>
+</NotepadPlus>

@@ -1,0 +1,51 @@
+<input id="{{field.name}}" style="display:none;">
+{% for f in field.fields %}
+	<tr>
+		<td style="display:block;">
+			<input type="radio" name="{{field.name}}" value="{{f.0.name}}" {% if f.1 %} checked {% endif %}
+			onclick="{
+						document.getElementById('{{field.name}}').value = '{{f.0.name}}';
+						postField('{{field.name}}');
+					}
+				"/>						
+			{{f.0.name}}		
+			
+		</td>
+		<td>
+		</td>
+	</tr>
+
+	{% if f.1 %}		
+		{% include f.0.view.template with field=f.0 enabled=enabled only %}
+	{% else %}
+		{% include f.0.view.template with field=f.0 enabled=False only %}
+	{% endif %}
+
+{% endfor %}
+
+<script>
+function {{field.internal_name}}_enable(enable) {
+	console.log('{{field.internal_name}}_enable', enable);
+}
+
+function {{field.internal_name}}_update(data) {
+	for(var i=0;i<data.data.fields.length;i++){
+		var field = findField(data.data.fields[i].name);
+		field.enable(data.data.fields[i].enabled);
+	}
+}
+
+function {{field.internal_name}}_create() {
+	var fs = [	{name: "{{field.name}}", 
+				internal_name: "{{field.internal_name}}", 
+				update: {{field.internal_name}}_update, 
+				enable: {{field.internal_name}}_enable},
+			];
+	{% for f in field.fields %}	
+		fs = fs.concat({{f.0.internal_name}}_create());
+	{% endfor %}
+	
+	return fs;
+}
+
+</script>

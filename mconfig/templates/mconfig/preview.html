@@ -1,0 +1,17 @@
+<ul>
+	{% for device in devices %}
+		<li>{{device.name}}</li>
+	{% endfor %}
+</ul>
+
+{% if options %}
+	<table class="mainContainer" style="border: 1px solid; padding: 10px;">
+	{% for option,value in options.items %}
+	<tr>
+		<td>			
+			{{ option }}: {{ value }} 			
+		</td>
+	</tr>
+	{% endfor %}
+	</table>
+{% endif %}

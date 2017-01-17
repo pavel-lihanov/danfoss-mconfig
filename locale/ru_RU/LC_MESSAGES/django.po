@@ -1,0 +1,401 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-25 10:30+0300\n"
+"PO-Revision-Date: 2016-11-08 14:46+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#: .\mconfig\templates\mconfig\question.html:7
+msgid "Drive configurator"
+msgstr "Конфигуратор"
+
+#: .\mconfig\templates\mconfig\question.html:44
+#: .\mconfig\templates\mconfig\result.html:49
+msgid "Prev"
+msgstr "Назад"
+
+#: .\mconfig\templates\mconfig\question.html:50
+msgid "Next"
+msgstr "Далее"
+
+#: .\mconfig\views.py:41
+msgid "Hello"
+msgstr "Превед"
+
+#: .\mconfig\views.py:190
+#, python-brace-format
+msgid "No device matches value {0} for field {1}"
+msgstr "Нет устройств соответствующих всем критериям (значение {0} в поле {1})"
+
+#: .\mconfig\views.py:198
+#, python-brace-format
+msgid "Invalid value {0} for field {1}"
+msgstr "Неверное значение в поле {1}: {0}"
+
+#: .\mconfig\views.py:221
+msgid "No device matches current selection"
+msgstr "Нет устройств, соответствующих всем критериям"
+
+#: .\questions.py:30
+msgid "Test Question"
+msgstr ""
+
+#: .\questions.py:34 .\questions.py:94 .\questions.py:191
+msgid "Select application"
+msgstr "Выберите применение"
+
+#: .\questions.py:43
+#, fuzzy
+#| msgid "Input nominal current"
+msgid "Input motor nominal current"
+msgstr "Введите номинальный ток двигателя"
+
+#: .\questions.py:50
+#, fuzzy
+#| msgid "Input nominal current"
+msgid "Select nominal current"
+msgstr "Введите номинальный ток двигателя"
+
+#: .\questions.py:61 .\questions.py:105
+msgid "Select supply voltage"
+msgstr "Выберите напряжение питания"
+
+#: .\questions.py:92 .\questions.py:190
+msgid "Choose basic application parameters"
+msgstr "Выберите параметры применения"
+
+#: .\questions.py:103 .\questions.py:224
+msgid "Input nominal current"
+msgstr "Введите номинальный ток двигателя"
+
+#: .\questions.py:153 .\questions.py:354 .\questions.py:364
+msgid "None"
+msgstr "Нет"
+
+#: .\questions.py:154
+msgid "Mains Disconnect"
+msgstr ""
+
+#: .\questions.py:162
+msgid "Choose extra current"
+msgstr ""
+
+#: .\questions.py:192
+msgid "Centr. pump (k=1.1)"
+msgstr ""
+
+#: .\questions.py:193
+msgid "Submer. pump (k=1.5)"
+msgstr ""
+
+#: .\questions.py:194
+msgid "Fan (k=1.1)"
+msgstr ""
+
+#: .\questions.py:195
+msgid "Piston pump (k=2)"
+msgstr ""
+
+#: .\questions.py:196
+msgid "Grinder (k=2)"
+msgstr ""
+
+#: .\questions.py:197
+msgid "Compressor (k=1.6)"
+msgstr ""
+
+#: .\questions.py:198
+msgid "2-piston compressor (k=2)"
+msgstr ""
+
+#: .\questions.py:199
+msgid "4-piston compressor (k=1.6)"
+msgstr ""
+
+#: .\questions.py:200
+msgid "6-piston compressor (k=1.5)"
+msgstr ""
+
+#: .\questions.py:201
+msgid "Processing machine, light load (k=1.2)"
+msgstr ""
+
+#: .\questions.py:202
+msgid "Processing machine, medium load (k=1.5)"
+msgstr ""
+
+#: .\questions.py:203
+msgid "Processing machine, heavy load (k=2)"
+msgstr ""
+
+#: .\questions.py:204
+msgid "Conveyour, light load (k=1.6)"
+msgstr ""
+
+#: .\questions.py:205
+msgid "Conveyour, heavy load (k=2)"
+msgstr ""
+
+#: .\questions.py:211
+msgid "Select motor type"
+msgstr ""
+
+#: .\questions.py:212
+msgid "Induction"
+msgstr ""
+
+#: .\questions.py:213
+msgid "PMSM"
+msgstr ""
+
+#: .\questions.py:219
+msgid "None/External"
+msgstr ""
+
+#: .\questions.py:220
+msgid "Built-in"
+msgstr ""
+
+#: .\questions.py:226
+#, fuzzy
+#| msgid "Select supply voltage"
+msgid "Select motor voltage"
+msgstr "Выберите напряжение питания"
+
+#: .\questions.py:228
+msgid "6kV"
+msgstr ""
+
+#: .\questions.py:229
+msgid "10kV"
+msgstr ""
+
+#: .\questions.py:234
+msgid "Select control mode"
+msgstr ""
+
+#: .\questions.py:235
+msgid "U/f control"
+msgstr ""
+
+#: .\questions.py:236
+msgid "Vector control"
+msgstr ""
+
+#: .\questions.py:240
+msgid "Select braking mode"
+msgstr ""
+
+#: .\questions.py:241
+msgid "Coasting stop"
+msgstr ""
+
+#: .\questions.py:242
+msgid "Dynamic braking"
+msgstr ""
+
+#: .\questions.py:243
+msgid "Recuperation"
+msgstr ""
+
+#: .\questions.py:248
+msgid "Select multimotor mode"
+msgstr ""
+
+#: .\questions.py:249
+msgid "No multimotor"
+msgstr ""
+
+#: .\questions.py:250
+msgid "Multistart, 2 motor"
+msgstr ""
+
+#: .\questions.py:251
+msgid "Multistart, 3 motor"
+msgstr ""
+
+#: .\questions.py:252
+msgid "Multistart, 4 motor"
+msgstr ""
+
+#: .\questions.py:253
+msgid "Interchange, 2 motor"
+msgstr ""
+
+#: .\questions.py:254
+msgid "Interchange, 3 motor"
+msgstr ""
+
+#: .\questions.py:255
+msgid "Interchange, 4 motor"
+msgstr ""
+
+#: .\questions.py:275 .\questions.py:341
+#, fuzzy
+#| msgid "Choose basic application parameters"
+msgid "Choose installation parameters"
+msgstr "Выберите параметры применения"
+
+#: .\questions.py:277
+#, fuzzy
+#| msgid "Select supply voltage"
+msgid "Select drive voltage"
+msgstr "Выберите напряжение питания"
+
+#: .\questions.py:279
+msgid "6kV  50Hz"
+msgstr ""
+
+#: .\questions.py:280
+msgid "6kV  60Hz"
+msgstr ""
+
+#: .\questions.py:281
+msgid "10kV 50Hz"
+msgstr ""
+
+#: .\questions.py:282
+msgid "10kV 60Hz"
+msgstr ""
+
+#: .\questions.py:289
+msgid "Select enclosure"
+msgstr ""
+
+#: .\questions.py:290
+msgid "IP30"
+msgstr ""
+
+#: .\questions.py:291
+msgid "IP31"
+msgstr ""
+
+#: .\questions.py:292
+msgid "IP41"
+msgstr ""
+
+#: .\questions.py:293
+msgid "IP42"
+msgstr ""
+
+#: .\questions.py:294
+msgid "IP54"
+msgstr ""
+
+#: .\questions.py:298
+msgid "Select drive cooling"
+msgstr ""
+
+#: .\questions.py:300
+msgid "Air cooling"
+msgstr ""
+
+#: .\questions.py:301
+msgid "Liquid cooling"
+msgstr ""
+
+#: .\questions.py:306
+#, fuzzy
+#| msgid "Select application"
+msgid "Select power mains location"
+msgstr "Выберите применение"
+
+#: .\questions.py:308 .\questions.py:316
+msgid "Top"
+msgstr ""
+
+#: .\questions.py:309 .\questions.py:317
+msgid "Bottom"
+msgstr ""
+
+#: .\questions.py:314
+#, fuzzy
+#| msgid "Select application"
+msgid "Select motor mains location"
+msgstr "Выберите применение"
+
+#: .\questions.py:322
+msgid "Select service access"
+msgstr ""
+
+#: .\questions.py:324
+msgid "Front"
+msgstr ""
+
+#: .\questions.py:325
+msgid "Front and back"
+msgstr ""
+
+#: .\questions.py:330
+msgid "Input motor cable len"
+msgstr ""
+
+#: .\questions.py:343
+msgid "Select encoder/fieldbus option"
+msgstr ""
+
+#: .\questions.py:345
+msgid "Encoder board"
+msgstr ""
+
+#: .\questions.py:346
+msgid "EtherNet IP"
+msgstr ""
+
+#: .\questions.py:347
+msgid "ProfiBus DP"
+msgstr ""
+
+#: .\questions.py:348
+msgid "Modbus TCP/IP"
+msgstr ""
+
+#: .\questions.py:352
+msgid "Select drive bypass"
+msgstr ""
+
+#: .\questions.py:355
+msgid "Manual"
+msgstr ""
+
+#: .\questions.py:356
+msgid "Auto"
+msgstr ""
+
+#: .\questions.py:357
+msgid "N/A"
+msgstr ""
+
+#: .\questions.py:362
+msgid "Select power cell bypass"
+msgstr ""
+
+#: .\questions.py:365
+msgid "Autobypass"
+msgstr ""
+
+#: .\wizard.py:139 .\wizard.py:265
+#, python-brace-format
+msgid "Field {0} is required"
+msgstr "Заполните поле {0}"
+
+#~ msgid "Set"
+#~ msgstr "Установить"
+
+#~ msgid "Choose drive options"
+#~ msgstr "Выберите опции ПЧ"
+
+#~ msgid "Select RFI Filter"
+#~ msgstr "Выберите фильтр ЭМИ"

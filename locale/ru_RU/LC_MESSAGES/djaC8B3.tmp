@@ -1,0 +1,106 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-11-08 14:43+0300\n"
+"PO-Revision-Date: 2016-11-08 14:45+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#: .\mysite\mconfig\templates\mconfig\edit.html:16
+msgid "Set"
+msgstr "Установить"
+
+#: .\mysite\mconfig\templates\mconfig\question.html:3
+msgid "Drive configurator"
+msgstr "Конфигуратор"
+
+#: .\mysite\mconfig\templates\mconfig\question.html:43
+msgid "Next"
+msgstr "Далее"
+
+#: .\mysite\mconfig\templates\mconfig\question.html:47
+msgid "Prev"
+msgstr "Назад"
+
+#: .\mysite\mconfig\views.py:37
+msgid "Hello"
+msgstr "Превед"
+
+#: .\mysite\mconfig\views.py:161
+#, python-brace-format
+msgid "No device matches value {0} for field {1}"
+msgstr "Нет устройств соответствующих всем критериям (значение {0} в поле {1})"
+
+#: .\mysite\mconfig\views.py:167
+#, python-brace-format
+msgid "Invalid value {0} for field {1}"
+msgstr "Неверное значение в поле {1}: {0}"
+
+#: .\mysite\mconfig\views.py:185
+msgid "No device matches current selection"
+msgstr "Нет устройств, соответствующих всем критериям"
+
+#: .\mysite\questions.py:24
+msgid "Choose basic application parameters"
+msgstr "Выберите параметры применения"
+
+#: .\mysite\questions.py:26
+msgid "Select application"
+msgstr "Выберите применение"
+
+#: .\mysite\questions.py:35
+msgid "Input nominal current"
+msgstr "Введите номинальный ток двигателя"
+
+#: .\mysite\questions.py:37
+msgid "Select supply voltage"
+msgstr "Выберите напряжение питания"
+
+#: .\mysite\questions.py:64
+msgid "Choose drive options"
+msgstr "Выберите опции ПЧ"
+
+#: .\mysite\questions.py:65
+msgid "Select RFI Filter"
+msgstr "Выберите фильтр ЭМИ"
+
+#: .\mysite\questions.py:65
+msgid "A1"
+msgstr ""
+
+#: .\mysite\questions.py:66
+msgid "A2"
+msgstr ""
+
+#: .\mysite\questions.py:67
+msgid "A2 Marine"
+msgstr ""
+
+#: .\mysite\questions.py:80
+msgid "None"
+msgstr "Нет"
+
+#: .\mysite\questions.py:81
+msgid "Mains Disconnect"
+msgstr ""
+
+#: .\mysite\questions.py:89
+msgid "Choose extra current"
+msgstr ""
+
+#: .\mysite\wizard.py:214
+#, python-brace-format
+msgid "Field {0} is required"
+msgstr "Заполните поле {0}"
+

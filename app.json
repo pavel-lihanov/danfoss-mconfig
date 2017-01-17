@@ -1,0 +1,8 @@
+{
+  "name": "Mconfig",
+  "description": "VEDADrive configurator beta",
+  "image": "heroku/python",
+  "repository": "https://git.heroku.com/danfoss-mconfig.git",
+  "keywords": ["django" ],
+  "addons": [ "heroku-postgresql" ]
+}

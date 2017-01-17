@@ -1,0 +1,102 @@
+/*----------------------------------------------------*/
+/* StyleSheets for the "SAP IPC Project"              */
+/*                                                    */
+/* Document:       ipc/mimes/style/stylesheet.css     */
+/* Version:        1.0                                */
+/* Authors:        m_vogel@pixelpark.com              */
+/* Creation-Date:  12.07.2001                         */
+/* Last-Update:    16.11.2001 (Klaus Warth)           */
+/*                                                    */
+/*----------------------------------------------------*/
+
+/*----------------------------------------------------*/
+/* global classes */
+/*----------------------------------------------------*/
+
+.ipcAreaFrameConflict{
+	border:1px solid #FFCC33;
+	padding:3px;
+	font-size: 10px;
+	background-color:#FFFFFF;
+}
+.ipcConflictGroupText{
+  /*font-family: Verdana, Geneva, sans-serif;*/
+  font-size: 10px;
+  color: #FFCC33;
+}
+.ipcConflictSolvedStatusbar {
+  /*font-family: Verdana, Geneva, sans-serif;*/
+  font-size: 10px;
+  background-color:#80FF80;
+  border: 0px;
+  color: #000;
+}
+/*----------------------------------------------------*/
+/* tables */
+/*----------------------------------------------------*/
+
+td.ipcLeft{   background: none #DCE3EC; }
+td.ipcRight{  background: none #E7EBF2; }
+
+table.ipcCharacteristicGroup {
+  /*font-family: Verdana, Geneva, sans-serif;*/
+  font-size: 10px;
+  background-color:#b2bdd2;
+  color: #000;
+  font-weight:bold;
+}
+
+table.ipcCharacteristicGroup td {
+  font-size: 10px;
+  /*font-family: Verdana, Geneva, sans-serif;*/
+  background-color:#b2bdd2;
+  color: #000;
+  font-weight:bold;
+}
+
+td.ipc_characteristic_value_input {
+  /*font-family: Verdana, Geneva, sans-serif;*/
+  border: 0px;
+  text-align:right;
+}
+
+td.ipc_characteristic_value_description {
+  /*font-family: Verdana, Geneva, sans-serif;*/
+  border: 0px;
+  text-align:right;
+}
+
+td.ipc_characteristic_value_surcharge {
+  /*font-family: Verdana, Geneva, sans-serif;*/
+  border: 0px;
+  width: 100%;
+  text-align:right;
+}
+
+table.ipcLegend {
+  text-align: left;
+  font-size: 10px;
+  vertical-align: top;
+  color: #000000;
+}
+
+table.ipcLongtext {
+  width:100%;
+}
+
+
+  input.ipcButtonConflicts {
+    /*font-family: Verdana, Geneva, sans-serif;*/
+    font-size: 10px;
+    background:	#FFCC33;
+    font-weight: bold;
+  }
+  input.ipcButtonInvert {
+    /*font-family: Verdana, Geneva, sans-serif;*/
+    font-size: 10px;
+    color: #fff;
+    background: none #C9D0E0;
+    font-weight: bold;
+  }
+ 
+

@@ -1,0 +1,246 @@
+{% load i18n %}
+ <script>
+ 
+ var map = null;
+ var infowindow = null;
+ var marker = null;
+ var autocomplete = null;
+ var geocoder = null;
+ var onclick = null;
+ 
+ function showLocation(resultsMap, location) {
+	//resultsMap.setCenter(location.geometry.location);		
+		
+	infowindow.close();
+    marker.setVisible(false);
+
+    // If the place has a geometry, then present it on a map.
+	/*
+    if (location.geometry.viewport) {
+      map.fitBounds(location.geometry.viewport);
+    } else {
+      map.setCenter(location.geometry.location);
+      //map.setZoom(17);  // Why 17? Because it looks good.
+    }
+	*/
+	map.setCenter(location.geometry.location);
+	/*
+	if(location.icon){
+		marker.setIcon(({
+		  url: location.icon,
+		  size: new google.maps.Size(71, 71),
+		  origin: new google.maps.Point(0, 0),
+		  anchor: new google.maps.Point(17, 34),
+		  scaledSize: new google.maps.Size(35, 35)
+		}));
+	}
+	*/
+	
+    marker.setPosition(location.geometry.location);
+    marker.setVisible(true);
+
+    var address = '';
+    if (location.address_components) {
+      address = [
+        (location.address_components[0] && location.address_components[0].short_name || ''),
+        (location.address_components[1] && location.address_components[1].short_name || ''),
+        (location.address_components[2] && location.address_components[2].short_name || '')
+      ].join(' ');
+    }
+
+    //infowindow.setContent('<div><strong>' + (location.name || '') + '</strong><br>' + address);
+    //infowindow.open(map, marker);
+}
+
+function setLocation(resultsMap, location) {
+	//showLocation(resultsMap, location);
+	for(i=0; i<location.address_components.length;i++){
+		if(location.address_components[i].types[0] == 'administrative_area_level_1'){
+			document.getElementById('{{ field.name }}').value = location.address_components[i].long_name+'/'+location.geometry.location;
+			postField('{{field.name}}');
+			break;
+		}
+	}
+}
+
+function addMarker(map, lat, lng) {
+	var marker = new google.maps.Marker({	map: map, 
+											position: {lat: lat, lng: lng }
+										}
+										);
+}
+
+function mapClicked(event) {
+	geocoder.geocode({'location': event.latLng}, function(results, status) {
+		if (status === google.maps.GeocoderStatus.OK) {
+		  if (results[1]) {
+			setLocation(map, results[1]);
+		  } else {
+			window.alert('No results found');
+		  }
+		} else {
+		  window.alert('Geocoder failed due to: ' + status);
+		}
+	});
+}
+
+function initMap() {	
+	{% if field.location %}
+		var lat = {{ field.location.0 }};
+		var lng = {{ field.location.1 }};		
+	{% else %}			
+		var lat = 55.742;
+		var lng = 37.615;
+	{% endif %}
+
+	map = new google.maps.Map(document.getElementById('{{ field.name }}_map'), {
+								zoom: 8,
+								center: {lat: lat, lng: lng },
+								disableDefaultUI: true
+								});
+
+	//addMarker(map, lat, lng);
+	
+	geocoder = new google.maps.Geocoder();
+
+	/*
+	document.getElementById('find_address').addEventListener('click', function() { geocodeAddress(geocoder, map);});
+	*/
+	/*
+	onclick = map.addListener('click', function(event){
+		geocoder.geocode({'location': event.latLng}, function(results, status) {
+			if (status === google.maps.GeocoderStatus.OK) {
+			  if (results[1]) {
+				setLocation(map, results[1]);
+			  } else {
+				window.alert('No results found');
+			  }
+			} else {
+			  window.alert('Geocoder failed due to: ' + status);
+			}
+		});
+	});
+	*/
+	onclick = map.addListener('click', mapClicked);
+	
+  var input = /** @type {!HTMLInputElement} */(document.getElementById('address'));
+
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+
+  infowindow = new google.maps.InfoWindow();
+  //todo: show marker only if location is known
+  marker = new google.maps.Marker({
+    map: map,
+    anchorPoint: new google.maps.Point(0, -29),
+	draggable: false
+  });
+  //draggable marker will require more geocode calls than the free limit allows
+  marker.addListener('dragend', function() {
+  
+  });
+  
+  {% if field.location %}
+	marker.setVisible(true);
+  {% else %}
+    marker.setVisible(false);
+  {% endif %}
+
+  autocomplete.addListener('place_changed', function() {
+	var place = autocomplete.getPlace();
+	
+
+    if (!place.geometry) {
+      window.alert("Autocomplete's returned place contains no geometry");
+      return;
+    }
+
+	setLocation(map, place);
+	});
+  
+	geocoder.geocode({'location': {lat: lat, lng: lng}}, function(results, status) {
+			if (status === google.maps.GeocoderStatus.OK) {
+				showLocation(map, results[0]);
+			} else {
+				alert('Geocode failed');
+			}
+		}
+	);
+}
+
+function geocodeAddress(geocoder, resultsMap) {
+	var address = document.getElementById('address').value;
+	geocoder.geocode({'address': address}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {		
+		setLocation(resultsMap, results[0]);
+    } else {
+		alert('Geocode was not successful for the following reason: ' + status);
+    }
+  });
+}
+
+function {{field.internal_name}}_enable(enable) {
+	//console.log('{{field.internal_name}}_enable', enable);
+	document.getElementById('{{field.name}}').disabled = !enable;
+	if(enable){
+		onclick = map.addListener('click', mapClicked);
+	} else {
+		if(onclick){
+			onclick.remove();
+			onclick = null;
+		}
+	}
+}
+
+function {{field.internal_name}}_update(data) {
+	var elem = document.getElementById('{{field.name}}');
+	var value = data.data.value;
+	if(data.data.location){
+		var lat = Number(data.data.location.lat);
+		var lng = Number(data.data.location.lng);
+		geocoder.geocode({'location': {lat: lat, lng: lng}}, function(results, status) {
+				if (status === google.maps.GeocoderStatus.OK) {
+
+					showLocation(map, results[0]);
+				} else {
+					alert('Geocode failed');
+				}
+			}
+		);
+	}
+	if(value){
+		elem.value = value;
+	} else {
+		elem.value = '';
+	}
+}
+
+function {{field.internal_name}}_create() {
+	return [
+			{name: "{{field.name}}", 
+			internal_name: "{{field.internal_name}}", 
+			update: {{field.internal_name}}_update, 
+			enable: {{field.internal_name}}_enable},
+			];
+}
+
+</script>
+
+<input type="text" style="width:100%;" name="{{ field.name }}" id="address"/>
+
+<tr>
+	<td>
+		<div id="{{ field.name }}_map" style="height:300px;width:100%;margin:5px;padding:5px;border:1px solid"></div>		
+	</td>
+</tr>
+<tr>
+	<td>				
+		{{ field.name }} 
+		{% if field.required %} <span style="color:red" >*</span> {% endif %} 
+		<input name="{{ field.name }}" id="{{ field.name }}" type="text" value="{{ field.value }}" readonly="readonly"/>
+	</td>
+</tr>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzUqpcYIO62zu8SDvfc0OOkdcAfqgfg7A&libraries=places&callback=initMap" async defer></script>

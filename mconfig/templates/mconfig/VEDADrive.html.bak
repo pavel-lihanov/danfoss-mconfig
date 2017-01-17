@@ -1,0 +1,77 @@
+<script type="text/javascript">
+function updatePackage(data)
+{
+	document.getElementById("package_name").innerHTML = data.name;
+	document.getElementById("short_descr").innerHTML = data.short_descr;
+	document.getElementById("order_code").innerHTML = data.order_code;
+	
+	for(var propt in data.options){
+		document.getElementById(propt).innerHTML = data.options[propt]
+	}
+}
+
+function updatePrice(data)
+{
+	price_div = document.getElementById("price");
+	det_div = document.getElementById("price_details");
+	sp_div = document.getElementById("sale_price");
+	if(!data){
+		price_div.style.display="none";
+		return;
+	}
+	
+	price_div.style.display="block";
+	details = data.details;
+	if(details){
+		det_div.style.display="block";
+		det_div.innerHTML = "" + details.supplier_price + " " + details.sale_price + " " + details.delivery_cost;
+	} else {
+	
+	}
+	sp_div.innerHTML = data.total;
+}
+</script>
+
+<div id="package_name">
+<h1>{{ package.name}}</h1>
+</div>
+<div id="order_code">
+{{ package.order_code }}
+</div>
+<div id="short_descr">
+{{ package.order_code }}
+</div>
+
+<table style="border:1px solid black;border-collapse: collapse;">
+	{% for option in package.options.items %}
+		<tr>
+			<td style="border:1px solid black;border-collapse: collapse;">
+				{{ option.0 }}
+			</td>
+			<td id="{{option.0}}" style="border:1px solid black;border-collapse: collapse;">
+				<!-- {{ option.1 }} -->
+			</td>
+		</tr>
+	{% endfor %}
+</table>
+
+<div id="price">
+	<div id="price_details">	
+		<div id="supplier_price">
+		</div>
+		<div id="delivery_cost">
+		</div>
+	</div>
+	Price:
+	<div id="sale_price" style="display:inline;">
+		{{ package.price.sale_price }}
+	</div>	
+	<a href="download/">Download offer template</a>
+</div>
+
+{% if not unpriced %}
+
+{% else %}
+For price information please contact a sales manager
+{% endif %}
+

@@ -1,0 +1,35 @@
+<tr>
+	<td>
+		{{ f.name }}
+	</td>
+</tr>
+{% for f in field.fields %}	
+	{% include f.view.template with field=f enabled=enabled only %}
+{% endfor %}
+ 
+ <script>
+ function {{field.internal_name}}_enable(enable) {
+	console.log('{{field.internal_name}}_enable', enable);
+	{% for f in field.fields %}	
+		findField('{{f.name}}').enable(enable);
+	{% endfor %}
+}
+
+function {{field.internal_name}}_update(data) {
+	console.log(data);
+}
+
+function {{field.internal_name}}_create() {
+	var fs = [	{name: "{{field.name}}", 
+				internal_name: "{{field.internal_name}}", 
+				update: {{field.internal_name}}_update, 
+				enable: {{field.internal_name}}_enable},
+			];
+	{% for f in field.fields %}	
+		fs = fs.concat({{f.internal_name}}_create());
+	{% endfor %}
+	
+	return fs;
+}
+
+</script>

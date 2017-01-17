@@ -1,0 +1,15 @@
+<html>
+<title>Drive configurator</title>
+<head>
+</head>
+<body>
+<h1>MConfig index page</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="start/" method="post">
+{% csrf_token %}
+<input type="submit" value="Start" />
+</form>
+</body>
+</html>

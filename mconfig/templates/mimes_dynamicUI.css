@@ -1,0 +1,290 @@
+/* CSS Document */
+
+.fw-du-tablegroup {
+/*	border: 0px; 
+	padding: 10px; 
+	background-color: #ffffff; */
+}
+
+.fw-du-tablegroup table { width: 100%; margin-top: 12px }
+	
+.fw-du-uitype_assignblock h1 {
+/*	border-left: 1px solid #7d9ab9; 
+	border-right: 1px solid #7d9ab9; 
+	background-image: url(images/areabox-1.gif);*/ 
+	
+}
+
+.fw-du-uitype_assignblock td.label {
+/*	border: 0px solid red;*/ 
+	width: 15em; 
+	padding-right: 4px; 
+	line-height: 22px; 
+	text-align: right; 
+	white-space: nowrap; 
+	vertical-align: top;
+}
+
+.fw-du-uitype_assignblock td.labelObl {
+/*	border: 0px solid red;*/ 
+	width: 15em; 
+	padding-right: 4px; 
+	line-height: 22px; 
+	text-align: right; 
+	white-space: nowrap;
+}
+
+.fw-du-uitype_assignblock td.input {
+/*	border: 1px solid #fff;*/
+}
+
+.fw-du-uitype_assignblock td.input input {
+	
+}
+
+.fw-du-uitype_assignblock td.input select {
+	
+}
+	
+.fw-du-uitype_assignblock td.inputradio_singleline, 
+.fw-du-uitype_assignblock td.inputcheck_singleline {
+/*	border: 0px solid red;*/ 
+	width: 15em; 
+	padding-right: 4px; 
+	line-height: 22px; 
+	text-align: left; 
+	white-space: nowrap; 
+	vertical-align: top;
+}
+
+.fw-du-uitype_propgroup {
+	font-weight: bold; 
+	border-bottom: 1px solid #d0dde6;
+}
+
+.fw-du-edit { 
+	vertical-align: top; 
+	text-align: right; 
+	width: 100px;
+}
+
+.fw-du-edit a {
+	text-decoration: none;
+}
+.fw-du-edit img {
+	border: 0px
+}
+
+/* styles for the page navigation */
+.fw-pagenav-step {
+	padding: 5px; 
+	width: 100px
+}
+
+table.fw-pagenav td {
+	text-align: center; 
+}
+.fw-pagenav-nav .fw-pagenav-left {
+	background-image: url(images/gm_start.gif); 
+	background-position: center left; 
+	background-repeat: no-repeat; width: 18px
+}    
+
+.fw-pagenav-nav .fw-pagenav-right {
+    background-image: url(images/gm_end.gif); 
+    background-position: center left; 
+    background-repeat: no-repeat; 
+    width: 19px
+}    
+    
+.fw-pagenav-nav .fw-pagenav-step {
+	background-image: url(images/gm_line.gif); 
+	background-position: center left; 
+	background-repeat: repeat-x;
+}
+
+.fw-pagenav-nav .fw-pagenav-step a {
+	color: black; 
+	display: block; 
+	font-size: 12px; 
+	font-weight: 700; 
+	height: 27px; 
+	line-height: 27px; 
+	text-decoration: none; 
+	width: 27px
+}
+
+.fw-pagenav-nav .fw-pagenav-step a.active {
+	background-image: url(images/gm_step_active.gif);
+}
+
+.fw-pagenav-nav .fw-pagenav-step a.active:hover {
+	background-image: url(images/gm_step_hover.gif);
+}
+
+.fw-pagenav-nav .fw-pagenav-step a.inactive {
+	background-image: url(images/gm_step_disabled.gif);
+}
+
+.fw-pagenav-nav .fw-pagenav-step a.selected {
+	background-image: url(images/gm_step_selected.gif);
+}
+
+.fw-pagenav-description .fw-pagenav-step a {
+	color: #204ba2; 
+	font-size: 11px; 
+	text-decoration: none; 
+}
+
+.fw-pagenav-description .fw-pagenav-step a.selected {
+	color: black; 
+	font-size: 11px; 
+	font-weight: 700; 
+	text-decoration: none; 
+}
+    
+/* styles for buttons */
+.fw-button-row {
+	width: 50%;
+}
+
+.fw-button-rowright {text-align: right
+}
+
+.fw-button-spacer {
+	padding: 0.5ex
+}
+
+.fw-button a {
+	background-image:url(images/buttonB.gif);
+	background-position:left center;
+	background-repeat:repeat-x;
+	border-width:0pt;
+	color:#000000;
+	/*font-family:Arial,sans-serif;*/
+	font-size:11px; 
+	font-weight: normal; 
+	height:18px;
+	margin-bottom:0pt;
+	margin-left:0pt;
+	margin-right:3px !important;
+	margin-top:0pt;
+	padding:3px 0pt;
+	text-decoration:none;
+	vertical-align:middle;
+}
+
+.fw-button a.disabled {
+	background-image:url(images/buttonB.gif);
+	background-position:left center;
+	background-repeat:repeat-x;
+	border-width:0pt;
+	color:#000000;
+	/*font-family:Arial,sans-serif;*/
+	font-size:11px; 
+	font-weight: normal; 
+	height:18px;
+	margin-bottom:0pt;
+	margin-left:0pt;
+	margin-right:3px !important;
+	margin-top:0pt;
+	padding:3px 0pt;
+	text-decoration:none;
+	vertical-align:middle;
+}
+
+.fw-button a.disabled:hover {
+	cursor:default;
+}
+
+div.fw-button {
+	margin-top: 8px;
+}
+
+/*.fw-button b {
+	background-image:url(images/buttonC.gif); 
+	background-position:right center; 
+	background-repeat:no-repeat;
+	border-width:0pt;
+	padding:3px 5px;}
+*/    
+
+.fw-du-designer-nav td.input {
+	border: 0px solid #fff;
+}
+
+.fw-du-designer-nav td.input input {
+	
+}
+
+.fw-du-designer-nav td.input select {
+	
+}
+
+/* styles for the assignment block */
+.fw-asmblock {
+	padding: 10px; /*border: 1px solid green*/
+}
+    
+.fw-areabox-static div.fw-asmblock-title {
+	border-bottom: 1px solid #fff;
+    margin-bottom: 10px;
+}
+
+table.fw-asmblock-title {
+	width: 100%
+}
+    
+.fw-asmblock-title-left {
+	font-weight: bold
+}
+
+.fw-asmblock-title-right {
+	text-align: right
+}
+ 
+.fw-group {
+	/*border: 1px solid black;*/ 
+	width: 60em
+}
+        
+.fw-group-editcol {
+	width: 20px
+}
+
+.fw-group-editcol a {
+	text-decoration: none;
+}
+
+.fw-group-editcol img {
+	border: 0; 
+	height: 14px; 
+	width: 14px
+}
+
+.fw-group-header {
+	font-weight: bold;
+    border-bottom: 1px solid #d0dde6; 
+}
+
+/* labelm for label mandatory */
+.fw-group-label, .fw-group-labelm {
+	line-height: 22px; 
+	padding-right: 4px; 
+	text-align: right; 
+	white-space: nowrap; 
+	width: 10em; 
+}
+    
+.fw-group-value {
+}
+
+.fw-group-input input {
+	
+}
+
+.fw-group-input select {
+	
+}
+
+                

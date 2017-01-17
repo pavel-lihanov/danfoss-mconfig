@@ -1,0 +1,9 @@
+{% load i18n %}
+<h1>Wizard started</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="questions/" method="get">
+{% csrf_token %}
+<input type="submit" value="Next" />
+</form>

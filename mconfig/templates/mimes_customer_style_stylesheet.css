@@ -1,0 +1,693 @@
+
+.hidden, .horizontalDots, .horizontalDotsGray, .verticalDots, .linkarrow, .danfossISAButton, .left_bar > img:first-child, .left_bar {
+	display: none !important;
+}
+
+body.ipcPopupBody {
+	padding: 12px;
+	background-color: #f1f3f5;
+}
+
+.ipcPopupContent {
+	background-color: #fff;
+	padding: 12px;
+	border: 1px solid #d8d9db;
+}
+
+#mainContainer {
+    margin: 12px auto;
+    width: 1000px;
+}
+
+.mainContainer {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 12px;
+    margin: -6px 0 30px;
+}
+
+table.container {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table.container td {
+	vertical-align: top;
+}
+
+table.container td.right_bar {
+    padding-left: 12px;
+    vertical-align: top;
+    width: 200px;
+}
+
+.main_area {
+    padding: 0;
+}
+
+#topMenuSelector {
+	float:right;	
+}
+
+.title_bar {
+	width: 100%;
+	height: 81px;
+	background: url('../img/title_bar.png') no-repeat;
+	border-bottom: 3px solid #d8d9db;
+}
+
+.menu_bar {
+    background-color: #e50000;
+    border-bottom: 3px solid #d8d9db;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: -15px;
+    padding: 6px 6px 6px 90px;
+    text-transform: uppercase;
+    height: 15px;
+}
+
+.menu_bar a, .menu_bar a:link, .menu_bar a:visited {
+    color: #fff;
+    margin-right: 27px;
+    text-transform: uppercase;
+}
+
+.menu_bar a:hover {
+    color: #000;
+}
+
+.user_bar {
+	font-size: 10px;
+    font-weight: bold;
+    padding: 3px 12px;
+    text-align: right;
+    text-transform: uppercase;
+    height: 14px;
+}
+
+.left_bar:before {
+    content: "Danfoss Group Global";
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    white-space: nowrap;
+    display: none;
+}
+
+.left_bar {
+    border: 1px solid #d8d9db;
+    padding: 12px;
+    text-align: center;
+    vertical-align: top;
+    width: 146px;
+}
+
+.left_bar > h3 {
+    /*background: #f1f3f5;*/
+    border-top: 1px solid #d8d9db;
+    padding: 6px 0;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.footer_bar {
+	position: fixed;
+	text-align: center;
+	bottom: 0px;
+	height: 20px;
+	border-top: 3px solid #d8d9db;
+	text-transform: uppercase;
+	color: #e50000;
+	background: #fff;
+	width: 1000px;
+	font-size: 10px;
+	font-weight: bold;
+	/* letter-spacing: 1px; */
+	text-align: center;
+	padding-top: 3px;
+}
+
+.footer_bar a {
+	display: inline;
+}
+
+.footer_bar a:after {
+	content: "|";
+	padding-left: 3px;
+	padding-right: 1px;
+	margin-top:
+}
+
+.footer_bar a:last-child:after {
+	content: "";
+}
+
+.footer_bar a, .footer_bar a:link, .footer_bar a:visited {
+	color: #e50000;
+	text-decoration: none;
+}
+
+#topMenuSelector {
+    float: right;
+    font-size: 10px !important;
+    margin-top: -2px;
+    margin-right: 12px;
+    padding: 0;
+    width: 120px;
+}
+
+#topMenuSelector .selectDiv {
+    border: 1px solid #d8d9db;
+}
+
+#topMenuSelector .selectDiv > span {
+    height: 10px;
+    padding: 1px 3px 2px;
+    color: #000000;
+}
+
+#topMenuSelector select {
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.bordered {
+	border: 1px solid #d8d9db;
+	padding: 12px;
+}
+
+.bordered > h1 {
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.bordered > h3 {
+    margin: 0;
+}
+
+.bg {
+	border-bottom: 3px solid #d8d9db;
+	background-color: #f1f3f5;
+}
+
+.inputTable {
+	border-collapse: collapse;
+    border-color: #d8d9db;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px 1px 3px;
+    margin: 6px 0;
+    width: 100%;
+    height: 28px;
+}
+
+.inputTable td.label-input {
+	padding: 0 6px;
+	text-transform: uppercase;
+	vertical-align: middle;
+	width: 75px;
+	background-color: #fff;
+}
+
+.inputTable label {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.inputTable input {
+	width: 100%;
+	border: 0 none;
+	font-size: 10px;
+	padding-left: 0;
+	height: 100%;
+}
+
+.inputTable .icon-input {
+    padding: 0;
+    text-align: right;
+}
+
+.inputTable .icon-input.input-text:after {
+    color: #b4bcc3;
+    content: "\e622";
+    font-family: danfoss;
+    font-weight: normal;
+    position: relative;
+    right: 3px;
+    top: 1px;
+}
+
+.inputTable .selectDiv {
+    border: 0 none;
+    padding: 0;
+}
+
+.inputTable select {
+	width: 100%;
+	border: 0 none;
+	font-family: myriad-pro, sans-serif;
+	font-weight: bold;
+	padding-left: 2px;
+	height: 18px;
+	font-size: 10px;
+}
+
+.headerArea {
+    border: 1px solid #d8d9db;
+    border-collapse: collapse;
+    margin: 0 0 12px;
+}
+
+.headerArea > table {
+    table-layout: fixed;
+	width: 100%;
+}
+
+table.headerArea {
+    width: 100%;
+}
+
+.headerArea h1 {
+    color: #e50000;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 40px;
+    margin: 0;
+    /*word-break: break-all;*/
+}
+
+.headerArea td.productDescription > p:first-child {
+    margin-top: 0;
+}
+
+.headerArea td.productDescription > p:first-child > b:first-child {
+    color: #e50000;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 40px;
+    margin: 0;
+}
+
+span.dfSubTitle {
+    text-transform: uppercase;
+}
+
+.headerArea h1.dfSubTitle {
+    margin-top: -3px;
+    text-transform: uppercase;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 36px;
+}
+
+.headerArea td {
+    font-size: 14px;
+    padding: 12px;
+    vertical-align: top;
+    width: 50%;
+    word-wrap: break-word;
+}
+
+.headerArea td.productPicture {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.productPicture img {
+    max-width: 350px;
+}
+
+.left_menu {
+    text-align: left;
+}
+
+.left_menu > a {
+    border-top: 1px solid #e50000;
+    color: #e50000;
+    display: block;
+    font-weight: bold;
+    margin-top: 6px;
+    padding-top: 6px;
+    text-align: left;
+}
+
+.left_menu > a:hover {
+	color: #000000;
+}
+
+.left_menu > a:before {
+	content: "\e60c";
+    font-family: danfoss;
+    font-size: 70%;
+    font-weight: normal;
+    margin-right: 3px;
+}
+
+.login {
+    border: 1px solid #d8d9db;
+    padding: 12px;
+    width: 300px;
+}
+
+.cat-pcat-pages {
+    background-color: #f1f3f5;
+    border-color: #d8d9db;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px 1px 3px;
+    color: #000000;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 6px;
+    text-align: center;
+    margin-top: 12px;
+}
+
+.cat-pcat-pages .activePage {
+    color: #e50000;
+}
+
+.cat-pcat-pages .activePage:after {
+    content: " / ";
+    color: #000;
+}
+
+.cat-pcat-pages .activePage.lastPage:after {
+    content: "";
+}
+
+.cat-pcat-pages a {
+    color: #000 !important;
+}
+
+.cat-pcat-pages a:hover {
+    color: #e50000 !important;
+}
+
+.cat-pcat-pages .pageLink a:after {
+    content: " / ";
+}
+
+.cat-pcat-pages .pageText {
+	display: none;
+}
+
+.cat-pcat-pages .previousPage {
+	margin-right: 30px;
+}
+
+.cat-pcat-pages .previousPage a:after {
+	font-family: danfoss;
+    content: "\e609";
+    font-size: 12px;
+    position: absolute;
+    font-weight: normal;
+}
+
+.cat-pcat-pages .nextPage {
+	margin-left: 20px;
+}
+.cat-pcat-pages .nextPage a:after {
+	font-family: danfoss;
+    content: "\e608";
+    font-size: 12px;
+    position: absolute;
+    font-weight: normal;
+}
+
+#showInfosHeader {
+    background-color: #f1f3f5;
+    border-color: #d8d9db;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px 1px 3px;
+    color: #e50000;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 12px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+#showInfosHeader h3 {
+	margin: 0;
+}
+
+#showInfos #docLangSelect {
+    display: none;
+}
+
+.productInfoContainer {
+    border-spacing: 12px;
+    margin: -12px;
+}
+
+.productInfoContainer td {
+    vertical-align: top;
+}
+
+.productInfoContainer td.productInfo {
+    vertical-align: top;
+    width: 100%;
+}
+
+.productInfo > div {
+    border: 1px solid #d8d9db;
+    padding: 12px;
+}
+
+td.label {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.detailsLinksarea {
+	padding: 12px;
+	border: 1px solid #d8d9db;
+}
+
+.detailsLinksarea h3 {
+    font-size: 16px;
+    margin: 0 0 6px;
+    text-transform: uppercase;
+}
+
+.detailsLinksarea a {
+    border-top: 1px solid #e50000;
+    display: block;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 6px 3px 6px 12px;
+    color: #e50000;
+}
+
+.detailsMenuArea {
+    width: 122px;
+}
+
+.detailsLinksarea a:before {
+    content: "\e60c";
+    font-family: danfoss;
+    font-size: 70%;
+    font-weight: normal;
+    line-height: 1;
+    margin-left: -12px;
+    margin-top: 3px;
+    position: absolute;
+}
+
+.detailsLinksarea a:hover {
+	color: #000;
+}
+
+.detailsButtonArea {
+	width: 122px;
+	padding: 12px 0 0;
+}
+
+.detailsButtonArea > h3 {
+	display:none;
+}
+
+.detailsButtonArea a {
+    background-color: #e50000;
+    border-bottom: 3px solid #d8d9db;
+    color: #fff;
+    display: block;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 10px;
+    padding: 6px 3px 6px 24px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.detailsButtonArea a:before {
+    content: "\e60d";
+    font-family: danfoss;
+    font-weight: normal;
+    line-height: 1;
+    margin-left: -18px;
+    padding: 2px 0 0;
+    position: absolute;
+}
+
+.detailsButtonArea a:hover {
+    color: #e50000;
+    background-color: #b4bcc3;
+}
+
+.ipcProductDetailsTable {
+    border-collapse: collapse;
+    vertical-align: top;
+    width: 100%;
+}
+
+.ipcProductDetailsTable td {
+	background-color: #f1f3f5;
+	border-bottom: 2px solid #fff;
+	padding: 6px;
+	text-align: left;
+	vertical-align: top;
+}
+
+.label {
+	font-weight: bold;
+	text-transform: uppercase;
+	width: 170px;
+}
+
+.value {
+	background-color: #f1f3f5;
+	border-bottom: 2px solid #fff;
+	padding: 6px;
+	text-align: left;
+	vertical-align: top;
+}
+
+.value > span {
+	display: block;
+	background-color: #fff;
+	padding: 3px;
+	font-weight: normal;
+}
+
+.value p:last-child {
+    margin-bottom: 0;
+}
+
+.value p:first-child {
+    margin-top: 0;
+}
+
+
+#docLangSelect {
+	background-color: #fff;
+	border-color: #d8d9db;
+	border-image: none;
+	border-style: solid;
+	border-width: 1px 1px 3px;
+	float: right;
+	margin: -3px -3px 0 0;
+	padding: 3px;
+	width: 100px;
+	color: #000;
+	font-size: 10px;
+}
+
+#docLangSelect > span {
+  padding: 1px 2px 0px;
+}
+
+.error {
+	/*
+	border: 1px solid #C40026;
+	background: #fff7f2 url(../mimes/images/error.gif) no-repeat 3px 3px;
+	padding: 5px 5px 5px 24px;
+	margin: 0px 0px 3px 0px;
+	color: #C40026;
+	*/
+	border: 2px solid #e50000;
+	background-color: #e50000;
+	padding: 3px 6px;
+	margin: 0px 0px 3px 0px;
+	color: #fff;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.error:before {
+	content: "\e605";
+	float: right;
+	font-family: df_isa;
+	font-weight: normal;
+	font-size: 16px;
+}
+
+.info {
+	/*
+	border: 1px solid green;
+	background: #fafffc url(../mimes/images/info.gif) no-repeat 3px 3px;
+	padding: 5px 5px 5px 24px;
+	margin: 0px 0px 3px 0px;
+	color: green;
+	*/
+	border: 2px solid green;
+	background-color: green;
+	padding: 3px 6px;
+	margin: 0px 0px 3px 0px;
+	color: #fff;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.info:before {
+	content: "\e608";
+	float: right;
+	font-family: df_isa;
+	font-weight: normal;
+	font-size: 16px;
+}
+.warn {
+	/*
+	border: 1px solid #ff9900;
+	background: #FFFFFA url(../mimes/images/warn.gif) no-repeat 3px 3px;
+	padding: 5px 5px 5px 24px;
+	margin: 0px 0px 3px 0px;
+	color: #e97900;
+	*/
+	border: 2px solid #ff9900;
+	background-color: #ff9900;
+	padding: 3px 6px;
+	margin: 0px 0px 3px 0px;
+	color: #fff;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.warn:before {
+	content: "\e605";
+	float: right;
+	font-family: df_isa;
+	font-weight: normal;
+	font-size: 16px;
+}
+
+/*.ticketBody #workarea {
+    border: 1px solid #d8d9db;
+    padding: 12px;
+}*/
+
+.ticketMenu {
+	text-align: left;
+}
+
+.ticketMenu h2 {
+    border-bottom: 1px solid #d8d9db;
+    padding-bottom: 6px;
+    text-align: left;
+    text-transform: uppercase;
+}
+

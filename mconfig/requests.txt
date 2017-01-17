@@ -1,0 +1,156 @@
+Вызовы конфигуратора
+
+    url(r'^orders/$', views.OrderView.as_view(), name='orders'),
+    url(r'^login/$', django.contrib.auth.views.login, {'template_name': 'mconfig/login.html'}, name='login'),
+    url(r'^password_change/$', django.contrib.auth.views.password_change, 
+        {'template_name': 'mconfig/password_change_form.html', 'post_change_redirect':'mconfig/password_change_done'}, name='password_change'),
+    url(r'^.*?/password_change_done/$', django.contrib.auth.views.password_change_done, 
+        {'template_name': 'mconfig/password_change_done.html'}, name='password_change_done'),
+    url(r'^logout/$', views.logout, name='logout'),
+    url(r'^start/$', views.config_start, name='config_start'),
+    url(r'^start/([0-9]+)/questions/next$', views.next_question, name='next_question'),
+    url(r'^start/([0-9]+)/questions/prev$', views.prev_question, name='prev_question'),
+    url(r'^start/([0-9]+)/questions/update$', views.update_question, name='update_question'),
+    url(r'^start/([0-9]+)/questions/$', views.question, name='question'),
+    url(r'^start/([0-9]+)/questions/refresh/$', views.question_refresh, name='refresh_question'),
+    url(r'^start/([0-9]+)/questions/fields/?$', views.field, name='field'),
+    url(r'^start/([0-9]+)/questions/download/$', views.download, name='download'),
+    #
+    url(r'^create_user/(do)?$', views.create_user, name='create_user'),
+    url(r'^request_access/(do)?$', views.request_access, name='request_access'),
+
+Описание
+Возвращает стандартный view таблицы "Orders"
+URL 
+orders/
+Тип запроса
+GET
+Поля
+нет
+
+Описание
+Форма авторизации
+URL
+login/
+Тип запроса
+GET, POST
+Поля
+login
+password
+next
+
+Описание
+Форма смены пароля
+URL
+password_change/
+Тип запроса
+GET, POST
+Поля
+old_password
+new_password
+new_password2
+
+Описание
+Подтверждение смены пароля
+URL
+password_change_done/
+Тип запроса
+GET
+Поля
+нет
+
+Описание
+Запустить новую сессию конфигуратора
+URL
+start/
+Тип запроса
+GET
+Поля
+нет
+
+Описание
+Перейти к следующей группе вопросов
+URL
+start/([0-9]+)/questions/next
+Тип запроса
+POST
+Поля
+нет
+
+Описание
+Вернуться к предыдущей группе вопросов
+URL
+start/([0-9]+)/questions/prev
+Тип запроса
+POST
+Поля
+нет
+
+Описание
+Изменить ответ в указанном вопросе
+URL
+start/([0-9]+)/questions/update
+Тип запроса
+POST
+Поля
+Current_field - id вопроса, в котором изменился ответ
+Поля ответов
+
+Описание
+Обновить состояние текущей группы вопросов
+URL
+start/([0-9]+)/questions/refresh/
+Тип запроса
+GET
+Поля
+нет
+Примечание:
+возвращает json-объект
+
+
+Описание
+Получить состояние указанного вопроса
+URL
+start/([0-9]+)/questions/fields/
+Тип запроса
+GET
+Поля
+field - id вопроса
+Примечание:
+возвращает json-объект
+
+Описание
+Скачать шаблон коммерческого предложения
+URL
+start/([0-9]+)/questions/download/
+Тип запроса
+GET
+Поля
+нет
+
+Описание
+Создать или активировать учётную запись пользователя
+URL
+create_user/(do)?
+Тип запроса
+GET, POST
+Поля
+first_name
+last_name
+email
+password
+role
+
+Описание
+Запросить доступ
+URL
+request_access/(do)?
+Тип запроса
+GET, POST
+Поля
+first_name
+last_name
+email
+password
+role
+

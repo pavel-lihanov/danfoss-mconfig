@@ -1,0 +1,88 @@
+<h1>Request configurator access</h1>
+Please fill the form and click "Submit"
+<form name="request_access_form" id="request_access_form" action="do" method="post" style="border: 1px solid; padding: 10px;">
+	{% csrf_token %}
+	<table>
+		<tr>
+			<td>
+				E-mail
+			</td>
+			<td>
+				<input
+					type="text" 
+					name="email"
+					value={{profile.email}}
+				>
+				</input>
+			</td>
+		</tr>
+<!-- 		<tr>
+			<td>
+				Password
+			</td>
+			<td>
+				<input
+					type="text" 
+					name="password"		
+				>
+				</input>
+			</td>
+		</tr>
+ -->		<tr>
+			<td>
+				First name
+			</td>
+			<td>
+				<input
+					type="text" 
+					name="first_name"
+					value={{profile.first_name}}
+				>
+				</input>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Last name
+			</td>
+			<td>
+				<input
+					type="text" 
+					name="last_name"
+					value={{profile.last_name}}
+				>
+				</input>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Organization
+			</td>
+			<td>
+				<input
+					type="text" 
+					name="organization"
+					value={{profile.organization}}
+				>
+				</input>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Access
+			</td>
+			<td>			
+				<select name="role" value={{profile.role}}>
+					<option value="0">Supervisor</option>
+					<option value="1">Danfoss sales manager</option>
+					<option value="2">Partner sales manager</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button type="button" onclick="document.getElementById('request_access_form').submit()">Submit</button>
+			</td>
+		</tr>
+	</table>
+</form>

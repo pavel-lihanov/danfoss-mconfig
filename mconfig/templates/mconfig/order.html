@@ -1,0 +1,14 @@
+{% if orders %}
+    <table style="border-style=solid;">
+    {% for order in orders %}
+		<tr>
+			<td>{{ order.user.profile.email }}</td>
+			<td>{{ order.typecode }}</td>
+			<td>{{ order.date }}</td>
+			<td>{{ order.price }}</td>
+		</tr>
+    {% endfor %}
+	</table>
+{% else %}
+    <p>No orders yet.</p>
+{% endif %}

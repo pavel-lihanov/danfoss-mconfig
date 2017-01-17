@@ -1,0 +1,73 @@
+<tr>
+<td style="display:block; text-align:right">
+	{{ field.name }} {% if field.required %} <span style="color:red" >*</span> {% endif %}
+</td>
+ 
+ <td>
+
+<!-- label for="{{ field.name }}">{{ field.name }}</label> {% if field.required %} <span style="color:red" >*</span> {% endif %} -->
+
+<select class="w3-select" name="{{ field.name }}" 
+		id="{{ field.name }}"		
+		{% if not field.enabled %} disabled="disabled" {% endif %} 		
+		class="question"
+		{% if not enabled %} disabled {% endif %}		
+		onchange="
+			postField('{{field.name}}')
+		">	
+
+	{% for choice in field.choices.values %}
+		{% if choice.enabled %}
+			<option id="{{ field.name }}_{{ choice.text }}" value="{{ choice.text }}" {% if field.selected == choice %} selected {% endif %}>{{ choice.text }}  </option>
+		{% endif %}
+	{% endfor %}	
+</select>
+
+</td>
+<td style="padding: 10px; margin:10px;">
+	{% if field.view.hint %}
+		{% include field.view.hint %}
+	{% endif %}	
+</td>
+</tr>
+
+<script>
+
+function {{field.internal_name}}_enable(enable) {
+	document.getElementById('{{field.name}}').disabled = !enable;
+}
+
+function {{field.internal_name}}_update(data) {	
+	var edit_elem = document.getElementById('{{field.name}}');
+	
+	for(var i=edit_elem.options.length-1;i>=0;i--){
+		edit_elem.remove(i);
+	}
+	
+	for(var i=0;i<data.data.choices.length;i++){
+		if(data.data.choices[i].enabled){
+			var option = document.createElement("option");
+			option.id = data.data.choices[i].id;
+			option.value = data.data.choices[i].value;
+			option.text = option.value;
+			if(option.value == data.data.value){
+				option.selected = true;
+			}
+			edit_elem.options.add(option);
+		}		
+	}
+	
+	edit_elem.value = data.data.value;
+	edit_elem.disabled = edit_elem.options.length <= 1;
+}
+
+function {{field.internal_name}}_create() {
+	return [
+			{name: "{{field.name}}", 
+			internal_name: "{{field.internal_name}}", 
+			update: {{field.internal_name}}_update, 
+			enable: {{field.internal_name}}_enable},
+			];
+}
+
+</script>

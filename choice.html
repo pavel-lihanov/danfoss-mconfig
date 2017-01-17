@@ -1,0 +1,6 @@
+<select>
+	{% for choice in field.choices %}
+		{{% if choice.enabled %}}
+			<option value={{ choice.text }}></option><br>
+	{% endfor %}
+</select>
