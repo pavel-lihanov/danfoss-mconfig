@@ -323,7 +323,7 @@ def create_user(request, action):
             context = {}
         return HttpResponse(template.render(context, request))
     elif request.method == 'POST':
-        print(request.POST['email'], request.POST['password'])
+        #print(request.POST['email'], request.POST['password'])
         access_level = int(request.POST['role'])
         
         try:
