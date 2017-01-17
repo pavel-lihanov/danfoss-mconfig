@@ -497,7 +497,8 @@ def next_question(request, session):
 
     try:
         wiz.go_forward()
-    except wizard.ValidationError as ex:                                
+    except wizard.ValidationError as ex:
+        print('ValidationError', ex.message)
         context['error_message'] = ex.message        
         #context['devices'] = [decider.select_devices(wiz.apply_filters_nosave(question.next))]
         #context['options'] = wiz.get_options(question)      

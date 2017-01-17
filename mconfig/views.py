@@ -103,8 +103,8 @@ class Reaper(threading.Thread):
         except:
             traceback.print_exc()
                     
-reaper = Reaper()
-reaper.start()
+#reaper = Reaper()
+#reaper.start()
 
 if check_for_language('ru'):
     print('Has Russian')
