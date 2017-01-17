@@ -253,7 +253,7 @@ def add_wizard_instance(request):
     
     with lock:
         cur_id = last_id
-        sessions[last_id] = wiz
+        sessions[last_id] = (wiz, threading.Lock())
         session['wizard'] = last_id
         last_id += 1
         
@@ -414,68 +414,71 @@ def config_start(request):
     return HttpResponseRedirect('/mconfig/start/{0}/questions'.format(id))
     
 def download(request, session):
-    wiz = sessions[int(session)]
-    print (session, wiz)
-    package = wiz.screens[-1].packages[0]
-    filepath = 'C:\\Users\\u327397\\Desktop\\Projects\\HV\\configurator\\mysite\\test.docx'
-    path = os.path.join(os.path.dirname(filepath), '{0}.{1}'.format(session, 'docx'))
-    package.make_offer_template(path)    
-    '''
-    date = models.DateField(auto_now_add=True)
-    price_version = models.CharField(max_length=60)
-    typecode = models.CharField(max_length=60)
-    price = models.DecimalField(max_digits=12, decimal_places=3)
-    user = models.ForeignKey(User)
-    '''    
-    user = request.user
-    try:
-        profile = Profile.objects.get(email=user.email)    
-        order = Order(date = datetime.date.today(), price_version = '0.0', typecode = package.order_code(), price=package.price.sale_price, user=user)
-        order.save()
-    except Profile.DoesNotExist:
-        pass
-    
-    return serve(request, os.path.basename(path), os.path.dirname(path))
+    wiz, lock = sessions[int(session)]
+    with lock:
+        print (session, wiz)
+        package = wiz.screens[-1].packages[0]
+        filepath = 'C:\\Users\\u327397\\Desktop\\Projects\\HV\\configurator\\mysite\\test.docx'
+        path = os.path.join(os.path.dirname(filepath), '{0}.{1}'.format(session, 'docx'))
+        package.make_offer_template(path)    
+        '''
+        date = models.DateField(auto_now_add=True)
+        price_version = models.CharField(max_length=60)
+        typecode = models.CharField(max_length=60)
+        price = models.DecimalField(max_digits=12, decimal_places=3)
+        user = models.ForeignKey(User)
+        '''    
+        user = request.user
+        try:
+            profile = Profile.objects.get(email=user.email)    
+            order = Order(date = datetime.date.today(), price_version = '0.0', typecode = package.order_code(), price=package.price.sale_price, user=user)
+            order.save()
+        except Profile.DoesNotExist:
+            pass
+        
+        return serve(request, os.path.basename(path), os.path.dirname(path))
 
 def field(request, session):
     try:
-        wiz = sessions[int(session)]    
+        wiz, lock = sessions[int(session)]    
     except KeyError:
         return HttpResponse('Session not found or expired (field): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
-    context = {}
-    wiz.last_activity = datetime.datetime.now()
-    
-    question = wiz.current_screen
-    
-    field = request.GET['field']
-    #print(request.GET)
-    print('requested field', field)
-    try:
-        f = question.get_field(field)
+    with lock:
+        context = {}
+        wiz.last_activity = datetime.datetime.now()
         
-        template = loader.get_template(f.view.template)
+        question = wiz.current_screen
         
-        context['field'] = f    
-        context['as_xml'] = True
-        res = HttpResponse(template.render(context, request), content_type="text/xml")
-        return res    
-    except KeyError:
-        return HttpResponseNotFound('Field not found')
+        field = request.GET['field']
+        #print(request.GET)
+        print('requested field', field)
+        try:
+            f = question.get_field(field)
+            
+            template = loader.get_template(f.view.template)
+            
+            context['field'] = f    
+            context['as_xml'] = True
+            res = HttpResponse(template.render(context, request), content_type="text/xml")
+            return res    
+        except KeyError:
+            return HttpResponseNotFound('Field not found')
     
 def question_refresh(request, session, _context={}, error=''):
     #TODO: check user permissions - can be Result!!!
     try:
-        wiz = sessions[int(session)]    
+        wiz, lock = sessions[int(session)]    
     except KeyError:
         return HttpResponse('Session not found or expired (refresh): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
-    context = dict(_context)
-    wiz.last_activity = datetime.datetime.now()
-    
-    question = wiz.current_screen
-    question.last_error = error
-    
-    data = question.view.as_json()
-    return HttpResponse(data, content_type="application/json")    
+    with lock:
+        context = dict(_context)
+        wiz.last_activity = datetime.datetime.now()
+        
+        question = wiz.current_screen
+        question.last_error = error
+        
+        data = question.view.as_json()
+        return HttpResponse(data, content_type="application/json")    
     
 def show_question(session, request, wiz, context):   
     question = wiz.current_screen     
@@ -489,103 +492,108 @@ def show_question(session, request, wiz, context):
     
 def next_question(request, session):
     try:
-        wiz = sessions[int(session)]    
+        wiz, lock = sessions[int(session)]    
     except KeyError:
         return HttpResponse('Session not found or expired (next): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
-    context = {}
-    wiz.last_activity = datetime.datetime.now()
+    with lock:
+        context = {}
+        wiz.last_activity = datetime.datetime.now()
 
-    try:
-        wiz.go_forward()
-    except wizard.ValidationError as ex:
-        print('ValidationError', ex.message)
-        context['error_message'] = ex.message        
-        #context['devices'] = [decider.select_devices(wiz.apply_filters_nosave(question.next))]
-        #context['options'] = wiz.get_options(question)      
-                
-    return show_question(session, request, wiz, context)
+        try:
+            wiz.go_forward()
+        except wizard.ValidationError as ex:
+            print('ValidationError', ex.message)
+            context['error_message'] = ex.message        
+            #context['devices'] = [decider.select_devices(wiz.apply_filters_nosave(question.next))]
+            #context['options'] = wiz.get_options(question)      
+                    
+        return show_question(session, request, wiz, context)
 
 def prev_question(request, session):
     user = request.user
     try:
-        wiz = sessions[int(session)]    
+        wiz, lock = sessions[int(session)]    
     except KeyError:
         return HttpResponse('Session not found or expired (prev): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
-    context = {}
-    wiz.last_activity = datetime.datetime.now()
-    wiz.go_back()
-    return show_question(session, request, wiz, context)
+    with lock:
+        context = {}
+        wiz.last_activity = datetime.datetime.now()
+        wiz.go_back()
+        return show_question(session, request, wiz, context)
     
 def update_question(request, session):
     #updates all fields, should be triggered on any field change
     user = request.user
     try:
-        wiz = sessions[int(session)]    
+        wiz, lock = sessions[int(session)]    
     except KeyError:
         return HttpResponse('Session not found or expired(update): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
-    context = {}
-    wiz.last_activity = datetime.datetime.now()
+    
+    with lock:
+        context = {}
+        wiz.last_activity = datetime.datetime.now()
 
-    question = wiz.current_screen
-    try:
-        field = question.find_field(request.POST['Current_field'])
+        question = wiz.current_screen
         try:
-            wiz.update(question, field, request.POST[field.name])
-        except wizard.NoMatches:
-            #no devices for this value, this may happen if user sets value in edit that filters out all devices
-            error = _('No device matches value {0} for field {1}').format(request.POST[field.name], field.name)                              
-            return question_refresh(request, session, context, error)
-        except ValueError:
-            #invalid value
-            error = _('Invalid value {0} for field {1}').format(request.POST[field.name], field.name)                    
-            return question_refresh(request, session, context, error)
-    except KeyError:
-        print('KeyError', request.POST['Current_field'])
-    
-    #opts = wiz.get_options(question)  
-    #prev_devs = wiz.apply_filters_nosave(question, options=opts)
+            field = question.find_field(request.POST['Current_field'])
+            try:
+                wiz.update(question, field, request.POST[field.name])
+            except wizard.NoMatches:
+                #no devices for this value, this may happen if user sets value in edit that filters out all devices
+                error = _('No device matches value {0} for field {1}').format(request.POST[field.name], field.name)                              
+                return question_refresh(request, session, context, error)
+            except ValueError:
+                #invalid value
+                error = _('Invalid value {0} for field {1}').format(request.POST[field.name], field.name)                    
+                return question_refresh(request, session, context, error)
+        except KeyError:
+            print('KeyError', request.POST['Current_field'])
         
-    #for field in question.fields:
-    #    field.update(prev_devs, opts)
-    
-    #return show_question(session, request, wiz, context)
-    return question_refresh(request, session, context, '')
+        #opts = wiz.get_options(question)  
+        #prev_devs = wiz.apply_filters_nosave(question, options=opts)
+            
+        #for field in question.fields:
+        #    field.update(prev_devs, opts)
+        
+        #return show_question(session, request, wiz, context)
+        return question_refresh(request, session, context, '')
     
 def question(request, session):
     start_time = datetime.datetime.now()
     try:
-        wiz = sessions[int(session)]    
+        wiz, lock = sessions[int(session)]    
     except KeyError:
         return HttpResponse('Session not found or expired (question): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
         
-    context = {}
-    wiz.last_activity = datetime.datetime.now()
-    if request.method == 'GET':    
-        question = wiz.current_screen
-        question.select()
-        print(type(question), question.view.template)
-        opts = wiz.get_options(question)  
-        all_devs = wiz.apply_filters_nosave(question.next, options=opts)
-        devs = decider.select_devices(all_devs)
-        template = loader.get_template(question.view.template)
-        
-        for field in question.fields:
-            wiz.refresh_field(question, field)
+    with lock:
+        context = {}
+        wiz.last_activity = datetime.datetime.now()
+        if request.method == 'GET':    
+            question = wiz.current_screen
+            question.select()
+            print(type(question), question.view.template)
+            opts = wiz.get_options(question)  
+            all_devs = wiz.apply_filters_nosave(question.next, options=opts)
+            devs = decider.select_devices(all_devs)
+            template = loader.get_template(question.view.template)
+            
+            for field in question.fields:
+                wiz.refresh_field(question, field)
 
-        #prev_devs = wiz.apply_filters_nosave(question, options=opts)
-        #for field in question.fields:
-        #    field.update(prev_devs, opts)
-        
-        question.last_error = ''
-        context['user'] = request.user
-        context['question'] = question
-        #context['devices'] = wiz.devs
-        context['devices'] = devs
-        context['options'] = opts
-        context['full'] = True
-        
-        res = HttpResponse(template.render(context, request))
-        end_time = datetime.datetime.now()
-        print('Request took {0}'.format(end_time-start_time))
-        return res
+            #prev_devs = wiz.apply_filters_nosave(question, options=opts)
+            #for field in question.fields:
+            #    field.update(prev_devs, opts)
+            
+            question.last_error = ''
+            context['user'] = request.user
+            context['question'] = question
+            #context['devices'] = wiz.devs
+            context['devices'] = devs
+            context['options'] = opts
+            context['full'] = True
+            
+            res = HttpResponse(template.render(context, request))
+            end_time = datetime.datetime.now()
+            print('Request took {0}'.format(end_time-start_time))
+            return res
     
