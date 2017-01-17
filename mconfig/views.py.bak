@@ -374,6 +374,7 @@ def create_user(request, action):
                 
         profile.save()        
         user.save()
+        return
         msg = '''\
 <html>
   <head></head>
