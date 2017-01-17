@@ -179,7 +179,9 @@ class PriceView:
         return self._template
 
     def as_json(self):                
-        return {'total': self.price.total}
+        dv = PriceDetailsView()
+        dv.price = self.price
+        return {'total': self.price.total, 'details': dv.as_json()}
         
 class PriceDetailsView:
     _template = "price.html"                            
