@@ -18,8 +18,8 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, AccessMixin
 from django.contrib.auth.models import User, Permission
 from django.contrib.contenttypes.models import ContentType
 
-#from django.urls import reverse
-from django.core.urlresolvers import reverse
+from django.urls import reverse
+#from django.core.urlresolvers import reverse
 
 from mconfig.models import Order, Profile
 
