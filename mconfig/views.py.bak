@@ -441,7 +441,7 @@ def field(request, session):
     try:
         wiz = sessions[int(session)]    
     except KeyError:
-        return HttpResponse('Session not found or expired (field): {0}, have sessions {1}'.format(int(session), list(sessions.keys()))
+        return HttpResponse('Session not found or expired (field): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
     context = {}
     wiz.last_activity = datetime.datetime.now()
     
@@ -467,7 +467,7 @@ def question_refresh(request, session, _context={}, error=''):
     try:
         wiz = sessions[int(session)]    
     except KeyError:
-        return HttpResponse('Session not found or expired (refresh): {0}, have sessions {1}'.format(int(session), list(sessions.keys()))
+        return HttpResponse('Session not found or expired (refresh): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
     context = dict(_context)
     wiz.last_activity = datetime.datetime.now()
     
@@ -491,7 +491,7 @@ def next_question(request, session):
     try:
         wiz = sessions[int(session)]    
     except KeyError:
-        return HttpResponse('Session not found or expired (next): {0}, have sessions {1}'.format(int(session), list(sessions.keys()))
+        return HttpResponse('Session not found or expired (next): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
     context = {}
     wiz.last_activity = datetime.datetime.now()
 
@@ -510,7 +510,7 @@ def prev_question(request, session):
     try:
         wiz = sessions[int(session)]    
     except KeyError:
-        return HttpResponse('Session not found or expired (prev): {0}, have sessions {1}'.format(int(session), list(sessions.keys()))
+        return HttpResponse('Session not found or expired (prev): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
     context = {}
     wiz.last_activity = datetime.datetime.now()
     wiz.go_back()
@@ -522,7 +522,7 @@ def update_question(request, session):
     try:
         wiz = sessions[int(session)]    
     except KeyError:
-        return HttpResponse('Session not found or expired(update): {0}, have sessions {1}'.format(int(session), list(sessions.keys()))
+        return HttpResponse('Session not found or expired(update): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
     context = {}
     wiz.last_activity = datetime.datetime.now()
 
@@ -556,7 +556,7 @@ def question(request, session):
     try:
         wiz = sessions[int(session)]    
     except KeyError:
-        return HttpResponseServerError(_('Session not found'))
+        return HttpResponse('Session not found or expired (question): {0}, have sessions {1}'.format(int(session), list(sessions.keys()))
         
     context = {}
     wiz.last_activity = datetime.datetime.now()
