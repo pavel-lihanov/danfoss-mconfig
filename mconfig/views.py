@@ -420,6 +420,7 @@ def config_start(request):
     template = loader.get_template('mconfig/start.html')
     return HttpResponseRedirect('/mconfig/start/{0}/questions'.format(id))
     
+@login_required(login_url='/mconfig/login/')
 def download(request, session):
     wiz, lock = sessions[int(session)]
 
@@ -437,10 +438,11 @@ def download(request, session):
     '''    
     user = request.user
     try:
-        profile = Profile.objects.get(email=user.email)    
+        profile = Profile.objects.get(email=user.email)            
         order = Order(date = datetime.date.today(), price_version = '0.0', typecode = package.order_code(), price=package.price.sale_price, user=user)
         order.save()
     except Profile.DoesNotExist:
+        #should never happen
         pass
     
     return serve(request, os.path.basename(path), os.path.dirname(path))
