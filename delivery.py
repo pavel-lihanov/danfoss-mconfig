@@ -1,6 +1,7 @@
 #delivery time and price calculator
-
 #abstract class for delivery provider and method
+from django.utils.translation import ugettext as _
+
 class Delivery:
     def get_delivery_info(self, package, dest):
         pass
@@ -75,10 +76,23 @@ providers = [CMA_CGM('')]
 class SimpleDeliveryDecider:
     def select_delivery(self, details):
         return details[0]
+       
+    def default_delivery_method(self, package):
+        return 'truck'
         
-def get_delivery_details(package, decider=SimpleDeliveryDecider()):
-    meth = package.options['delivery_method']
-    dest = package.options['delivery_address']
+    def default_delivery_destination(self, package):
+        return 'Moscow'
+        
+def get_delivery_details(package, decider=SimpleDeliveryDecider()):    
+    try:
+        meth = package.options['delivery_method']
+    except KeyError:
+        meth = decider.default_delivery_method(package)
+    try:    
+        dest = package.options['delivery_address']
+    except KeyError:
+        dest = decider.default_delivery_destination(package)
+         
     provs = [p.delivery(meth) for p in providers if p.have_method(meth)]
     details = [(p.provider, *p.get_delivery_info(package, dest)) for p in provs]
     return decider.select_delivery(details)    
