@@ -26,7 +26,7 @@ class Price:
     @property
     def total(self):
         total = self.sale_price + self.delivery_cost
-        return '{0:.2f}'.format(total)
+        return total
     
 class PriceList:    
     def get_price(self, package):
