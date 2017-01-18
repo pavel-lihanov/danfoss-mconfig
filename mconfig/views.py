@@ -151,7 +151,7 @@ decider = Decider(settings)
 class HTMLQuestion:
     template = "mconfig/question.html"
 
-    def as_json(self):       
+    def as_json(self, **args):       
         return json.dumps({ 'name': self.question.header, 
                             'error': self.question.last_error, 
                             'next_enabled': self.question.can_proceed(),
@@ -175,14 +175,20 @@ class VEDADriveView:
         
 class PriceView:
     _template = "price.html"
+    def __init__(self, show_details):
+        self.show_details = show_details
+        
     @property
     def template(self):
         return self._template
 
     def as_json(self):                
-        dv = PriceDetailsView()
-        dv.price = self.price
-        return {'total': self.price.total, 'details': dv.as_json()}
+        if self.show_details:
+            dv = PriceDetailsView()
+            dv.price = self.price        
+            return {'total': self.price.total, 'details': dv.as_json()}
+        else:
+            return {'total': self.price.total, 'details': None}
         
 class PriceDetailsView:
     _template = "price.html"                            
@@ -203,13 +209,13 @@ class HTMLResult:
         return self._template
     
     #TODO: view should tell if current user has appropriate access level
-    def as_json(self):        
+    def as_json(self, show_details):        
         package = self.question.packages[0]        
         package.view = VEDADriveView()
         package.view.package = package
         try:
             package.calculate_price()
-            package.price.view = PriceView()
+            package.price.view = PriceView(show_details)
             package.price.view.price = package.price
             return json.dumps({'package': package.view.as_json(),
                                 'price': package.price.view.as_json(),
@@ -478,7 +484,7 @@ def question_refresh(request, session, _context={}, error=''):
     question = wiz.current_screen
     question.last_error = error
     
-    data = question.view.as_json()
+    data = question.view.as_json(show_details=request.user.is_superuser)
     return HttpResponse(data, content_type="application/json")    
     
 def show_question(session, request, wiz, context):   
