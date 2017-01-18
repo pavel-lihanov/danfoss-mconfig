@@ -117,6 +117,7 @@ USE_TZ = True
 
 LOCALE_PATHS = [
     'C:/Users/u327397/Desktop/Projects/HV/configurator/mysite/locale',
+    './locale',
 ]
 
 
