@@ -1,0 +1,26 @@
+<h1>Request configurator access</h1>
+Please fill the form and click "Submit"
+<form name="upload_price_form" id="upload_price_form" action="do" method="post" enctype="multipart/form-data" style="border: 1px solid; padding: 10px;">
+	{% csrf_token %}
+	<table>
+		<tr>
+			<td>
+				Select file
+			</td>
+			<td>
+				<input
+					type="file" 
+					name="price_file"
+				>
+				</input>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input
+					type="submit" 
+				>
+			</td>
+		</tr>
+	</table>
+</form>

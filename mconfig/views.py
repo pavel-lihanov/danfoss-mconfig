@@ -45,6 +45,7 @@ import locale
 
 import os
 import os.path
+import shutil
 
 import json
 
@@ -605,4 +606,26 @@ def question(request, session):
         end_time = datetime.datetime.now()
         print('Request took {0}'.format(end_time-start_time))
         return res
+        
+@user_passes_test(is_superuser, login_url='/mconfig/login/')
+def upload_price(request, session):
+    if request.method == 'GET':
+        template = loader.get_template('mconfig/upload_price.html')
+        context = {}
+        return HttpResponse(template.render(context, request))
+    else:
+        f = request.FILES['price_file']
+        #backup old price
+        
+        now = datetime.datetime.now()
+        shutil.copyfile('prices.xlsm', now.isoformat().replace(':','_') + '_prices.xlsm')
+        
+        #replace price
+        with open('prices.xlsm', 'wb') as destination:
+            for chunk in f.chunks():
+                destination.write(chunk)
+            
+        #recreate pricelist
+        price.price_lists['VEDADrive'] = price.VEDAXLPriceList('prices.xlsm')
+        return HttpResponse('Pricelist uploaded OK')
     

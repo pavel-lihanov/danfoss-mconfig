@@ -29,5 +29,6 @@ urlpatterns = [
     #
     url(r'^create_user/(do)?$', views.create_user, name='create_user'),
     url(r'^request_access/(do)?$', views.request_access, name='request_access'),
+    url(r'^upload_price/(do)?$', views.upload_price, name='upload_price'),
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
