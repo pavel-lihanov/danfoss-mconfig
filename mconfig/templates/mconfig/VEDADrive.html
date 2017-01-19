@@ -43,13 +43,13 @@ function updatePrice(data)
 </div>
 
 <table style="border:1px solid black;border-collapse: collapse;">
-	{% for option in package.options.items %}
+	{% for option in package.display_options.items %}
 		<tr>
 			<td style="border:1px solid black;border-collapse: collapse;">
 				{{ option.0 }}
 			</td>
 			<td id="{{option.0}}" style="border:1px solid black;border-collapse: collapse;">
-				<!-- {{ option.1 }} -->
+				<!-- {{ option.1 }} --> ---
 			</td>
 		</tr>
 	{% endfor %}

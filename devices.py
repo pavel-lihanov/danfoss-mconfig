@@ -174,6 +174,17 @@ class VEDADrive(Device):
         assert(self.is_package)
         return [15, ]
         
+    def display_options(self):
+        infos = self.options._opts
+        opts = self.options.items()
+        res = {}
+        for k,v in opts:
+            if k in infos:
+                res[infos[k].display_name] = infos[k].display_choices[v]
+            else:
+                res[k] = v
+        return res
+        
         
 class VEDAAttrs:
     def __init__(self, drive):
@@ -186,7 +197,7 @@ class VEDAAttrs:
             return self.drive._attrs[key]
             
 class VEDAOption:
-    def __init__(self, name, choices, codes, code_pos, display_names=None, display_choices=None, price_field=None, price_getter=None):
+    def __init__(self, name, choices, codes, code_pos, display_name=None, display_choices=None, price_field=None, price_getter=None):
         self.name = name
         self.choices = choices
         self.codes = codes
@@ -194,7 +205,9 @@ class VEDAOption:
         self.choices_to_codes = dict(zip(choices, codes))
         self.codes_to_choices = dict(zip(codes, choices))
         self.price_field = price_field
-        self.price_getter = price_getter
+        self.price_getter = price_getter        
+        self.display_name = display_name if display_name else name
+        self.display_choices = display_choices if display_choices else {a:a for a in choices}        
            
     def matches_pricelist(self, option_value, row):        
         '''
@@ -232,28 +245,76 @@ class VEDAOption:
             return self.codes_to_choices['AX']
         else:
             return self.codes_to_choices['A'+str(value)[0]]
-            
+
 class VEDAOpts:
     def __init__(self, **args):
         self._opts = collections.OrderedDict()
         for o in (
-                    VEDAOption('motor_type', ('Induction', 'PM'), ('A', 'S'), 14, price_field=7, price_getter=VEDAOption.generic_getter),
-                    VEDAOption('input_freq', (50, 60), ('F5', 'F6'), 10, price_field=5, price_getter=VEDAOption.generic_getter),
-                    VEDAOption('enclosure', ('IP30', 'IP31', 'IP41', 'IP42', 'IP54'), ('30', '31', '41', '42', '54'), 12, price_field=6, price_getter=VEDAOption.generic_getter),
-                    VEDAOption('control_mode', ('U/f', 'Vector control'), ('S', 'V'), 15, price_field=8, price_getter=VEDAOption.generic_getter),
-                    VEDAOption('brake_mode', ('Coast', 'Dynamic', 'Recuperation'), ('X', 'B', 'R'), 16, price_field=9, price_getter=VEDAOption.generic_getter),
-                    VEDAOption('cooling', ('Air', 'Liquid'), ('A', 'L'), 20, price_field=11, price_getter=VEDAOption.generic_getter),
-                    VEDAOption('power_cell_autobypass', ('No', 'Yes'), ('X', 'C'), 21, price_field=12, price_getter=VEDAOption.generic_getter),
-                    VEDAOption('power_option', ('None', 'Manual bypass', 'Autobypass', 'Multistart', 'Interchange'), ('AX', 'A2', 'A1', 'A3', 'A4'), 22, price_field=13, price_getter=VEDAOption.poweropt_getter),
-                    VEDAOption('multi_motors', (1, 2, 3, 4), ('1', '2', '3', '4'), 24, price_field=13, price_getter=None),
-                    VEDAOption('fieldbus', ('None', 'Encoder', 'EtherNet IP', 'ProfiBus DP', 'Modbus TCP/IP'), ('BX', 'B1', 'B2', 'B3', 'B4'), 25, price_field=14, price_getter=VEDAOption.letter_getter),
-                    VEDAOption('transformer', ('None', '10000-6000', '10000-6600', '6000-10000', '6600-10000'), ('CX', 'C1', 'C2', 'C3', 'C4'), 27, price_field=15, price_getter=VEDAOption.letter_getter),
-                    VEDAOption('PMSM exciter', ('No', 'Yes'), ('DX', 'D1'), 29, price_field=16, price_getter=VEDAOption.letter_getter),
-                    VEDAOption('Input mains location', ('Top', 'Bottom'), ('2', '1'), 31, price_field=17, price_getter=VEDAOption.mains_getter),
-                    VEDAOption('Motor cable location', ('Top', 'Bottom'), ('2', '1'), 32, price_field=17, price_getter=VEDAOption.motor_getter),
-                    VEDAOption('Output reactor', ('No', 'Yes'), ('EX', 'E1'), 33, price_field=18, price_getter=VEDAOption.letter_getter),
-                    VEDAOption('Service access', ('Front', 'Front and back'), ('S', 'D'), 35, price_field=19, price_getter=VEDAOption.generic_getter),                    
-                    VEDAOption('motor_voltage', (6000, 10000), ('', ''), 0),
+                    VEDAOption('motor_type', ('Induction', 'PM'), ('A', 'S'), 14, 
+                        price_field=7, price_getter=VEDAOption.generic_getter,
+                        display_name = _('Motor type'), display_choices = {'Induction':_('Induction'), 'PM':_('PMSM')},
+                        ),
+                    VEDAOption('input_freq', (50, 60), ('F5', 'F6'), 10, 
+                        price_field=5, price_getter=VEDAOption.generic_getter,
+                        display_name = _('Supply frequency'), 
+                        ),
+                    VEDAOption('enclosure', ('IP30', 'IP31', 'IP41', 'IP42', 'IP54'), ('30', '31', '41', '42', '54'), 12, 
+                        price_field=6, price_getter=VEDAOption.generic_getter,
+                        display_name = _('Enclosure'), 
+                        ),
+                    VEDAOption('control_mode', ('U/f', 'Vector control'), ('S', 'V'), 15, 
+                        price_field=8, price_getter=VEDAOption.generic_getter,
+                        display_name = _('Motor contol mode'), display_choices={'U/f':_('U/f control'), 'Vector control':_('Vector control')}
+                        ),
+                    VEDAOption('brake_mode', ('Coast', 'Dynamic', 'Recuperation'), ('X', 'B', 'R'), 16, 
+                        price_field=9, price_getter=VEDAOption.generic_getter,
+                        display_name = _('Braking mode'), display_choices={'Coast':_('Coasting stop'), 'Dynamic':_('Dynamic braking'), 'Recuperation':_('Recuperation')}
+                        ),
+                    VEDAOption('cooling', ('Air', 'Liquid'), ('A', 'L'), 20, 
+                        price_field=11, price_getter=VEDAOption.generic_getter,
+                        display_name= _('Cooling'), display_choices={'Air':_('Air'), 'Liquid':_('Liquid')}
+                        ),
+                    VEDAOption('power_cell_autobypass', ('No', 'Yes'), ('X', 'C'), 21, 
+                        price_field=12, price_getter=VEDAOption.generic_getter,
+                        display_name=_('Power cell autobypass'), display_choices={'No':_('No'), 'Yes':_('Yes')}),
+                    VEDAOption('power_option', ('None', 'Manual bypass', 'Autobypass', 'Multistart', 'Interchange'), ('AX', 'A2', 'A1', 'A3', 'A4'), 22, 
+                        price_field=13, price_getter=VEDAOption.poweropt_getter,
+                        display_name=_('Power option'), display_choices={'None':_('None'), 'Manual bypass':_('Manual bypass'), 'Autobypass':_('Autobypass'), 'Multistart':_('Multistart'), 'Interchange':_('Interchange')},
+                        ),
+                    VEDAOption('multi_motors', (1, 2, 3, 4), ('1', '2', '3', '4'), 24, 
+                        price_field=13, price_getter=None,
+                        display_name=_('Number of motors')),
+                    VEDAOption('fieldbus', ('None', 'Encoder', 'EtherNet IP', 'ProfiBus DP', 'Modbus TCP/IP'), ('BX', 'B1', 'B2', 'B3', 'B4'), 25, 
+                        price_field=14, price_getter=VEDAOption.letter_getter,
+                        display_name=_('Option B'), display_choices={'None':_('None'), 'Encoder':_('Encoder board'), 'EtherNet IP':_('EtherNet IP'), 'ProfiBus DP':_('ProfiBus DP'), 'Modbus TCP/IP':_('Modbus TCP/IP')}
+                        ),
+                    VEDAOption('transformer', ('None', '10000-6000', '10000-6600', '6000-10000', '6600-10000'), ('CX', 'C1', 'C2', 'C3', 'C4'), 27, 
+                        price_field=15, price_getter=VEDAOption.letter_getter,
+                        display_name=_('Power transformer'), display_choices={'None':_('None'), '10000-6000':'10000-6000', '10000-6600':'10000-6600', '6000-10000':'6000-10000', '6600-10000':'6600-10000'}
+                        ),
+                    VEDAOption('PMSM exciter', ('No', 'Yes'), ('DX', 'D1'), 29, 
+                        price_field=16, price_getter=VEDAOption.letter_getter,
+                        display_name=_('PMSM exciter'), display_choices={'No':_('No'), 'Yes':_('Yes')}
+                        ),
+                    VEDAOption('Input mains location', ('Top', 'Bottom'), ('2', '1'), 31, 
+                        price_field=17, price_getter=VEDAOption.mains_getter,
+                        display_name=_('Input mains location'), display_choices={'Top':_('Top'), 'Bottom':_('Bottom')}
+                        ),
+                    VEDAOption('Motor cable location', ('Top', 'Bottom'), ('2', '1'), 32, 
+                        price_field=17, price_getter=VEDAOption.motor_getter,
+                        display_name=_('Motor cable location'), display_choices={'Top':_('Top'), 'Bottom':_('Bottom')}
+                        ),
+                    VEDAOption('Output reactor', ('No', 'Yes'), ('EX', 'E1'), 33, 
+                        price_field=18, price_getter=VEDAOption.letter_getter,
+                        display_name=_('Output reactor'), display_choices={'No':_('No'), 'Yes':_('Yes')}
+                        ),
+                    VEDAOption('Service access', ('Front', 'Front and back'), ('S', 'D'), 35, 
+                        price_field=19, price_getter=VEDAOption.generic_getter,
+                        display_name=_('Service access'), display_choices={'Front':_('Front'), 'Front and back':_('Front and back')}
+                        ),                    
+                    VEDAOption('motor_voltage', (6000, 10000), ('', ''), 0,
+                        display_name=_('Motor voltage'),
+                        ),
                 ):
             self._opts[o.name] = o        
         
