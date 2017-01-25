@@ -124,6 +124,15 @@ class LoadQuestion(wizard.Question):
         return v if v is not None else 0.0
          
             
+class MotorCableLenField(wizard.ValueField):
+    def get_option(self):
+        if self.value is not None:        
+            return {'Output reactor': 'Yes' if float(self.value) > 800 else 'No'}
+        else:
+            return {}
+            
+        
+
 class PlacementQuestion(wizard.Question):
     def __init__(self, devs, views, **kwargs):
         wizard.Question.__init__(self, kwargs['view'])      
@@ -182,7 +191,7 @@ class PlacementQuestion(wizard.Question):
                                     devs, views, hint='mconfig/hints/service_access.html', **kwargs
                                     ),
                                     
-                        wizard.ValueField(_('Input motor cable len'), 'input_cable_len', rules.OptionIfGreater(self.get_cable_len, 800, 'Output reactor', ('No', 'Yes')), 
+                        MotorCableLenField(_('Input motor cable len'), 'input_cable_len', rules.OptionIfGreater(self.get_cable_len, 800, 'Output reactor', ('No', 'Yes')), 
                                     views, required=True, hint='mconfig/hints/cable_len.html', **kwargs),
                                     
                                     ]        

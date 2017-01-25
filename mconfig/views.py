@@ -242,6 +242,7 @@ def add_wizard_instance(request):
                 wizard.SearchChoiceField: HTMLSearchChoiceMixin, 
                 wizard.ChoiceField: HTMLChoiceMixin, 
                 wizard.ValueField: HTMLEditMixin,
+                questions.MotorCableLenField: HTMLEditMixin,
                 wizard.CompoundField: HTMLCompoundMixin,
                 wizard.OneOfManyField: HTMLOneOfManyMixin,
                 wizard.StreetAddressField:HTMLStreetAddressMixin,
