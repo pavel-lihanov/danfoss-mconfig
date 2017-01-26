@@ -97,7 +97,7 @@ class VEDADrive(Device):
         if options:
             self.options = VEDAOpts(**options)
         else:
-            self.options = VEDAOpts()
+            self.options = VEDAOpts(device=self)
             
     def order_code(self):
         assert(self.is_package)
@@ -199,7 +199,7 @@ class VEDAAttrs:
 class VEDAOption:
     def __init__(self, name, choices, codes, code_pos, display_name=None, display_choices=None, price_field=None, price_getter=None):
         self.name = name
-        self.choices = choices
+        self._choices = choices
         self.codes = codes
         self.code_pos = code_pos
         self.choices_to_codes = dict(zip(choices, codes))
@@ -208,6 +208,9 @@ class VEDAOption:
         self.price_getter = price_getter        
         self.display_name = display_name if display_name else name
         self.display_choices = display_choices if display_choices else {a:a for a in choices}        
+            
+    def choices(self, device):
+        return self._choices
            
     def matches_pricelist(self, option_value, row):        
         '''
@@ -245,9 +248,29 @@ class VEDAOption:
             return self.codes_to_choices['AX']
         else:
             return self.codes_to_choices['A'+str(value)[0]]
+            
+class CoolingOption(VEDAOption):
+    def choices(self, dev):
+        if dev.attributes['voltage'] == 6000:
+            if dev.attributes['nom_current'] >= 275:
+                return self._choices
+            else:
+                return (self._choices[0], )
+        elif dev.attributes['voltage'] == 10000:
+            if dev.attributes['nom_current'] >= 260:
+                return self._choices
+            else:
+                return (self._choices[0], )    
+
+class ServiceOption(VEDAOption):                
+    def choices(self, dev):
+        if dev.attributes['nom_current'] <= 243:
+                return self._choices
+        else:
+            return (self._choices[1], )    
 
 class VEDAOpts:
-    def __init__(self, **args):
+    def __init__(self, **args):        
         self._opts = collections.OrderedDict()
         for o in (
                     VEDAOption('motor_type', ('Induction', 'PM'), ('A', 'S'), 14, 
@@ -270,7 +293,7 @@ class VEDAOpts:
                         price_field=9, price_getter=VEDAOption.generic_getter,
                         display_name = _('Braking mode'), display_choices={'Coast':_('Coasting stop'), 'Dynamic':_('Dynamic braking'), 'Recuperation':_('Recuperation')}
                         ),
-                    VEDAOption('cooling', ('Air', 'Liquid'), ('A', 'L'), 20, 
+                    CoolingOption('cooling', ('Air', 'Liquid'), ('A', 'L'), 20, 
                         price_field=11, price_getter=VEDAOption.generic_getter,
                         display_name= _('Cooling'), display_choices={'Air':_('Air'), 'Liquid':_('Liquid')}
                         ),
@@ -308,7 +331,7 @@ class VEDAOpts:
                         price_field=18, price_getter=VEDAOption.letter_getter,
                         display_name=_('Output reactor'), display_choices={'No':_('No'), 'Yes':_('Yes')}
                         ),
-                    VEDAOption('Service access', ('Front', 'Front and back'), ('S', 'D'), 35, 
+                    ServiceOption('Service access', ('Front', 'Front and back'), ('S', 'D'), 35, 
                         price_field=19, price_getter=VEDAOption.generic_getter,
                         display_name=_('Service access'), display_choices={'Front':_('Front'), 'Front and back':_('Front and back')}
                         ),                    
@@ -320,7 +343,11 @@ class VEDAOpts:
         
         self.opts = collections.OrderedDict()
         for on, ov in self._opts.items():
-                self.opts[on] = ov.choices
+                if 'device' in args:
+                    device = args['device']
+                    self.opts[on] = ov.choices(device)
+                else:
+                    self.opts[on] = ()
                 
         self.opts.update(args)
 

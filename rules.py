@@ -15,7 +15,10 @@ class OptionRule:
         self.value = value
         
     def apply(self, device, transform, options):
+        #if self.value in device.options[self.name]:
         return self.value in device.options[self.name]
+        #else:
+        #    print('OptionRule.apply: False', self.value, device.attributes['nom_current'], device.options[self.name])
 
 class AttributeRule:
     def __init__(self, name, value):
@@ -158,7 +161,16 @@ class CanUseBypassRule:
         pass
         
     def apply(self, device, transform, options):
-        return 'motor_voltage' in options and device.attributes['voltage'] == options['motor_voltage']
+        #print('CanUseBypassRule.apply()')
+        if 'motor_voltage' in options:
+            #print(device.attributes['voltage'], options['motor_voltage'], type(device.attributes['voltage']), type(options['motor_voltage']))
+            #print(device.attributes['voltage'] == options['motor_voltage'])
+            #if device.attributes['voltage'] != options['motor_voltage']:
+            #    print('CanUseBypassRule.apply(): False', device.attributes['voltage'], '!=', options['motor_voltage'])
+            return device.attributes['voltage'] == options['motor_voltage']
+        else:
+            #print('CanUseBypassRule.apply(): False (no motor_voltage)')
+            return False
     
 class OptionIfGreater:
     def __init__(self, getter, value, option, values):
@@ -180,8 +192,8 @@ class RuleAndChain:
         
     def apply(self, device, transform, options):
         for rule in self.rules:
-            #print(rule)
             if not rule.apply(device, transform, options):
+                #print('RuleAndChain.apply()', rule, 'False')
                 return False
         return True
                 

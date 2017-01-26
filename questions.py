@@ -99,7 +99,7 @@ class LoadQuestion(wizard.Question):
                                             wizard.Choice(_('Multistart, 2 motors'), rules.OptionRule('power_option', 'Multistart'), options = {'power_option': 'Multistart', 'multi_motors':2}),
                                             wizard.Choice(_('Multistart, 3 motors'), rules.OptionRule('power_option', 'Multistart'), options = {'power_option': 'Multistart', 'multi_motors':3}),
                                             wizard.Choice(_('Multistart, 4 motors'), rules.OptionRule('power_option', 'Multistart'), options = {'power_option': 'Multistart', 'multi_motors':4}),                                            
-                                            wizard.Choice(_('Interchange, 2 motors'), rules.OptionRule('power_option', 'Interchange'), options = {'power_option': 'Interchange', 'multi_motors':2}),
+                                            #wizard.Choice(_('Interchange, 2 motors'), rules.OptionRule('power_option', 'Interchange'), options = {'power_option': 'Interchange', 'multi_motors':2}),
                                             #wizard.Choice(_('Interchange, 3 motor'), rules.OptionRule('power_option', 'Interchange'), options = {'power_option': 'Interchange', 'multi_motors':3}),
                                             #wizard.Choice(_('Interchange, 4 motor'), rules.OptionRule('power_option', 'Interchange'), options = {'power_option': 'Interchange', 'multi_motors':4}),
 
@@ -184,9 +184,9 @@ class PlacementQuestion(wizard.Question):
                                     ),
 
                         wizard.ChoiceField(_('Select service access'), 'select_service_access',
-                                        (   
+                                        (                                               
+                                            OptionChoice(_('Front and back'), 'Service access', 'Front and back'),
                                             OptionChoice(_('Front'), 'Service access', 'Front'),
-                                            OptionChoice(_('Front and back'), 'Service access', 'Front'),
                                         ), 
                                     devs, views, hint='mconfig/hints/service_access.html', **kwargs
                                     ),

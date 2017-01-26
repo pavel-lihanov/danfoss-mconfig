@@ -163,6 +163,9 @@ class ChoiceField(Field):
             #print('Update: choice', choice, 'was', choice.enabled)
             newdevs = self.filter(devs, choice.rule, opts)
             choice.enabled = len(newdevs) > 0
+            if not choice.enabled:
+                print('Disabled (no devs)', choice, choice.rule, opts)
+                
             #print('Update: choice', choice, choice.enabled)            
             #print(choice.options)
             for opt,val in opts.items():
@@ -172,12 +175,14 @@ class ChoiceField(Field):
                     elif isinstance(choice.options[opt], collections.Iterable) and val in choice.options[opt]:
                         pass
                     else:
+                        #print('Disabled', self, opt, opts)
                         choice.enabled = False            
                 
         valid_choices = [c for c in self.choices.values() if c.enabled]
                 
         if not valid_choices:
-            print('Field', self.name, 'no valid choices!')            
+            print('Field', self.name, 'no valid choices!')
+            print([c for c in self.choices.values()])
             raise ValidationError(self.name)        
         
         mean_choices = [c for c in valid_choices if c.mean]     
@@ -360,7 +365,11 @@ class StreetAddressField(Field):
         return ''
         
     def is_valid(self, devs):
-        return self.rule.apply(devs[0], rules.Transform(), {})
+        if devs:
+            return self.rule.apply(devs[0], rules.Transform(), {})
+        else:
+            self.rule.apply(None, rules.Transform(), {})
+            #raise ValueError('No devices in StreetAddressField.is_valid()')
         
     def get_option(self):       
         #todo: different option names for streetaddress!
@@ -470,12 +479,12 @@ class Result(Screen):
         self.view.question = self
         
     def select(self):
-        devs = self.wizard.apply_filters()
         opts = self.wizard.get_options() 
+        devs = self.wizard.apply_filters(options=opts)        
         print('Wizard options:', opts)
         devs = self.decider.select_devices(devs)        
         self.packages = [d.package(opts, self.decider) for d in devs]
-        print(self.packages)
+        #print(self.packages)
     
     def show(self):
         #print('Result.show()')
@@ -555,7 +564,7 @@ class Question(Screen):
         res = False
         for f in self.get_fields():
             valid = f.is_valid(devs)
-            print('Field', f, valid) 
+            #print('Field', f, valid) 
             res = res or valid
         return res
         
@@ -603,20 +612,28 @@ class Wizard:
                 return cur
         
     def next_question(self):
-        cur = self.current_screen.next
-        while cur is not None:
-            self.apply_filters(cur)
-            if not cur.is_valid(self.devs):
-                print('Question skipped(not valid)', cur)
-                cur = cur.next              
-            else:
-                #self.current_screen = cur
-                return cur
+        try:
+            cur = self.current_screen.next
+            opts = self.get_options(cur)
+            #print('Next:', cur, opts)
+            while cur is not None:
+                self.apply_filters(cur, options=opts)
+                if not cur.is_valid(self.devs):                    
+                    print('Question skipped(not valid)', cur)
+                    cur = cur.next      
+                    opts = self.get_options(cur)
+                else:
+                    #self.current_screen = cur
+                    #print('New cur is', cur)
+                    return cur
+        except:
+            print('Exception in wizard.next_question()')
+            raise
         
     def apply_filters_nosave(self, last = None, exclude=[], options={}):
         #print('apply_filters_nosave() to ', last)
         #print('excluding', exclude)        
-        applied = exclude[:]
+        applied = exclude[:]        
         #transform is per-device, not global!
         #note: better do not use transforms at all
         ds = [(d, rules.Transform()) for d in self.device_base]     
@@ -627,10 +644,20 @@ class Wizard:
                 rs = f.get_rules()
                 for r in rs:
                     if r not in applied:
-                        ds = [(d,t) for d,t in ds if r.apply(d, t, options)]
-                        applied.append(r)
+                        try:
+                            ds = [(d,t) for d,t in ds if r.apply(d, t, options)]
+                            applied.append(r)
+                            #print('After apply', r, len(ds))
+                            if len(ds)==0:
+                                #print('All filtered', cur, options)
+                                #import traceback
+                                #traceback.print_stack()
+                                pass
+                        except:
+                            print('Exception in apply()', r, d)
+                            raise
             cur = cur.next
-        #print('After filters:', devs)
+        #print('After filters:', len(ds))
         return [d for d,t in ds]
         
     def apply_filters(self, last = None, exclude=[], options={}):
