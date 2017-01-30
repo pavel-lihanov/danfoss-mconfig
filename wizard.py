@@ -161,6 +161,8 @@ class ChoiceField(Field):
             #ds = [(d, rules.Transform()) for d in devs]
             #newdevs = [d for d,t in ds if choice.rule.apply(d, t)]
             #print('Update: choice', choice, 'was', choice.enabled)
+            if not devs:
+                print('Will surely be disabled (no devs)', choice, choice.rule, opts)
             newdevs = self.filter(devs, choice.rule, opts)
             choice.enabled = len(newdevs) > 0
             if not choice.enabled:
@@ -603,11 +605,13 @@ class Wizard:
         
     def previous_question(self):        
         cur = self.current_screen.previous
+        opts = self.get_options(cur)
         while cur is not None:
-            self.apply_filters(cur)
+            self.apply_filters(cur, options=opts)
             #self.current_screen = cur
             if not cur.is_valid(self.devs):
                 cur = cur.previous
+                opts = self.get_options(cur)
             else:
                 return cur
         
