@@ -66,6 +66,9 @@ class Field:
             self.hint = kwargs['hint']
         else:
             self.hint = ''
+            
+        self.on_changing = []
+        self.on_changed = []
 
             
     def init_view(self, views: Sequence[Any], **kwargs):
@@ -203,7 +206,10 @@ class ChoiceField(Field):
         #option with empty text is considered unspecified
         if self.required and (self.selected is None or self.selected.text == ''):
             raise ValidationError(_('Field {0} is required').format(self.name))
-                
+             
+    def _force_select(self, choice):
+        self.selected = choice
+        
     def select(self, choice, devs, opts):
         #if not choice:
         #   choice = decider.select_option()
@@ -223,10 +229,13 @@ class ChoiceField(Field):
             self.selected = choice
             self.update(newdevs, opts)
             #print(choice, "selected in ", self)
+            for s in self.on_changed:
+                s(self)
             return newdevs
         else:
             print("Warning, ", choice, "not in choices of ", self)              
             raise ValueError('{0} is not a valid choice of {1}'.format(choice, self))
+                    
             
     def undo(self):
         self.selected = self.old
@@ -276,6 +285,9 @@ class ValueField(Field):
         self.min = 0
         self.max = 0
         
+    def _force_select(self, choice):
+        self.value = locale.atof(choice)
+        
     def select(self, choice, devs, opts):
         #print('ValueField.select() from', len(devs), 'devices')
         self.old = self.value
@@ -293,6 +305,8 @@ class ValueField(Field):
         #newdevs = [d for d in devs if self.rule.apply(d, transform)]
         newdevs = self.filter(devs, opts)
         if newdevs:
+            for s in self.on_changed:
+                s(self)        
             return newdevs
         else:
             self.value = self.old

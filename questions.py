@@ -26,10 +26,55 @@ class OptionChoice(wizard.Choice):
         wizard.Choice.__init__(self, text, rules.OptionRule(option, value), {option: value})        
             
 class LoadQuestion(wizard.Question):
+    class ApplicationField(wizard.SearchChoiceField):
+        def __init__(self, current_getter, devs, views, **kwargs):
+            self.custom_app = wizard.Choice(_('Custom'), rules.TrueRule())
+            self.apps = (   
+                            ('1.1', wizard.Choice(_('Centr. pump (k=1.1)'), rules.OverloadRule(1.1, current_getter))),
+                            ('1.5', wizard.Choice(_('Submer. pump (k=1.5)'), rules.OverloadRule(1.5, current_getter))),
+                            ('1.1', wizard.Choice(_('Fan (k=1.1)'), rules.OverloadRule(1.1, current_getter))),
+                            ('2.0', wizard.Choice(_('Piston pump (k=2)'), rules.OverloadRule(2.0, current_getter))),
+                            ('2.0', wizard.Choice(_('Grinder (k=2)'), rules.OverloadRule(2.0, current_getter))),
+                            ('1.6', wizard.Choice(_('Compressor (k=1.6)'), rules.OverloadRule(1.6, current_getter))),
+                            ('2.0', wizard.Choice(_('2-piston compressor (k=2)'), rules.OverloadRule(2.0, current_getter))),
+                            ('1.6', wizard.Choice(_('4-piston compressor (k=1.6)'), rules.OverloadRule(1.6, current_getter))),
+                            ('1.5', wizard.Choice(_('6-piston compressor (k=1.5)'), rules.OverloadRule(1.5, current_getter))),
+                            ('1.2', wizard.Choice(_('Processing machine, light load (k=1.2)'), rules.OverloadRule(1.2, current_getter))),
+                            ('1.5', wizard.Choice(_('Processing machine, medium load (k=1.5)'), rules.OverloadRule(1.5, current_getter))),
+                            ('2.0', wizard.Choice(_('Processing machine, heavy load (k=2)'), rules.OverloadRule(2.0, current_getter))),
+                            ('1.6', wizard.Choice(_('Conveyour, light load (k=1.6)'), rules.OverloadRule(1.6, current_getter))),
+                            ('2.0', wizard.Choice(_('Conveyour, heavy load (k=2)'), rules.OverloadRule(2.0, current_getter))),  
+                            ('0.0', self.custom_app),
+                    )
+            
+            wizard.SearchChoiceField.__init__(self, _('Select application'), 'select_application', 
+                    [a[1] for a in self.apps], devs, views, hint='mconfig/hints/overload.html', **kwargs)
+        
+        def set_custom_overload(self, sender):
+            self._force_select(self.custom_app)
+            
+        def get_selected_overload(self):
+            return [a[0] for a in self.apps if self.selected == a[1]][0]
+            
+    class OverloadField(wizard.ValueField):
+        def __init__(self, overload_getter, current_getter, views, **kwargs):
+            wizard.ValueField.__init__(self, _('Input overload factor'), 'input_overload',
+                                                    rules.VariableOverloadRule(overload_getter, current_getter), 
+                                                    views, required=True, hint='mconfig/hints/overload.html', **kwargs)
+                                                    
+        def set_overload(self, sender):
+            ov = sender.get_selected_overload()
+            self._force_select(ov)
+                    
     def __init__(self, devs, views, **kwargs):
         wizard.Question.__init__(self, kwargs['view'])      
         self.header = _("Choose basic application parameters")        
+        self.application_field = LoadQuestion.ApplicationField(self.get_nom_current ,devs, views, **kwargs)
+        self.overload_field = LoadQuestion.OverloadField(self.get_overload, self.get_nom_current, views, **kwargs)
         
+        self.application_field.on_changed.append(self.overload_field.set_overload)
+        self.overload_field.on_changed.append(self.application_field.set_custom_overload)
+        '''
         load_by_appl = wizard.CompoundField(_('Select by application'), 'select_by_app', [ wizard.SearchChoiceField(_('Select application'), 'select_application', 
                                                     (   wizard.Choice(_('Centr. pump (k=1.1)'), rules.OverloadRule(1.1, self.get_nom_current)),
                                                         wizard.Choice(_('Submer. pump (k=1.5)'), rules.OverloadRule(1.5, self.get_nom_current)),
@@ -53,9 +98,11 @@ class LoadQuestion(wizard.Question):
                                                     rules.VariableOverloadRule(self.get_overload, self.get_nom_current), 
                                                     views, required=True, hint='mconfig/hints/overload.html', **kwargs),
                                                 ], views, **kwargs)
-        
+        '''
         self.fields = [ 
-                        wizard.OneOfManyField('OneOfMany', 'select_overload_method',[load_by_appl, load_by_k], views, **kwargs),
+                        self.application_field,
+                        self.overload_field,
+                        #wizard.OneOfManyField('OneOfMany', 'select_overload_method',[load_by_appl, load_by_k], views, **kwargs),
                                                             
                         wizard.ChoiceField(_('Select motor type'), 'select_motor_type',
                                                         (   wizard.Choice(_('Induction'), rules.OptionRule('motor_type', 'Induction'), options = {'motor_type': 'Induction', 'PMSM exciter': 'No'}), 
@@ -115,13 +162,17 @@ class LoadQuestion(wizard.Question):
         #print(self.fields)
         if not self.fields:
             return 0.0
-        return self.fields[3].value if self.fields[3].value is not None else 0.0
+        return self.fields[4].value if self.fields[4].value is not None else 0.0
         
-    def get_overload(self):
+    def get_overload(self):        
         if not self.fields:
             return 0.0
+        v = self.fields[1].value
+        return v if v is not None else 0.0
+        '''
         v = self.fields[0].fields[1][0].fields[0].value
         return v if v is not None else 0.0
+        '''
          
             
 class MotorCableLenField(wizard.ValueField):
