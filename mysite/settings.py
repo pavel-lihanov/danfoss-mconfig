@@ -76,9 +76,17 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #'default': {
+    #    'ENGINE': 'django.db.backends.sqlite3',
+    #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #}
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'OPTIONS': {
+                'read_default_file': './my.cnf',
+            },
+        }
     }
 }
 
@@ -115,8 +123,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOCALE_PATHS = [
-    'C:/Users/u327397/Desktop/Projects/HV/configurator/mysite/locale',
+LOCALE_PATHS = [    
     './locale',
 ]
 
@@ -127,7 +134,7 @@ LOCALE_PATHS = [
 STATIC_URL = '/static/'
 
 #C:\Users\u327397\Desktop\Projects\HV\configurator
-STATIC_ROOT = 'C:/Users/u327397/Desktop/Projects/HV/configurator/static_store'
+STATIC_ROOT = './static_store'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),    
