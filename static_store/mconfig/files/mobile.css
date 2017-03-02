@@ -1,0 +1,4 @@
+@media screen and (max-width: 425px) { 
+#main_area {    padding: 16px 17px;}
+#question h1 {    font-size: 12pt;}
+}
