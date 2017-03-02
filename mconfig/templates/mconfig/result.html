@@ -52,40 +52,39 @@ $( document ).ready(function() {
 </script>
 
 <div id="question">
-<h1>Конфигуратор высоковольтного привода</h1>
-<div class="error-msg">
-	<div id="err_panel" class="w3-panel w3-orange w3-card-8" style="display:none;">
-		<span class="w3-closebtn" onclick="this.parentElement.style.display='none'">X</span>
-		<p id="err_text"><strong></strong></p>
-	</div>
-</div>
-
-
-<div id="main_area">
-	<div class="clear"></div>
-	<div class="results">
-		<h3>Результаты подбора</h3>
-		<div>
-			<p>
-				Тип ЧРЭП <strong  id="package_name">{{question.packages.0.name}}</strong><br>		
-				<strong id="order_code">{{question.packages.0.order_code}}</strong>			
-			</p>
-			<p>
-				Название: <small id="short_descr">{{question.packages.0.short_descr}}</small>
-			</p>
+	<h1>Конфигуратор высоковольтного привода</h1>
+	<div class="error-msg">
+		<div id="err_panel" class="w3-panel w3-orange w3-card-8" style="display:none;">
+			<span class="w3-closebtn" onclick="this.parentElement.style.display='none'">X</span>
+			<p id="err_text"><strong></strong></p>
 		</div>
-		<div class="btn-controls">
-			 <div class="calc-btn">
-			   <button id="savePdf" type="button" >Ком.Пред.</button>
-			   <button id="sendPdf" type="button" >Отправить на Email</button>
-			</div>			
-		</div>
-		{% for package in question.packages %}
-			{% include package.template with package=package unpriced=False only %}
-			<br>
-		{% endfor %}
 	</div>
-</div>
+
+	<div id="main_area">
+		<div class="clear"></div>
+		<div class="results">
+			<h3>Результаты подбора</h3>
+			<div>
+				<p>
+					Тип ЧРЭП <strong style="display:none;" id="package_name">{{question.packages.0.name}}</strong><br>
+					<strong id="order_code">{{question.packages.0.order_code}}</strong>			
+				</p>
+				<p>
+					Название: <small id="short_descr">{{question.packages.0.short_descr}}</small>
+				</p>
+			</div>
+			<div class="btn-controls">
+				 <div class="calc-btn">
+				   <button id="savePdf" type="button" >Ком.Пред.</button>
+				   <button id="sendPdf" type="button" >Отправить на Email</button>
+				</div>			
+			</div>
+			{% for package in question.packages %}
+				{% include package.template with package=package unpriced=False only %}
+				<br>
+			{% endfor %}
+		</div>
+	</div>
 </div>
 
 <div class="clear"></div>

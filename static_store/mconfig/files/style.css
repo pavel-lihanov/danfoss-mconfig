@@ -18,10 +18,10 @@ body {
 #question h1{border:1px #bebebe solid; padding:11px 13px;font-size: 15pt; text-transform: uppercase; font-weight: normal;}
 #question h3 {font-size:13pt; border-bottom:1px #e50000 solid; max-width:308px;padding-bottom:3px;}
 #main_area {background-color:#f9f9f8;padding:26px 57px;border:1px #bebebe solid}
-#main_area  input, #main_area  select {width:112px;height:30px; font-size:9pt;  border:1px #bebebe solid;border-radius:2px}
-#main_area  input {height:24px;   width: 110px;  }
+#main_area  input, #main_area  select {width:112px;height:28px; font-size:9pt;  border:1px #bebebe solid;border-radius:2px;padding:2px;}
+#main_area  input {height:24px;   width: 106px;  }
 #main_area  select.sel-apl {width:100%;    max-width: 308px;margin-top:7px;}
-.choice-field {display:flex;-ms-flex-align: center;
+.choice-field,.val-fileld {display:flex;-ms-flex-align: center;
 	-webkit-align-items: center;
 	-webkit-box-align: center;
 	align-items: center;
@@ -62,7 +62,6 @@ border-left:1px #e7e7e7 solid;border-bottom:1px #e7e7e7 solid;}
 .btn-controls button {    background-color: #e50000;margin-top:10px;
      border:0;border-bottom: 3px solid #d8d9db;    color: #fff;
     text-transform: uppercase; font-size:13pt;   padding: 5px 16px 5px 28px;outline:0;cursor:pointer;
-	
 	}
 .btn-controls button.prev {float:left;}
 .btn-controls button:before {   
@@ -78,8 +77,24 @@ border-left:1px #e7e7e7 solid;border-bottom:1px #e7e7e7 solid;}
 	.btn-controls button.disable {opacity:0.2;cursor:none;}
 .btn-controls button.next {float:right;position:relative;padding: 5px 28px 5px 26px ;}
 
-	.btn-controls button.next:hover{	
-    background-color: #b4bcc3; 
+	.btn-controls button:hover,.calc-btn button#savePdf:hover,.calc-btn button#sendPdf:hover{	
+    background-color: #CCD3D8; 
     color: #e50000;	
 	}
-	
+.results {max-width:308px;}
+#package_name span {font-weight: bold;}
+#main_area  .val-fileld label {max-width:60%;font-size:11pt; padding:5px;background:#eee;}
+#order_code {color:#777}
+.val-fileld {border-bottom:1px #ccc solid;margin:0;}
+.val-fileld span {display:block; max-width:40%;font-size:11pt;padding:5px;}
+.hidden {display:none;}
+#main_area .calc-btn {display:flex;}
+#main_area .calc-btn button { width:50%; 44px;padding: 3px 4px;    padding-left: 40px;outline: 0;border: 0;
+    display: inline-block;border-bottom: 3px #d8d9db solid;
+    text-transform: uppercase;
+    color: #fff; text-align:left;
+    font-size: 11pt;cursor: pointer;}
+#savePdf {background: #e50000 url(icn-pdf.png) no-repeat 4px center;margin-right:5px;}
+#sendPdf {
+    background: #e50000 url(icn-mail.png) no-repeat 4px center;
+   }	
