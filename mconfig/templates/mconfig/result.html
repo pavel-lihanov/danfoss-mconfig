@@ -3,7 +3,6 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
 <script
   src="https://code.jquery.com/jquery-1.12.4.min.js"
@@ -15,27 +14,11 @@
   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
   crossorigin="anonymous">
 </script>
-<style>
-.main_area {
-    padding: 10px;
-}
 
-.left_bar {
-    border: 1px solid #d8d9db;
-    padding: 12px;
-    text-align: center;
-    vertical-align: top;
-    width: 146px;
-}
+<link rel="stylesheet" type="text/css" href="/mconfig/static/mconfig/files/style.css" />
+<link rel="stylesheet" type="text/css" href="/mconfig/static/mconfig/files/mobile.css" />
 
-.question {
-    border: 1px solid #d8d9db;
-    padding: 4px;
-    text-align: center;
-    vertical-align: top;
-	margin: 4px;
-}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
@@ -68,29 +51,48 @@ $( document ).ready(function() {
 
 </script>
 
-<div id="err_panel" class="w3-panel w3-orange w3-card-8" {% if error_message %}style="display:block;"{%else%}style="display:none;"{%endif%}>
-	<span class="w3-closebtn" onclick="this.parentElement.style.display='none'">X</span>
-	<p id="err_text"><strong>{{ error_message }}</strong></p>
+<div id="question">
+<h1>Конфигуратор высоковольтного привода</h1>
+<div class="error-msg">
+	<div id="err_panel" class="w3-panel w3-orange w3-card-8" style="display:none;">
+		<span class="w3-closebtn" onclick="this.parentElement.style.display='none'">X</span>
+		<p id="err_text"><strong></strong></p>
+	</div>
 </div>
 
-<table class="mainContainer" style="border: 1px solid; padding: 10px;">
-	<tr>
-		<td class="main_area">					
-			<div id="main_area">
-				<form id="package" name="question_form" style="border: 1px solid; padding: 10px;">
-					{% for package in question.packages %}
-						{% include package.template with package=package unpriced=False only %}
-						<br>
-					{% endfor %}
-				</form>
-			</div>
-		</td>
-	</tr>
-</table>
 
-<form action="prev" method="post" style="display: inline; float: left; padding: 10px;">
+<div id="main_area">
+	<div class="clear"></div>
+	<div class="results">
+		<h3>Результаты подбора</h3>
+		<div>
+			<p>
+				Тип ЧРЭП <strong  id="package_name">{{question.packages.0.name}}</strong><br>		
+				<small id="order_code">{{question.packages.0.order_code}}</small>			
+			</p>
+			<p>
+				Название: <strong id="short_descr">{{question.packages.0.short_descr}}</strong>
+			</p>
+		</div>
+		<div class="btn-controls">
+			 <div class="calc-btn">
+			   <button id="savePdf" type="button" >Ком.Пред.</button>
+			   <button id="sendPdf" type="button" >Отправить на Email</button>
+			</div>			
+		</div>
+		{% for package in question.packages %}
+			{% include package.template with package=package unpriced=False only %}
+			<br>
+		{% endfor %}
+	</div>
+</div>
+</div>
+
+<div class="clear"></div>
+<div class="btn-controls">	
+<form action="prev" id="prev_form" method="post" style="display: inline; float: left; padding: 10px;">
 	{% csrf_token %}
-	<input type="submit" value="{% trans 'Prev' %}"/>
+	<button class="prev" type="button" id="prev_button" onclick="document.getElementById('prev_form').submit()">Назад</button>
 </form>
-
+</div>
 </body>

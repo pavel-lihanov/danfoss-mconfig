@@ -1,5 +1,15 @@
 import json
 
+class HTMLHeaderMixin:
+    def __init__(self, field, **kwargs):        
+        self.field = field
+        #print(self.field, type(self.field))
+        self.template = "mconfig/textheader.html"
+        
+    def as_json(self):
+        return {}
+
+
 class HTMLChoiceMixin:
     def __init__(self, field, **kwargs):        
         self.field = field

@@ -1,40 +1,39 @@
-<tr>
-<td style="text-align:right; padding: 10px; margin:10px;">
-{{ field.name }} {% if field.required %} <span style="color:red" >*</span> {% endif %}
-</td>
-<td style="padding: 10px; margin:10px;">
+<div class="">
+	<strong>{{ field.name }}</strong><br>
+	<input 	name="{{ field.name }}" 
+			id="{{ field.name }}"
+			class="sel-apl"
+			datalist="{{ field.name }}_list"
+			autocomplete="off"
+			{% if not field.enabled %} disabled="disabled" {% endif %} 
+			value="{{ field.selected.text }}"
+			{% if not enabled %} disabled {% endif %}
+			style="width:100%; max-width: 308px; margin-top:7px;}"			
+			onchange="
+				postField('{{field.internal_name}}')
+			"/>
 
-<input 	name="{{ field.name }}" 
-		id="{{ field.name }}"		
-		datalist="{{ field.name }}_list"
-		autocomplete="off"
-		{% if not field.enabled %} disabled="disabled" {% endif %} 
-		value="{{ field.selected.text }}"
-		class="w3-input"
-		{% if not enabled %} disabled {% endif %}		
-		style="width:100%;"
-		onchange="
-			postField('{{field.internal_name}}')
-		"/>	
-
-<datalist id="{{ field.name }}_list" style="display:none">
-	<!-- <select onchange="$('#{{ field.name }}').val(this.value)"> -->
+	{% if field.hint %}
+		<div class="help">
+			<i class="icon-help">?</i>
+			<div class="help-popup">
+				<i class="help-popup-ctrl" ></i>
+				{% include field.hint %}
+			</div>
+		</div>
+	{% endif %}
+			
+	<datalist id="{{ field.name }}_list" style="display:none">
 	{% for choice in field.choices.values %}
 		{% if choice.enabled %}
 			<option value="{{ choice.text }}">{{ choice.text }}</option>
 		{% endif %}
 	{% endfor %}
-	<!-- </select> -->
 </datalist>
 
-</td>
 
-<td style="padding: 10px; margin:10px;">
-	{% include field.hint %}
-</td>
-
-</tr>
-
+</div>
+ 
 <script>
 
 function {{field.internal_name}}_enable(enable) {	

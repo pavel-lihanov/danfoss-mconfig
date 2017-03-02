@@ -32,28 +32,14 @@ function updatePrice(data)
 }
 </script>
 
-<div id="package_name">
-<h1>{{ package.name}}</h1>
-</div>
-<div id="order_code">
-{{ package.order_code }}
-</div>
-<div id="short_descr">
-{{ package.order_code }}
-</div>
+<h3>Введенные данные</h3>
 
-<table style="border:1px solid black;border-collapse: collapse;">
-	{% for option in package.display_options.items %}
-		<tr>
-			<td style="border:1px solid black;border-collapse: collapse;">
-				{{ option.0 }}
-			</td>
-			<td id="{{option.0}}" style="border:1px solid black;border-collapse: collapse;">
-				<!-- {{ option.1 }} --> ---
-			</td>
-		</tr>
-	{% endfor %}
-</table>
+{% for option in package.display_options.items %}
+	<div class="val-fileld">
+		<label>{{ option.0 }}</label>
+		<span id="{{ option.0 }}">{{ option.1 }}</span>
+	</div>	
+{% endfor %}
 
 <div id="price">
 	<div id="price_details">	

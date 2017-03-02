@@ -192,7 +192,9 @@ class RuleAndChain:
         
     def apply(self, device, transform, options):
         for rule in self.rules:
-            if not rule.apply(device, transform, options):
+            res = rule.apply(device, transform, options)
+            #print('RuleAndChain: applied ', rule, ':', res)
+            if not res:
                 #print('RuleAndChain.apply()', rule, 'False')
                 return False
         return True

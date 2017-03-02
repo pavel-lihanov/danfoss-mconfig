@@ -76,7 +76,7 @@ class Field:
         creates view for field, expects dict of view factories
         '''
         if self.__class__ in views:
-            #print(self, 'has view', views[self.__class__])
+            print(self, 'has view', views[self.__class__])
             #views[self.__class__].__init__(self, **kwargs)
             #print(views[self.__class__])
             self.view = views[self.__class__](self, **kwargs)
@@ -89,6 +89,17 @@ class Field:
         should return list of active child fields + this field
         '''
         return [self]
+        
+class TextHeader(Field):
+    def __init__(self, name, views, **kwargs):
+        Field.__init__(self, name, '_hdr')
+        self.init_view(views, **kwargs)
+        
+    def get_fields(self):
+        return []
+        
+    def get_rules(self):
+        return []
         
 class Choice:
     '''

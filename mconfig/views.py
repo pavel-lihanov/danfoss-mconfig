@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect, HttpResponseServerError
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseForbidden, HttpResponseRedirect, HttpResponseServerError
 from django.template import loader
 
 from django.utils.translation import activate, check_for_language, get_language
@@ -23,7 +23,7 @@ from django.urls import reverse
 
 from mconfig.models import Order, Profile
 
-from field_views import HTMLChoiceMixin, HTMLEditMixin, HTMLCompoundMixin, HTMLOneOfManyMixin, HTMLSearchChoiceMixin, HTMLStreetAddressMixin
+from field_views import HTMLChoiceMixin, HTMLEditMixin, HTMLCompoundMixin, HTMLOneOfManyMixin, HTMLSearchChoiceMixin, HTMLStreetAddressMixin, HTMLHeaderMixin
 import price
 
 price.price_lists['VEDADrive'] = price.VEDAXLPriceList('prices.xlsm')
@@ -240,12 +240,15 @@ def add_wizard_instance(request):
     #html mixins just provide template names
     views = {
                 wizard.SearchChoiceField: HTMLSearchChoiceMixin, 
+                questions.LoadQuestion.ApplicationField: HTMLSearchChoiceMixin, 
+                questions.LoadQuestion.OverloadField: HTMLEditMixin, 
                 wizard.ChoiceField: HTMLChoiceMixin, 
                 wizard.ValueField: HTMLEditMixin,
                 questions.MotorCableLenField: HTMLEditMixin,
                 wizard.CompoundField: HTMLCompoundMixin,
                 wizard.OneOfManyField: HTMLOneOfManyMixin,
                 wizard.StreetAddressField:HTMLStreetAddressMixin,
+                wizard.TextHeader: HTMLHeaderMixin,
             }
             
     qs = [
@@ -258,6 +261,10 @@ def add_wizard_instance(request):
         
     wiz = HTMLWizard(devices.devices, qs)
     wiz.last_activity = datetime.datetime.now()
+    
+    key = hash(wiz)
+    session['key'] = key
+    wiz.key = key
     
     with lock:
         cur_id = last_id
@@ -453,7 +460,7 @@ def field(request, session):
     try:
         wiz, lock = sessions[int(session)]    
     except KeyError:
-        return HttpResponse('Session not found or expired (field): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
+        return HttpResponseNotFound('Session not found or expired (field): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
 
     context = {}
     wiz.last_activity = datetime.datetime.now()
@@ -482,6 +489,9 @@ def question_refresh(request, session, _context={}, error=''):
     except KeyError:
         return HttpResponse('Session not found or expired (refresh): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
 
+    if not validate_request(request, wiz):
+        return HttpResponseForbidden()
+
     context = dict(_context)
     wiz.last_activity = datetime.datetime.now()
     
@@ -507,6 +517,9 @@ def next_question(request, session):
     except KeyError:
         return HttpResponse('Session not found or expired (next): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
 
+    if not validate_request(request, wiz):
+        return HttpResponseForbidden()
+        
     context = {}
     wiz.last_activity = datetime.datetime.now()
 
@@ -527,6 +540,9 @@ def prev_question(request, session):
     except KeyError:
         return HttpResponse('Session not found or expired (prev): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
 
+    if not validate_request(request, wiz):
+        return HttpResponseForbidden()
+
     context = {}
     wiz.last_activity = datetime.datetime.now()
     wiz.go_back()
@@ -540,6 +556,8 @@ def update_question(request, session):
     except KeyError:
         return HttpResponse('Session not found or expired(update): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
     
+    if not validate_request(request, wiz):
+        return HttpResponseForbidden()
 
     context = {}
     wiz.last_activity = datetime.datetime.now()
@@ -569,14 +587,19 @@ def update_question(request, session):
     #return show_question(session, request, wiz, context)
     return question_refresh(request, session, context, '')
     
-def question(request, session):
+def validate_request(request, wiz):
+    return 'key' in request.session and request.session['key'] == wiz.key
+    
+def question(request, session):    
     start_time = datetime.datetime.now()
     try:
         wiz, lock = sessions[int(session)]    
     except KeyError:
         return HttpResponse('Session not found or expired (question): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
         
-
+    if not validate_request(request, wiz):
+        return HttpResponseForbidden()
+        
     context = {}
     wiz.last_activity = datetime.datetime.now()
     if request.method == 'GET':    

@@ -1,27 +1,24 @@
 {% load i18n %}
-<tr>
-	<td style="display:block;text-align:right;">
-		{{ field.name }} {% if field.required %} <span style="color:red" >*</span> {% endif %}	
-	</td>
-	<td>
-		<input class="w3-input"
-			type="text" 
-			name="{{ field.name }}" 
-			id="{{ field.name }}" 
-			{% if field.value != None %} value="{{ field.value }}" title="Input value here" {% endif %} 
-			{% if not enabled %} disabled {% endif %}
-			onchange="
-				{
-					postField('{{field.name}}')
-				}"
-		/>
-	</td>
-	<td style="padding: 10px; margin:10px;">
-		{% if field.hint %}
+ 
+<div class="choice-field">
+	<label>{{ field.name }}</label>
+	<input 
+		class="w3-input" 
+		type="text"  
+		name="{{ field.name }}" 
+		id="{{ field.name }}" 
+		onchange="{postField('{{field.name}}')}"/>
+		
+{% if field.hint %}
+	<div class="help">
+		<i class="icon-help">?</i>
+		<div class="help-popup">
+			<i class="help-popup-ctrl" ></i>
 			{% include field.hint %}
-		{% endif %}
-	</td>
-</tr>
+		</div>
+	</div>
+{% endif %}
+</div>
 
 <script>
 function {{field.internal_name}}_enable(enable) {

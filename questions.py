@@ -48,7 +48,7 @@ class LoadQuestion(wizard.Question):
                     )
             
             wizard.SearchChoiceField.__init__(self, _('Select application'), 'select_application', 
-                    [a[1] for a in self.apps], devs, views, hint='mconfig/hints/overload.html', **kwargs)
+                    [a[1] for a in self.apps], devs, views, hint='', **kwargs)
         
         def set_custom_overload(self, sender):
             self._force_select(self.custom_app)
@@ -74,6 +74,8 @@ class LoadQuestion(wizard.Question):
         
         self.application_field.on_changed.append(self.overload_field.set_overload)
         self.overload_field.on_changed.append(self.application_field.set_custom_overload)
+        self.overload_field.set_overload(self.application_field)
+        
         '''
         load_by_appl = wizard.CompoundField(_('Select by application'), 'select_by_app', [ wizard.SearchChoiceField(_('Select application'), 'select_application', 
                                                     (   wizard.Choice(_('Centr. pump (k=1.1)'), rules.OverloadRule(1.1, self.get_nom_current)),
@@ -102,28 +104,27 @@ class LoadQuestion(wizard.Question):
         self.fields = [ 
                         self.application_field,
                         self.overload_field,
-                        #wizard.OneOfManyField('OneOfMany', 'select_overload_method',[load_by_appl, load_by_k], views, **kwargs),
-                                                            
+                        wizard.TextHeader(_('Motor data'), views),                                                                                    
                         wizard.ChoiceField(_('Select motor type'), 'select_motor_type',
                                                         (   wizard.Choice(_('Induction'), rules.OptionRule('motor_type', 'Induction'), options = {'motor_type': 'Induction', 'PMSM exciter': 'No'}), 
                                                             wizard.Choice(_('PMSM'), rules.OptionRule('motor_type', 'PM'), options = {'motor_type': 'PM'}), 
                                                         ),                                                        
-                                                        devs, views, hint='mconfig/hints/motor_type.html', **kwargs),
+                                                        devs, views, hint='', **kwargs),
 
                         wizard.ChoiceField(_('Select SM exciter'), 'select_sm_exciter', (    
                                                                     wizard.Choice(_('None/External'), rules.OptionRule('PMSM exciter', 'No'), options = {'PMSM exciter': 'No'}), 
                                                                     wizard.Choice(_('Built-in'), rules.OptionRule('PMSM exciter', 'Yes'), options = {'PMSM exciter': 'Yes', 'motor_type': 'PM'}), 
                                                         ), 
-                                                        devs, views, hint='mconfig/hints/exciter.html', **kwargs),
+                                                        devs, views, hint='', **kwargs),
                                                         
-                        wizard.ValueField(_('Input nominal current'), 'input_nom_current', rules.CurrentRule(self.get_nom_current), views, required=True, hint='mconfig/hints/motor_current.html', **kwargs),
+                        wizard.ValueField(_('Input nominal current'), 'input_nom_current', rules.CurrentRule(self.get_nom_current), views, required=True, hint='', **kwargs),
                                                                        
                         wizard.ChoiceField(_('Select motor voltage'), 'select_motor_voltage',
                                         (   wizard.Choice('', rules.TrueRule(), mean=False),
                                             wizard.Choice(_('6kV'), rules.TrueRule(), options = {'motor_voltage': 6000}), #rules.AttributeRule('motor_voltage', 6000)),
                                             wizard.Choice(_('10kV'), rules.TrueRule(), options = {'motor_voltage': 10000}),#rules.AttributeRule('motor_voltage', 10000)),
                                         ), 
-                                                        devs, views, required=True, hint='mconfig/hints/motor_voltage.html',**kwargs
+                                                        devs, views, required=True, hint='',**kwargs
                                     ),
                                     
                         wizard.ChoiceField(_('Select control mode'), 'select_control_mode',
@@ -131,14 +132,14 @@ class LoadQuestion(wizard.Question):
                                             wizard.Choice(_('U/f control'), rules.OptionRule('control_mode', 'U/f'), options = {'control_mode': 'U/f'}), 
                                             wizard.Choice(_('Vector control'), rules.OptionRule('control_mode', 'Vector control'), options = {'fieldbus': 'Encoder','control_mode': 'Vector control'}),
                                         ),                                                         
-                                                       devs, views, required=True, hint='mconfig/hints/control_mode.html',**kwargs),
+                                                       devs, views, required=True, hint='',**kwargs),
 
                         wizard.ChoiceField(_('Select braking mode'), 'select_braking_mode',
                                         (   wizard.Choice(_('Coasting stop'), rules.OptionRule('brake_mode', 'Coast'), options = {'brake_mode': 'Coast'}),
                                             wizard.Choice(_('Dynamic braking'), rules.OptionRule('brake_mode', 'Dynamic'), options = {'brake_mode': 'Dynamic'}),
                                             wizard.Choice(_('Recuperation'), rules.OptionRule('brake_mode', 'Recuperation'), options = {'brake_mode': 'Recuperation', 'control_mode': 'Vector control', 'cooling': 'Liquid'}),                                            
                                         ), 
-                                    devs, views, hint='mconfig/hints/braking_mode.html',**kwargs
+                                    devs, views, hint='',**kwargs
                                     ),
                                     
                         wizard.ChoiceField(_('Select multimotor mode'), 'select_multimotor_mode',
@@ -151,7 +152,7 @@ class LoadQuestion(wizard.Question):
                                             #wizard.Choice(_('Interchange, 4 motor'), rules.OptionRule('power_option', 'Interchange'), options = {'power_option': 'Interchange', 'multi_motors':4}),
 
                                         ), 
-                                    devs, views, hint='mconfig/hints/multimotor.html',**kwargs
+                                    devs, views, hint='',**kwargs
                                     )                                                            
                                     
                                     ]
@@ -162,7 +163,7 @@ class LoadQuestion(wizard.Question):
         #print(self.fields)
         if not self.fields:
             return 0.0
-        return self.fields[4].value if self.fields[4].value is not None else 0.0
+        return self.fields[5].value if self.fields[5].value is not None else 0.0
         
     def get_overload(self):        
         if not self.fields:
