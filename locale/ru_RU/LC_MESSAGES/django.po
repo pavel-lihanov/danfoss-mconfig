@@ -1,8 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-02-21 12:09+0300\n"
-"PO-Revision-Date: 2017-02-21 13:15+0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-03 14:30+0300\n"
+"PO-Revision-Date: 2017-03-03 14:30+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -17,534 +18,639 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: mconfig/Lib\n"
 
-#: devices.py:158
+#: .\devices.py:158
 #, python-brace-format
 msgid "VEDADRIVE {0}kV, {1} kVA, {2}, {3} {4}"
 msgstr "VEDADRIVE {0}кВ, {1} кВА, {2}, {3} {4}"
 
-#: devices.py:158
+#: .\devices.py:158
 msgid "Air-cooled"
 msgstr "Воздушное"
 
-#: devices.py:278
+#: .\devices.py:278
 msgid "Motor type"
 msgstr "Тип двигателя"
 
-#: devices.py:278 questions.py:109
+#: .\devices.py:278 .\questions.py:80
 msgid "Induction"
 msgstr "Асинхронный"
 
-#: devices.py:278 questions.py:110
+#: .\devices.py:278 .\questions.py:81
 msgid "PMSM"
 msgstr "Синхронный"
 
-#: devices.py:282
+#: .\devices.py:282
 msgid "Supply frequency"
 msgstr "Частота питающей сети"
 
-#: devices.py:286
+#: .\devices.py:286
 msgid "Enclosure"
 msgstr "Корпус"
 
-#: devices.py:290
+#: .\devices.py:290
 msgid "Motor contol mode"
 msgstr "Режим управления двигателем"
 
-#: devices.py:290 questions.py:132
+#: .\devices.py:290 .\questions.py:114
 msgid "U/f control"
 msgstr "Скалярное"
 
-#: devices.py:290 questions.py:133
+#: .\devices.py:290 .\questions.py:115
 msgid "Vector control"
 msgstr "Векторное"
 
-#: devices.py:294
+#: .\devices.py:294
 msgid "Braking mode"
 msgstr "Режим торможения"
 
-#: devices.py:294 questions.py:138
+#: .\devices.py:294 .\questions.py:120
 msgid "Coasting stop"
 msgstr "Выбегом"
 
-#: devices.py:294 questions.py:139
+#: .\devices.py:294 .\questions.py:121
 msgid "Dynamic braking"
 msgstr "Динамическое"
 
-#: devices.py:294 questions.py:140
+#: .\devices.py:294 .\questions.py:122
 msgid "Recuperation"
 msgstr "Рекуперация"
 
-#: devices.py:298
+#: .\devices.py:298
 msgid "Cooling"
 msgstr "Охлаждение"
 
-#: devices.py:298 questions.py:303
+#: .\devices.py:298 .\questions.py:322
 msgid "Air"
 msgstr "Воздушное"
 
-#: devices.py:298
+#: .\devices.py:298
 msgid "Liquid"
 msgstr "Жидкостное"
 
-#: devices.py:302
+#: .\devices.py:302
 msgid "Power cell autobypass"
 msgstr "Автобайпас силовой ячейки"
 
-#: devices.py:302 devices.py:320 devices.py:332
+#: .\devices.py:302 .\devices.py:320 .\devices.py:332
 msgid "No"
 msgstr "Нет"
 
-#: devices.py:302 devices.py:320 devices.py:332
+#: .\devices.py:302 .\devices.py:320 .\devices.py:332
 msgid "Yes"
 msgstr "Да"
 
-#: devices.py:305
+#: .\devices.py:305
 msgid "Power option"
 msgstr "Силовая опция"
 
-#: devices.py:305 devices.py:312 devices.py:316 questions.py:270
-#: questions.py:288
+#: .\devices.py:305 .\devices.py:312 .\devices.py:316 .\questions.py:244
+#: .\questions.py:262 .\questions.py:289 .\questions.py:307
 msgid "None"
 msgstr "Нет"
 
-#: devices.py:305
+#: .\devices.py:305
 msgid "Manual bypass"
 msgstr "Ручной байпас"
 
-#: devices.py:305 questions.py:289
+#: .\devices.py:305 .\questions.py:263 .\questions.py:308
 msgid "Autobypass"
 msgstr "Автобайпас"
 
-#: devices.py:305
+#: .\devices.py:305
 msgid "Multistart"
 msgstr "Мультистарт"
 
-#: devices.py:305
+#: .\devices.py:305
 msgid "Interchange"
 msgstr "Чередование двигателей"
 
-#: devices.py:309
+#: .\devices.py:309
 msgid "Number of motors"
 msgstr "Количество двигателей"
 
-#: devices.py:312
+#: .\devices.py:312
 msgid "Option B"
 msgstr "Опция B"
 
-#: devices.py:312 questions.py:261
+#: .\devices.py:312
 msgid "Encoder board"
 msgstr "Плата энкодера"
 
-#: devices.py:312 questions.py:262
+#: .\devices.py:312 .\questions.py:236 .\questions.py:281
 msgid "EtherNet IP"
 msgstr "EtherNet IP"
 
-#: devices.py:312 questions.py:263
+#: .\devices.py:312 .\questions.py:237 .\questions.py:282
 msgid "ProfiBus DP"
 msgstr "ProfiBus DP"
 
-#: devices.py:312 questions.py:264
+#: .\devices.py:312 .\questions.py:238 .\questions.py:283
 msgid "Modbus TCP/IP"
 msgstr "Modbus TCP/IP"
 
-#: devices.py:316
+#: .\devices.py:316
 msgid "Power transformer"
 msgstr "Трансформатор"
 
-#: devices.py:320
+#: .\devices.py:320
 msgid "PMSM exciter"
 msgstr "Возбудитель синхронного двигателя"
 
-#: devices.py:324
+#: .\devices.py:324
 msgid "Input mains location"
 msgstr "Ввод питающего кабеля"
 
-#: devices.py:324 devices.py:328 questions.py:225 questions.py:233
+#: .\devices.py:324 .\devices.py:328 .\questions.py:207 .\questions.py:215
 msgid "Top"
 msgstr "Сверху"
 
-#: devices.py:324 devices.py:328 questions.py:224 questions.py:232
+#: .\devices.py:324 .\devices.py:328 .\questions.py:206 .\questions.py:214
 msgid "Bottom"
 msgstr "Снизу"
 
-#: devices.py:328
+#: .\devices.py:328
 msgid "Motor cable location"
 msgstr "Вывод кабеля двигателя"
 
-#: devices.py:332
+#: .\devices.py:332
 msgid "Output reactor"
 msgstr "Выходной реактор"
 
-#: devices.py:336
+#: .\devices.py:336
 msgid "Service access"
 msgstr "Зона обслуживания"
 
-#: devices.py:336 questions.py:241
+#: .\devices.py:336 .\questions.py:223
 msgid "Front"
 msgstr "Одностороннее"
 
-#: devices.py:336 questions.py:240
+#: .\devices.py:336 .\questions.py:222
 msgid "Front and back"
 msgstr "Двустороннее"
 
-#: devices.py:339
+#: .\devices.py:339
 msgid "Motor voltage"
 msgstr "Напряжение"
 
-#: mconfig/views.py:117
+#: .\mconfig\templates\mconfig\logged_out.html:4
+#: .\mconfig\templates\mconfig\password_change_done.html:6
+#: .\mconfig\templates\mconfig\password_change_form.html:7
+#: .\mconfig\templates\mconfig\password_reset_complete.html:6
+#: .\mconfig\templates\mconfig\password_reset_confirm.html:6
+#: .\mconfig\templates\mconfig\password_reset_done.html:6
+#: .\mconfig\templates\mconfig\password_reset_form.html:6
+msgid "Home"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\logged_out.html:8
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr ""
+
+#: .\mconfig\templates\mconfig\logged_out.html:10
+msgid "Log in again"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_change_done.html:3
+#: .\mconfig\templates\mconfig\password_change_form.html:4
+msgid "Documentation"
+msgstr "Документация"
+
+#: .\mconfig\templates\mconfig\password_change_done.html:3
+#: .\mconfig\templates\mconfig\password_change_form.html:4
+msgid "Change password"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_change_done.html:3
+#: .\mconfig\templates\mconfig\password_change_form.html:4
+msgid "Log out"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_change_done.html:7
+#: .\mconfig\templates\mconfig\password_change_form.html:8
+msgid "Password change"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_change_done.html:14
+msgid "Your password was changed."
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_change_form.html:21
+msgid "Please correct the error below."
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_change_form.html:21
+msgid "Please correct the errors below."
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_change_form.html:26
+msgid ""
+"Please enter your old password, for security's sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_change_form.html:54
+#: .\mconfig\templates\mconfig\password_reset_confirm.html:24
+msgid "Change my password"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_complete.html:7
+#: .\mconfig\templates\mconfig\password_reset_done.html:7
+#: .\mconfig\templates\mconfig\password_reset_form.html:7
+msgid "Password reset"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_complete.html:16
+msgid "Your password has been set.  You may go ahead and log in now."
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_complete.html:18
+msgid "Log in"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_confirm.html:7
+msgid "Password reset confirmation"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_confirm.html:17
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_confirm.html:21
+msgid "New password:"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_confirm.html:23
+msgid "Confirm password:"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_confirm.html:29
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_done.html:15
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_done.html:17
+msgid ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_email.html:2
+#, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_email.html:8
+msgid "Your username, in case you've forgotten:"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_form.html:15
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll email "
+"instructions for setting a new one."
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_form.html:19
+msgid "Email address:"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\password_reset_form.html:19
+msgid "Reset my password"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\question.html:5
+msgid "Drive configurator"
+msgstr ""
+
+#: .\mconfig\templates\mconfig\question.html:167
+#: .\mconfig\templates\mconfig\result_unpriced.html:49
+msgid "Prev"
+msgstr "Назад"
+
+#: .\mconfig\templates\mconfig\question.html:173
+msgid "Next"
+msgstr "Далее"
+
+#: .\mconfig\templates\mconfig\register.html:5
+msgid "Drive configurator user register request"
+msgstr ""
+
+#: .\mconfig\views.py:117
 msgid "Hello"
 msgstr "Превед"
 
-#: mconfig/views.py:572
+#: .\mconfig\views.py:572
 #, python-brace-format
 msgid "No device matches value {0} for field {1}"
 msgstr "Нет устройств соотвествующих значению {0} в поле \"{1}\""
 
-#: mconfig/views.py:576
+#: .\mconfig\views.py:576
 #, python-brace-format
 msgid "Invalid value {0} for field {1}"
 msgstr "Неверное значение {0} в поле \"{1}\""
 
-#: questions.py:31
+#: .\questions.py:31
 msgid "Custom"
 msgstr "Пользовательское"
 
-#: questions.py:33
+#: .\questions.py:33
 msgid "Centr. pump (k=1.1)"
 msgstr "Насос центробежный (k=1.1)"
 
-#: questions.py:34
+#: .\questions.py:34
 msgid "Submer. pump (k=1.5)"
 msgstr "Насос погружной (k=1.5)"
 
-#: questions.py:35
+#: .\questions.py:35
 msgid "Fan (k=1.1)"
 msgstr "Вентилятор (k=1.1)"
 
-#: questions.py:36
+#: .\questions.py:36
 msgid "Piston pump (k=2)"
 msgstr "Поршневая помпа (k=2)"
 
-#: questions.py:37
+#: .\questions.py:37
 msgid "Grinder (k=2)"
 msgstr "Дробилка (k=2)"
 
-#: questions.py:38
+#: .\questions.py:38
 msgid "Compressor (k=1.6)"
 msgstr "Компрессор винтовой (k=1.6)"
 
-#: questions.py:39
+#: .\questions.py:39
 msgid "2-piston compressor (k=2)"
 msgstr "Компрессор 2-поршневый  (k=2)"
 
-#: questions.py:40
+#: .\questions.py:40
 msgid "4-piston compressor (k=1.6)"
 msgstr "Компрессор 4-поршневый (k=1.6)"
 
-#: questions.py:41
+#: .\questions.py:41
 msgid "6-piston compressor (k=1.5)"
 msgstr "Компрессор 6-поршневый (k=1.5)"
 
-#: questions.py:42
+#: .\questions.py:42
 msgid "Processing machine, light load (k=1.2)"
 msgstr "Станок, низкий пусковой момент (k=1.2)"
 
-#: questions.py:43
+#: .\questions.py:43
 msgid "Processing machine, medium load (k=1.5)"
 msgstr "Станок, средний пусковой момент (k=1.5)"
 
-#: questions.py:44
+#: .\questions.py:44
 msgid "Processing machine, heavy load (k=2)"
 msgstr "Станок, высокий пусковой момент (k=2)"
 
-#: questions.py:45
+#: .\questions.py:45
 msgid "Conveyour, light load (k=1.6)"
 msgstr "Конвейер, низкий пусковой момент (k=1.6)"
 
-#: questions.py:46
+#: .\questions.py:46
 msgid "Conveyour, heavy load (k=2)"
 msgstr "Конвейер, высокий пусковой момент (k=2)"
 
-#: questions.py:50
+#: .\questions.py:50
 msgid "Select application"
 msgstr "Применение"
 
-#: questions.py:61
+#: .\questions.py:61
 msgid "Input overload factor"
 msgstr "Коэффициент перегрузки"
 
-#: questions.py:71
+#: .\questions.py:71
 msgid "Choose basic application parameters"
 msgstr "Задайте параметры применения"
 
-#: questions.py:107
-msgid "Motor data"
-msgstr "Данные двигателя"
-
-#: questions.py:108
+#: .\questions.py:79
 msgid "Select motor type"
 msgstr "Тип двигателя"
 
-#: questions.py:114
-msgid "Select SM exciter"
-msgstr "Возбудитель синхронного двигателя"
-
-#: questions.py:115
-msgid "None/External"
-msgstr "Нет/внешний"
-
-#: questions.py:116
-msgid "Built-in"
-msgstr "Встроенный"
-
-#: questions.py:120
-msgid "Input nominal current"
-msgstr "Номинальный ток (А)"
-
-#: questions.py:122
+#: .\questions.py:85
 msgid "Select motor voltage"
 msgstr "Номинальное напряжение"
 
-#: questions.py:124
+#: .\questions.py:87
 msgid "6kV"
 msgstr "6 кВ"
 
-#: questions.py:125
+#: .\questions.py:88
 msgid "10kV"
 msgstr "10 кВ"
 
-#: questions.py:130
+#: .\questions.py:93
+msgid "Select SM exciter"
+msgstr "Возбудитель синхронного двигателя"
+
+#: .\questions.py:94
+msgid "None/External"
+msgstr "Нет/внешний"
+
+#: .\questions.py:95
+msgid "Built-in"
+msgstr "Встроенный"
+
+#: .\questions.py:99
+msgid "Input nominal current"
+msgstr "Номинальный ток (А)"
+
+#: .\questions.py:105
+msgid "Motor data"
+msgstr "Данные двигателя"
+
+#: .\questions.py:111
+msgid "Control data"
+msgstr "Способ управления"
+
+#: .\questions.py:112
 msgid "Select control mode"
 msgstr "Метод управления"
 
-#: questions.py:137
+#: .\questions.py:119
 msgid "Select braking mode"
 msgstr "Торможение"
 
-#: questions.py:145
+#: .\questions.py:127
 msgid "Select multimotor mode"
 msgstr "Управление несколькими двигателями"
 
-#: questions.py:146
+#: .\questions.py:128
 msgid "No multimotor"
 msgstr "Нет"
 
-#: questions.py:147
+#: .\questions.py:129
 msgid "Multistart, 2 motors"
 msgstr "Мультистарт, 2 двигателя"
 
-#: questions.py:148
+#: .\questions.py:130
 msgid "Multistart, 3 motors"
 msgstr "Мультистарт, 3 двигателя"
 
-#: questions.py:149
+#: .\questions.py:131
 msgid "Multistart, 4 motors"
 msgstr "Мультистарт, 4 двигателя"
 
-#: questions.py:191 questions.py:257
+#: .\questions.py:173 .\questions.py:276
 msgid "Choose installation parameters"
 msgstr "Параметры установки"
 
-#: questions.py:193
+#: .\questions.py:175
 msgid "Select drive voltage"
 msgstr "Напряжение питания ЧРП"
 
-#: questions.py:195
+#: .\questions.py:177
 msgid "6kV  50Hz"
 msgstr "6кВ  50Гц"
 
-#: questions.py:196
+#: .\questions.py:178
 msgid "6kV  60Hz"
 msgstr "6кВ  60Гц"
 
-#: questions.py:197
+#: .\questions.py:179
 msgid "10kV 50Hz"
 msgstr "10кВ 50Гц"
 
-#: questions.py:198
+#: .\questions.py:180
 msgid "10kV 60Hz"
 msgstr "10кВ 60Гц"
 
-#: questions.py:205
+#: .\questions.py:187
 msgid "Select enclosure"
 msgstr "Степень защиты корпуса"
 
-#: questions.py:206
+#: .\questions.py:188
 msgid "IP30"
 msgstr "IP30"
 
-#: questions.py:207
+#: .\questions.py:189
 msgid "IP31"
 msgstr "IP31"
 
-#: questions.py:208
+#: .\questions.py:190
 msgid "IP41"
 msgstr "IP41"
 
-#: questions.py:209
+#: .\questions.py:191
 msgid "IP42"
 msgstr "IP42"
 
-#: questions.py:210
+#: .\questions.py:192
 msgid "IP54"
 msgstr "IP54"
 
-#: questions.py:214
+#: .\questions.py:196
 msgid "Select drive cooling"
 msgstr "Тип охлаждения"
 
-#: questions.py:216
+#: .\questions.py:198
 msgid "Air cooling"
 msgstr "Воздушное"
 
-#: questions.py:217
+#: .\questions.py:199
 msgid "Liquid cooling"
 msgstr "Жидкостное"
 
-#: questions.py:222
+#: .\questions.py:204
 msgid "Select power mains location"
 msgstr "Ввод питающего кабеля "
 
-#: questions.py:230
+#: .\questions.py:212
 msgid "Select motor mains location"
 msgstr "Вывод кабеля двигателя"
 
-#: questions.py:238
+#: .\questions.py:220
 msgid "Select service access"
 msgstr "Зона обслуживания"
 
-#: questions.py:246
+#: .\questions.py:228
 msgid "Input motor cable len"
 msgstr "Длина моторного кабеля (м)"
 
-#: questions.py:259
-msgid "Select encoder/fieldbus option"
-msgstr "Интерфейсная плата"
+#: .\questions.py:231
+msgid "Options"
+msgstr "Опции"
 
-#: questions.py:268
+#: .\questions.py:233 .\questions.py:278
+msgid "Select fieldbus option"
+msgstr "Выберите плату расширения интерфейса"
+
+#: .\questions.py:242 .\questions.py:287
 msgid "Select drive bypass"
 msgstr "Байпас ЧРП"
 
-#: questions.py:271
+#: .\questions.py:245 .\questions.py:290
 msgid "Manual"
 msgstr "Ручной"
 
-#: questions.py:276
+#: .\questions.py:250 .\questions.py:295
 msgid "Auto"
 msgstr "Авто"
 
-#: questions.py:281 questions.py:301
+#: .\questions.py:255 .\questions.py:300 .\questions.py:320
 msgid "N/A"
 msgstr "N/A"
 
-#: questions.py:286
+#: .\questions.py:260 .\questions.py:305
 msgid "Select power cell bypass"
 msgstr "Байпас силовой ячейки"
 
-#: questions.py:298
+#: .\questions.py:317
 msgid "Choose delivery"
 msgstr "Выберите параметры доставки"
 
-#: questions.py:300
+#: .\questions.py:319
 msgid "Select delivery method"
 msgstr "Выберите способ доставки"
 
-#: questions.py:302
+#: .\questions.py:321
 msgid "Sea"
 msgstr "Морская перевозка"
 
-#: questions.py:304
+#: .\questions.py:323
 msgid "Truck"
 msgstr "Автотранспорт"
 
-#: questions.py:305
+#: .\questions.py:324
 msgid "Rail"
 msgstr "Ж/д"
 
-#: questions.py:308
+#: .\questions.py:327
 msgid "Enter delivery address"
 msgstr "Введите адрес доставки"
 
-#: wizard.py:219 wizard.py:356 wizard.py:410
+#: .\wizard.py:219 .\wizard.py:356 .\wizard.py:410
 #, python-brace-format
 msgid "Field {0} is required"
 msgstr "Заполните поле \"{0}\""
 
-#: wizard.py:747 wizard.py:748
+#: .\wizard.py:747 .\wizard.py:748
 msgid "No device matches current selection"
 msgstr "Нет устройств, соответствующих всем критериям"
 
-#: mconfig/tcl/tk8.6/console.tcl:718
-msgid "Hide Fonts"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/console.tcl:720
-msgid "Show Fonts"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:17
-msgid "Regular"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:18
-msgid "Italic"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:19
-msgid "Bold"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:20
-msgid "Bold Italic"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:27
-msgid "AaBbYyZz01"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:29 mconfig/tcl/tk8.6/fontchooser.tcl:119
-msgid "Font"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:146
-msgid "&Font:"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:147
-msgid "Font st&yle:"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:148
-msgid "&Size:"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:167
-msgid "Effects"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:170
-msgid "Stri&keout"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:174
-msgid "&Underline"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:178
-msgid "OK"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:180
-msgid "Cancel"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:182
-msgid "&Apply"
-msgstr ""
-
-#: mconfig/tcl/tk8.6/fontchooser.tcl:219
-msgid "Sample"
-msgstr ""
+#~ msgid "Select encoder/fieldbus option"
+#~ msgstr "Интерфейсная плата"
 
 #~ msgid "Select by application"
 #~ msgstr "Выбрать применение"

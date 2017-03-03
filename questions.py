@@ -76,61 +76,43 @@ class LoadQuestion(wizard.Question):
         self.overload_field.on_changed.append(self.application_field.set_custom_overload)
         self.overload_field.set_overload(self.application_field)
         
-        '''
-        load_by_appl = wizard.CompoundField(_('Select by application'), 'select_by_app', [ wizard.SearchChoiceField(_('Select application'), 'select_application', 
-                                                    (   wizard.Choice(_('Centr. pump (k=1.1)'), rules.OverloadRule(1.1, self.get_nom_current)),
-                                                        wizard.Choice(_('Submer. pump (k=1.5)'), rules.OverloadRule(1.5, self.get_nom_current)),
-                                                        wizard.Choice(_('Fan (k=1.1)'), rules.OverloadRule(1.1, self.get_nom_current)),
-                                                        wizard.Choice(_('Piston pump (k=2)'), rules.OverloadRule(2.0, self.get_nom_current)),
-                                                        wizard.Choice(_('Grinder (k=2)'), rules.OverloadRule(2.0, self.get_nom_current)),
-                                                        wizard.Choice(_('Compressor (k=1.6)'), rules.OverloadRule(1.6, self.get_nom_current)),
-                                                        wizard.Choice(_('2-piston compressor (k=2)'), rules.OverloadRule(2.0, self.get_nom_current)),
-                                                        wizard.Choice(_('4-piston compressor (k=1.6)'), rules.OverloadRule(1.6, self.get_nom_current)),
-                                                        wizard.Choice(_('6-piston compressor (k=1.5)'), rules.OverloadRule(1.5, self.get_nom_current)),
-                                                        wizard.Choice(_('Processing machine, light load (k=1.2)'), rules.OverloadRule(1.2, self.get_nom_current)),
-                                                        wizard.Choice(_('Processing machine, medium load (k=1.5)'), rules.OverloadRule(1.5, self.get_nom_current)),
-                                                        wizard.Choice(_('Processing machine, heavy load (k=2)'), rules.OverloadRule(2.0, self.get_nom_current)),
-                                                        wizard.Choice(_('Conveyour, light load (k=1.6)'), rules.OverloadRule(1.6, self.get_nom_current)),
-                                                        wizard.Choice(_('Conveyour, heavy load (k=2)'), rules.OverloadRule(2.0, self.get_nom_current)),                                            
-                                        ), 
-                                    devs, views, hint='mconfig/hints/overload.html', **kwargs
-                                    ),] , views, **kwargs)
-                                    
-        load_by_k = wizard.CompoundField(_('Select by overload factor'), 'select_by_overload', [ wizard.ValueField(_('Input overload factor'), 'input_overload',
-                                                    rules.VariableOverloadRule(self.get_overload, self.get_nom_current), 
-                                                    views, required=True, hint='mconfig/hints/overload.html', **kwargs),
-                                                ], views, **kwargs)
-        '''
-        self.fields = [ 
-                        self.application_field,
-                        self.overload_field,
-                        wizard.TextHeader(_('Motor data'), views),                                                                                    
-                        wizard.ChoiceField(_('Select motor type'), 'select_motor_type',
+        self.motor_type_field = wizard.ChoiceField(_('Select motor type'), 'select_motor_type',
                                                         (   wizard.Choice(_('Induction'), rules.OptionRule('motor_type', 'Induction'), options = {'motor_type': 'Induction', 'PMSM exciter': 'No'}), 
                                                             wizard.Choice(_('PMSM'), rules.OptionRule('motor_type', 'PM'), options = {'motor_type': 'PM'}), 
                                                         ),                                                        
-                                                        devs, views, hint='', **kwargs),
+                                                        devs, views, hint='', **kwargs)        
 
-                        wizard.ChoiceField(_('Select SM exciter'), 'select_sm_exciter', (    
-                                                                    wizard.Choice(_('None/External'), rules.OptionRule('PMSM exciter', 'No'), options = {'PMSM exciter': 'No'}), 
-                                                                    wizard.Choice(_('Built-in'), rules.OptionRule('PMSM exciter', 'Yes'), options = {'PMSM exciter': 'Yes', 'motor_type': 'PM'}), 
-                                                        ), 
-                                                        devs, views, hint='', **kwargs),
-                                                        
-                        wizard.ValueField(_('Input nominal current'), 'input_nom_current', rules.CurrentRule(self.get_nom_current), views, required=True, hint='', **kwargs),
-                                                                       
-                        wizard.ChoiceField(_('Select motor voltage'), 'select_motor_voltage',
+        self.motor_voltage_field = wizard.ChoiceField(_('Select motor voltage'), 'select_motor_voltage',
                                         (   wizard.Choice('', rules.TrueRule(), mean=False),
                                             wizard.Choice(_('6kV'), rules.TrueRule(), options = {'motor_voltage': 6000}), #rules.AttributeRule('motor_voltage', 6000)),
                                             wizard.Choice(_('10kV'), rules.TrueRule(), options = {'motor_voltage': 10000}),#rules.AttributeRule('motor_voltage', 10000)),
                                         ), 
                                                         devs, views, required=True, hint='',**kwargs
-                                    ),
+                                    )
                                     
+        self.exciter_field = wizard.ChoiceField(_('Select SM exciter'), 'select_sm_exciter', (    
+                                                                    wizard.Choice(_('None/External'), rules.OptionRule('PMSM exciter', 'No'), options = {'PMSM exciter': 'No'}), 
+                                                                    wizard.Choice(_('Built-in'), rules.OptionRule('PMSM exciter', 'Yes'), options = {'PMSM exciter': 'Yes', 'motor_type': 'PM'}), 
+                                                        ), 
+                                                        devs, views, hint='', **kwargs)
+                                                        
+        self.nominal_current_field = wizard.ValueField(_('Input nominal current'), 'input_nom_current', rules.CurrentRule(self.get_nom_current), views, required=True, hint='', **kwargs)
+        
+        self.fields = [ 
+                        self.application_field,
+                        self.overload_field,
+                        
+                        wizard.TextHeader(_('Motor data'), views),                        
+                        self.motor_type_field,                                                        
+                        self.nominal_current_field,                                                                       
+                        self.motor_voltage_field,
+                        self.exciter_field,                                                                       
+                        
+                        wizard.TextHeader(_('Control data'), views),                        
                         wizard.ChoiceField(_('Select control mode'), 'select_control_mode',
                                         (   #wizard.Choice('', rules.TrueRule(), mean=False),
                                             wizard.Choice(_('U/f control'), rules.OptionRule('control_mode', 'U/f'), options = {'control_mode': 'U/f'}), 
-                                            wizard.Choice(_('Vector control'), rules.OptionRule('control_mode', 'Vector control'), options = {'fieldbus': 'Encoder','control_mode': 'Vector control'}),
+                                            wizard.Choice(_('Vector control'), rules.OptionRule('control_mode', 'Vector control'), options = {'control_mode': 'Vector control'}),
                                         ),                                                         
                                                        devs, views, required=True, hint='',**kwargs),
 
@@ -163,12 +145,12 @@ class LoadQuestion(wizard.Question):
         #print(self.fields)
         if not self.fields:
             return 0.0
-        return self.fields[5].value if self.fields[5].value is not None else 0.0
+        return self.nominal_current_field.value if self.nominal_current_field.value is not None else 0.0
         
     def get_overload(self):        
         if not self.fields:
             return 0.0
-        v = self.fields[1].value
+        v = self.overload_field.value
         return v if v is not None else 0.0
         '''
         v = self.fields[0].fields[1][0].fields[0].value
@@ -246,6 +228,43 @@ class PlacementQuestion(wizard.Question):
                         MotorCableLenField(_('Input motor cable len'), 'input_cable_len', rules.OptionIfGreater(self.get_cable_len, 800, 'Output reactor', ('No', 'Yes')), 
                                     views, required=True, hint='mconfig/hints/cable_len.html', **kwargs),
                                     
+                        wizard.TextHeader(_('Options'), views),
+                        
+                        wizard.ChoiceField(_('Select fieldbus option'), 'select_b',(
+                                                            wizard.Choice('None', rules.TrueRule(), options={'fieldbus':'None'}),
+                                                            #wizard.Choice(_('Encoder board'), rules.OptionRule('fieldbus', 'Encoder'), options={'fieldbus':'Encoder'}),
+                                                            wizard.Choice(_('EtherNet IP'), rules.OptionRule('fieldbus', 'EtherNet IP'), options={'fieldbus':'EtherNet IP'}),
+                                                            wizard.Choice(_('ProfiBus DP'), rules.OptionRule('fieldbus', 'ProfiBus DP'), options={'fieldbus':'ProfiBus DP'}),
+                                                            wizard.Choice(_('Modbus TCP/IP'), rules.OptionRule('fieldbus', 'Modbus TCP/IP'), options={'fieldbus':'Modbus TCP/IP'}),
+                                                        ), 
+                                                        devs, views, hint='mconfig/hints/fieldbus.html', **kwargs),
+                                                        
+                        wizard.ChoiceField(_('Select drive bypass'), 'select_c',
+                                        (   
+                                            wizard.Choice(_('None'),   rules.OptionRule('power_option', 'None'), options = {'power_option': 'None'}),
+                                            wizard.Choice(_('Manual'), rules.RuleAndChain(
+                                                                            rules.CanUseBypassRule(), 
+                                                                            rules.OptionRule('power_option', 'Manual bypass')
+                                                                            ), 
+                                                                       options = {'power_option': 'Manual bypass'}),                                                                            
+                                            wizard.Choice(_('Auto'),   rules.RuleAndChain(
+                                                                            rules.CanUseBypassRule(), 
+                                                                            rules.OptionRule('power_option', 'Autobypass'),
+                                                                            ),
+                                                                       options = {'power_option': 'Autobypass'}),
+                                            wizard.Choice(_('N/A'), rules.TrueRule()),
+                                        ), 
+                                    devs, views, hint='mconfig/hints/drive_bypass.html',**kwargs
+                                    ),
+                                                                                                               
+                        wizard.ChoiceField(_('Select power cell bypass'), 'select_d',
+                                        (   
+                                            OptionChoice(_('None'), 'power_cell_autobypass', 'No'),
+                                            OptionChoice(_('Autobypass'), 'power_cell_autobypass', 'Yes'),
+                                        ), 
+                                    devs, views, hint='mconfig/hints/power_cell_bypass.html',**kwargs
+                                    ),                        
+                                    
                                     ]        
         
     def get_cable_len(self):
@@ -256,9 +275,9 @@ class OptionsQuestion(wizard.Question):
         wizard.Question.__init__(self, kwargs['view'])      
         self.header = _("Choose installation parameters")
         self.fields = None      
-        self.fields = [ wizard.ChoiceField(_('Select encoder/fieldbus option'), 'select_b',(
+        self.fields = [ wizard.ChoiceField(_('Select fieldbus option'), 'select_b',(
                                                             wizard.Choice('None', rules.TrueRule(), options={'fieldbus':'None'}),
-                                                            wizard.Choice(_('Encoder board'), rules.OptionRule('fieldbus', 'Encoder'), options={'fieldbus':'Encoder'}),
+                                                            #wizard.Choice(_('Encoder board'), rules.OptionRule('fieldbus', 'Encoder'), options={'fieldbus':'Encoder'}),
                                                             wizard.Choice(_('EtherNet IP'), rules.OptionRule('fieldbus', 'EtherNet IP'), options={'fieldbus':'EtherNet IP'}),
                                                             wizard.Choice(_('ProfiBus DP'), rules.OptionRule('fieldbus', 'ProfiBus DP'), options={'fieldbus':'ProfiBus DP'}),
                                                             wizard.Choice(_('Modbus TCP/IP'), rules.OptionRule('fieldbus', 'Modbus TCP/IP'), options={'fieldbus':'Modbus TCP/IP'}),

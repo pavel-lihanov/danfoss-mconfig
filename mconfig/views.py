@@ -254,8 +254,8 @@ def add_wizard_instance(request):
     qs = [
         questions.LoadQuestion(devices.devices, views, view=HTMLQuestion()),
         questions.PlacementQuestion(devices.devices, views, view=HTMLQuestion()),
-        questions.OptionsQuestion(devices.devices, views, view=HTMLQuestion()),
-        questions.DeliveryQuestion(devices.devices, views, view=HTMLQuestion(), user_getter = lambda: request.user),
+        #questions.OptionsQuestion(devices.devices, views, view=HTMLQuestion()),
+        #questions.DeliveryQuestion(devices.devices, views, view=HTMLQuestion(), user_getter = lambda: request.user),
         wizard.Result(decider, view=HTMLResult())
         ]
         

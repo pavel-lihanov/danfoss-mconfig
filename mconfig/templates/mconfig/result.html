@@ -73,12 +73,29 @@ $( document ).ready(function() {
 					Название: <small id="short_descr">{{question.packages.0.short_descr}}</small>
 				</p>
 			</div>
-			<div class="btn-controls">
-				 <div class="calc-btn">
-				   <button id="savePdf" type="button" >Ком.Пред.</button>
-				   <button id="sendPdf" type="button" >Отправить на Email</button>
-				</div>			
+			
+			<div id="price">
+				<div id="price_details">	
+					<div id="supplier_price">
+					</div>
+					<div id="delivery_cost">
+					</div>
+				</div>
+				Price:
+				<div id="sale_price" style="display:inline;">
+					{{ package.price.sale_price }}
+				</div>	
+			
+			
+				<div class="btn-controls">
+					<div class="calc-btn">				 
+					   <button id="savePdf" type="button" onclick="self.location='download/'">Ком.Пред.</button>				 				 
+					   <button id="sendPdf" type="button" onclick="self.location='download/'">Отправить на Email</button>				 
+					</div>			
+				</div>
+			
 			</div>
+			
 			{% for package in question.packages %}
 				{% include package.template with package=package unpriced=False only %}
 				<br>
