@@ -4,6 +4,7 @@ function updatePackage(data)
 	document.getElementById("package_name").innerHTML = data.name;
 	document.getElementById("short_descr").innerHTML = data.short_descr;
 	document.getElementById("order_code").innerHTML = data.order_code;
+	document.getElementById("main_cabinet").innerHTML = data.main_cabinet;
 	
 	for(var propt in data.options){
 		document.getElementById(propt).innerHTML = data.options[propt]
@@ -31,6 +32,22 @@ function updatePrice(data)
 	sp_div.innerHTML = data.total;
 }
 </script>
+
+<div class="val-fileld">
+	<label>Корпус</label>
+	<span id="main_cabinet"> {{ package.main_cabinet.name }}</span>
+	<span id="addons">
+		<table id="addons">
+			{% for a in package.addons %}
+				<tr>
+					<td>
+						{{ a.name }}
+					</td>
+				</tr>
+			{% endfor %}	
+		</table>
+	</span>
+</div>
 
 <h3>Введенные данные</h3>
 

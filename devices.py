@@ -87,7 +87,364 @@ class Device:
     def typecode(self):
         return ''
         
+VOLTAGES = {
+                6000: 'A',
+                6600: 'B',
+                10000: 'C',
+                11000: 'D'
+}        
+        
 class VEDADrive(Device):
+    class PowerModule:
+        def __init__(self, cell, cell_count):
+            self.cell = cell
+            self.cell_count = cell_count
+
+    class PowerCell:
+        def __init__(self, diode_count, nom_voltage, nom_current):
+            self.diode_count = diode_count
+            self.nom_voltage = nom_voltage
+            self.nom_current = nom_current
+
+    class Frame:
+        def __init__(self, voltage, width, height, length, weight, term_loss=0, name='Unknown frame'):
+            self.voltage = voltage            
+            self.width = width
+            self.height = height
+            self.length = length
+            self.weight = weight
+            self.term_loss = term_loss
+            self.size_name = name
+            
+        @property
+        def name(self):
+            if self.voltage in VOLTAGES:                                   
+                return '{0}{1}{2}'.format(self._type, VOLTAGES[self.voltage], self.size_name)
+            else:
+                return '{0}{1}'.format(self._type, self.size_name)
+        
+        def __repr__(self):
+            return self.name
+            
+    class C(Frame):
+        _type = 'C'
+        service = 'Front and back'
+        cooling = 'Air'
+        powers = {6000: (315, 400, 500, 630), 10000: (500, 630, 800, 1000)}
+        
+        def __init__(self, voltage, width, height, length, weight=0, term_loss=0, powers=(), name='Unknown С'):
+            super().__init__(voltage, width, height, length, weight, term_loss, name)
+            self.powers = self.powers[voltage]
+        
+        @classmethod
+        def matches(cls, package):            
+            if package.options['cooling'] == cls.cooling \
+                    and package.options['Service access'] == cls.service \
+                    and package.options['brake_mode'] != 'Recuperation':
+                for f in cls.frames:
+                    if f.size_matches(package):
+                        return f
+            else:
+                return None
+                    
+        def size_matches(self, package):
+            return self.voltage == package.attributes['voltage'] \
+                    and package.attributes['kVA'] in self.powers
+            
+    CA01 = C(6000, 2150, 2400, 1400, name='01')
+    CC01 = C(10000, 2150, 2400, 1400, name='01')
+    
+    C.frames = (CA01, CC01)
+        
+    class D(Frame):
+        service = 'Front and back'
+        cooling = 'Air'        
+        _type = 'D'
+        
+        def __init__(self, voltage, width, height, length, weight=0, term_loss=0, powers=(), name='Unknown D'):
+            super().__init__(voltage, width, height, length, weight, term_loss, name)        
+            self.powers = powers            
+
+        @classmethod
+        def matches(cls, package):            
+            if package.options['cooling'] == cls.cooling \
+                    and package.options['Service access'] == cls.service\
+                    and package.options['brake_mode'] != 'Recuperation':
+                for f in cls.frames:
+                    if f.size_matches(package):
+                        return f
+            else:
+                return None
+                    
+        def size_matches(self, package):            
+            return self.voltage == package.attributes['voltage'] \
+                    and package.attributes['kVA'] in self.powers
+                                
+    DA01 = D(6000, 2150, 2400, 1400, powers = (315, 400, 500, 630), name='01')    
+    DA02 = D(6000, 3450, 2200, 1600, powers = (800, 1000, 1250), name='02')
+    DA03 = D(6000, 4150, 2200, 1600, powers = (1600, 1800, 2000, 2250, 2500), name='03')
+    DA04 = D(6000, 5850, 2400, 1400, powers = (2800, 3200, 3500, 4000), name='04')
+    DA05 = D(6000, 7350, 2400, 1400, powers = (4500, 5000), name='05')
+    DA06 = D(6000, 7650, 2400, 1600, powers = (6300, ), name='06')
+    DA07 = D(6000, 11250, 2400, 1600, powers = (7000, 7900, 8250), name='07')
+    
+    DB01 = D(6600, 2150, 2400, 1400, powers = (315, 400, 500, 630), name='01')
+    DB02 = D(6600, 3450, 2202, 1600, powers = (800, 1000, 1250), name='02')
+    DB03 = D(6600, 4150, 2202, 1600, powers = (1600, 1800, 2000, 2250, 2500), name='03')
+    DB04 = D(6600, 5850, 2400, 1400, powers = (2800, 3200, 3500, 4000), name='04')
+    DB05 = D(6600, 7350, 2400, 1400, powers = (4500, ), name='05')
+    DB06 = D(6600, 7650, 2400, 1600, powers = (5000, 6300, 7000), name='06')
+    DB07 = D(6600, 11250, 2400, 1600, powers = (7900, 8250, 9000), name='07')
+    
+    DC01 = D(10000, 4000, 2000, 1400, powers = (500, 630, 800, 1000), name='01')
+    DC02 = D(10000, 4300, 2200, 1600, powers = (1250, 1600, 1800, 2000, 2250), name='02')
+    DC03 = D(10000, 4750, 2250, 1600, powers = (2500, 2800, 3200, 3500, 4000), name='03')
+    DC04 = D(10000, 7400, 2400, 1600, powers = (4500, 5000, 5500, 6300), name='04')
+    DC05 = D(10000, 8700, 2600, 1600, powers = (7000, ), name='05')
+    DC06 = D(10000, 13300, 2400, 1600, powers = (7900, 8250), name='06')
+    DC07 = D(10000, 13900, 2400, 1600, powers = (10000, ), name='07')
+    DC08 = D(10000, 14550, 2600, 1600, powers = (12500, ), name='08')
+
+    DD01 = D(11000, 4000, 2000, 1400, powers = (500, 630, 800, 1000), name='01')
+    DD02 = D(11000, 4300, 2200, 1600, powers = (1600, 1800, 2000, 2250, 2500), name='02')
+    DD03 = D(11000, 4750, 2250, 1600, powers = (2800, 3200, 3500, 4000), name='03')
+    DD04 = D(11000, 7400, 2400, 1600, powers = (4500, 5000, 5500, 6300, 7000), name='04')
+    DD05 = D(11000, 8700, 2600, 1600, powers = (7900, ), name='05')
+    DD06 = D(11000, 13300, 2400, 1600, powers = (8250, ), name='06')
+    DD07 = D(11000, 13900, 2400, 1600, powers = (10000, 12500), name='07')
+    DD08 = D(11000, 14550, 2600, 1600, powers = (14500, ), name='08')
+    
+    D.frames = (DA01, DA02, DA03, DA04, DA05, DA06, DA07,
+                DB01, DB02, DB03, DB04, DB05, DB06, DB07,
+                DC01, DC02, DC03, DC04, DC05, DC06, DC07, DC08,
+                DD01, DD02, DD03, DD04, DD05, DD06, DD07, DD08,
+    )
+        
+    class R(Frame):
+        _type = 'R'
+        brake_mode = 'Recuperation'     
+        cooling = 'Air'
+        service = 'Front and back'
+        
+        def __init__(self, voltage, width, height, length, weight=0, term_loss=0, motor_type='Induction', powers=(), name='Unknown R'):
+            super().__init__(voltage, width, height, length, weight, term_loss, name)        
+            self.powers = powers        
+            self.motor_type = motor_type
+        
+        @classmethod
+        def matches(cls, package):
+            if package.options['cooling'] == cls.cooling \
+                    and package.options['Service access'] == cls.service \
+                    and package.options['brake_mode'] == cls.brake_mode:
+                for f in cls.frames:
+                    if f.size_matches(package):
+                        return f
+
+        def size_matches(self, package):
+            return self.voltage == package.attributes['voltage'] \
+                    and package.options['motor_type'] == self.motor_type \
+                    and package.attributes['kVA'] in self.powers
+                                                
+    RA01 = R(6000, 2100, 2300, 1400, motor_type='Induction', powers=(400, 500), name='01')
+    RA02 = R(6000, 5100, 2100, 1200, motor_type='Induction', powers=(630, 800, 1000), name='02')
+    RA03 = R(6000, 5900, 2300, 1400, motor_type='Induction', powers=(1250, 1600, 1800, 2000, 2500), name='03')
+    RA04 = R(6000, 7825, 2400, 1610, motor_type='Induction', powers=(3200, ), name='04')
+    
+    RC01 = R(10000, 2400, 2400, 1600, motor_type='Induction', powers=(500, 630), name='01')
+    RC02 = R(10000, 5850, 2100, 1200, motor_type='Induction', powers=(800, 1000, 1250, 1600), name='02')
+    RC03 = R(10000, 7400, 2300, 1400, motor_type='Induction', powers=(2250, 2500, 3200, 4000), name='03')
+    
+    RAS1 = R(6000, 7275, 2400, 1600, motor_type='PM', powers=(1800, 2000), name='S1')
+    RAS2 = R(6000, 7825, 2400, 1400, motor_type='PM', powers=(2250, 2500, 3200, 4000), name='S2')
+    RAS3 = R(6000, 8850, 2400, 1600, motor_type='PM', powers=(4500, ), name='S3')
+    
+    R.frames = (RA01, RA02, RA03, RA04, 
+                RC01, RC02, RC03,
+                RAS1, RAS2, RAS3)
+    
+    class S(Frame):
+        _type = 'S'
+        service = 'Front'
+        cooling = 'Air'
+
+        def __init__(self, voltage, width, height, length, weight=0, term_loss=0, powers=(), name='Unknown S'):
+            super().__init__(voltage, width, height, length, weight, term_loss, name)        
+            self.powers = powers
+        
+        @classmethod
+        def matches(cls, package):
+            if package.options['cooling'] == cls.cooling \
+                    and package.options['Service access'] == cls.service:
+                for f in cls.frames:
+                    if f.size_matches(package):
+                        return f
+                    
+        def size_matches(self, package):
+            return self.voltage == package.attributes['voltage'] \
+                    and package.attributes['kVA'] in self.powers
+                    
+    SA01 = S(6000, 3000, 1900, 1200, powers=(315, 400, 500, 630), name='01')
+    SA02 = S(6000, 3850, 2100, 1200, powers=(800, 1000, 1250), name='02')
+    SA03 = S(6000, 4500, 2100, 1200, powers=(1600, 1800, 2000, 2250, 2500), name='03')
+
+    SC01 = S(10000, 4550, 1900, 1200, powers=(500, 630, 800, 1000), name='01')
+    SC02 = S(10000, 5400, 2100, 1200, powers=(1250, 1600, 2000, 2250), name='02')
+    SC03 = S(10000, 6500, 2300, 1200, powers=(2500, 3200, 4000), name='03')
+
+    S.frames = (SA01, SA02, SA03,
+                SC01, SC02, SC03,
+    )
+        
+    class L(Frame):
+        _type = 'L'
+        cooling = 'Liquid'      
+        def __init__(self, voltage, width, height, length, weight=0, term_loss=0, powers=(), name='Unknown L'):
+            super().__init__(voltage, width, height, length, weight, term_loss, name)        
+            self.powers = powers
+        
+        @classmethod
+        def matches(cls, package):
+            if package.options['cooling'] == cls.cooling:
+                for f in cls.frames:
+                    if f.size_matches(package):
+                        return f
+                
+        def size_matches(self, package):            
+            return self.voltage == package.attributes['voltage'] \
+                    and package.attributes['kVA'] in self.powers
+                    
+    LA01 = L(6000, 8000, 2400, 1400, powers=(2800, 3200, 3500, 4000), name='01')
+    LA02 = L(6000, 9400, 2400, 1600, powers=(4500, 5000, 6300), name='02')
+    LA03 = L(6000, 10000, 2400, 1600, powers=(7000, 7900, 8250), name='03')
+    LA04 = L(6000, 0, 0, 0, powers=(10000, 12500, 14500), name='04')
+
+    LC01 = L(10000, 10400, 2400, 1400, powers=(4000, 4500, 5000, 6300, 7000), name='01')
+    LC02 = L(10000, 11250, 2600, 1600, powers=(7900, 8250), name='02')
+    LC03 = L(10000, 0, 0, 0, powers=(10000, ), name='03')
+    LC04 = L(10000, 0, 0, 0, powers=(12500, ), name='04')
+    
+    L.frames = (LA01, LA02, LA03, LA04,
+                LC01, LC02, LC03, LC04,
+    )    
+        
+    frames = [C, D, R, S, L]
+        
+    class Addon(Frame):
+        pass
+        
+    class ManualBypass(Addon):
+        _type = 'MB'
+
+        def __init__(self, max_current, width, length, name):
+            super().__init__(self, 0 , width, 0, length, 0, name)
+            self.max_current = max_current
+
+        @classmethod
+        def matches(cls, package):            
+            if package.options['power_option'] == 'Manual bypass':
+            #select length
+                if package.attributes['nom_current'] <= 500:
+                    if package.main_cabinet.length <= 1400:
+                        return VEDADrive.MB01
+                    else:
+                        return VEDADrive.MB02
+                else:
+                    if package.main_cabinet.length <= 1400:
+                        return VEDADrive.MB03
+                    else:
+                        return VEDADrive.MB04
+
+    MB01 = ManualBypass(500, 800, 1400, name='01')
+    MB02 = ManualBypass(500, 800, 1600, name='02')
+    MB03 = ManualBypass(10000, 1000, 1400, name='03')
+    MB04 = ManualBypass(10000, 1000, 1600, name='04')
+    
+    class Autobypass(Addon):
+        _type = 'AB'
+        
+        def __init__(self, width, length, name):
+            super().__init__(self, 0 , width, 0, length, 0, name)            
+        
+        @classmethod
+        def matches(cls, package):            
+            if package.options['power_option'] == 'Autobypass':
+                if package.main_cabinet.length <= 1600:
+                    frame = VEDADrive.AB01
+                else:
+                    frame = VEDADrive.AB02
+                fr = cls(frame.width, frame.length, frame.size_name)
+                fr.height = package.main_cabinet.height                
+                return fr
+            else:
+                return None
+                
+    AB01 = Autobypass(1000, 1400, name='01')
+    AB02 = Autobypass(1000, 1600, name='02')
+    
+    class Reactor(Addon):
+        _type = 'AB'
+        
+        def __init__(self, voltage, width, length, height, powers, name):
+            super().__init__(self, voltage , width, height, length, name)            
+            self.powers = powers
+            
+        @classmethod
+        def matches(cls, package):
+            if package.options['Output reactor'] == 'Yes':
+                for f in cls.frames:
+                    if f.size_matches(package):
+                        return f
+                
+        def size_matches(self, package):            
+            return self.voltage == package.attributes['voltage'] \
+                    and package.attributes['kVA'] in self.powers
+                    
+    EA01 = Reactor(6000, 1200, 2400, 1400, powers=(250, 315, 400, 500), name = '01')
+    EA02 = Reactor(6000, 1400, 2200, 1600, powers=(630, 800, 1000), name = '02')
+    EA03 = Reactor(6000, 1600, 2200, 1600, powers=(1250, 1400, 1600, 1800, 2000), name = '03')
+    EA04 = Reactor(6000, 0, 0, 0, powers=(2250, 2500, 2800, 3200), name = '04')
+
+    EC01 = Reactor(10000, 1200, 2400, 1400, powers=(250, 315, 400, 500), name = '01')
+    EC02 = Reactor(10000, 1400, 2200, 1600, powers=(630, 800, 1000), name = '02')
+    EC03 = Reactor(10000, 1600, 2200, 1600, powers=(1250, 1400, 1600, 1800, 2000), name = '03')
+    EC04 = Reactor(10000, 0, 0, 0, powers=(2250, 2500, 2800, 3200), name = '04')
+    
+    Reactor.frames = (EA01, EA02, EA03, EA04)            
+        
+    class Multistart(Addon):
+        _type = 'MS'
+        def __init__(self, width, length, name):
+            super().__init__(self, 0 , width, 0, length, 0, name)            
+
+        @classmethod
+        def matches(cls, package):
+            print('MS', package.main_cabinet)
+            if package.options['power_option'] == 'Multistart':
+                motor_count = package.options['multi_motors']
+                if motor_count == 2:
+                    frame = VEDADrive.MS01
+                elif motor_count == 3:
+                    frame = VEDADrive.MS02
+                elif motor_count == 4:
+                    frame = VEDADrive.MS03
+                if frame:                    
+                    fr = cls(frame.width, frame.length, frame.size_name)
+                    fr.height = package.main_cabinet.height
+                    return fr
+                else:
+                    return None
+            else:
+                return None
+                
+    MS01 = Multistart(800, 1600, '01')
+    MS02 = Multistart(800, 1600, '02')
+    MS03 = Multistart(800, 1600, '03')
+                
+    Multistart.frames = (MS01, MS02, MS03)
+        
+    addons = [ManualBypass, Autobypass, Reactor, Multistart]
+    
+        
     def __init__(self, name, attributes, options=None, package=False):
         Device.__init__(self, name, {}, {}, package)
         self._attrs = attributes
@@ -98,6 +455,16 @@ class VEDADrive(Device):
             self.options = VEDAOpts(**options)
         else:
             self.options = VEDAOpts(device=self)
+
+        #bookmarks getters
+        self.bookmarks = {   'device_price': self.get_price,
+                        'type_code': self.order_code,
+        }
+
+    #getters for offer
+    def get_price(self):
+        assert(self.is_package)
+        return self.price.total
             
     def order_code(self):
         assert(self.is_package)
@@ -105,6 +472,34 @@ class VEDADrive(Device):
             + [(self.options._opts[n].code_pos, self.options._opts[n].choices_to_codes[v]) for n,v in self.options.items() if n in self.options._opts]
         return ''.join([f[1] for f in sorted(fields, key=operator.itemgetter(0))])
 
+    #cabinet calculation logic
+    def get_power_module(self):
+        return None
+    
+    def get_frame(self):
+        assert(self.is_package)
+        #service = self.options['Service access']
+        #current = self.attributes['nom_current']
+        #cooling = self.options['cooling']
+        #recuperation = self.options['brake_mode']
+        #voltage = self.attributes['voltage']        
+        for f in VEDADrive.frames:
+            frame = f.matches(self)
+            if frame:
+                print('Frame: {0}'.format(frame))
+                return frame
+        raise ValueError('No matching frame')
+        
+    def get_addons(self):
+        res = []
+        print(self.main_cabinet)
+        for f in VEDADrive.addons:
+            a = f.matches(self)
+            if a:
+                res.append(a)
+        return res
+        
+    #make package from options
     def package(self, options, decider):
         #check if we need power transformer                    
         options = dict(options)
@@ -131,8 +526,17 @@ class VEDADrive(Device):
         for n,v in options.items():
             if n not in new_options:
                 new_options[n] = v
-                
-        return VEDADrive(self.name, self.attributes, new_options, package=True)
+              
+        #calculate frames
+        #main_cabinet = self.get_frame(new_options)
+        #addons = self.get_addons(new_options)
+        pkg = VEDADrive(self.name, self.attributes, new_options, package=True)
+        
+        pkg.power_module = pkg.get_power_module()
+        pkg.main_cabinet = pkg.get_frame()
+        pkg.addons = pkg.get_addons()
+        
+        return pkg
        
     def calculate_price(self):
         assert(self.is_package)
@@ -147,15 +551,20 @@ class VEDADrive(Device):
         
         doc = docx.Document('offer_template.docx')
         par = get_bookmark_par_element(doc, "order_code")
-        insert_text(par, self.order_code())
-                
-        par = get_bookmark_par_element(doc, "price")
-        insert_text(par, '{0:.2f}'.format(self.price.total))
+        #insert_text(par, self.order_code())
+        
+        for b,g in self.bookmarks.items():
+            par = get_bookmark_par_element(doc, b)
+            insert_text(par, g())
+            
+        
+        #par = get_bookmark_par_element(doc, "price")
+        #insert_text(par, '{0:.2f}'.format(self.price.total))
         
         doc.save(path)        
         
     def short_descr(self):
-        return _('VEDADRIVE {0}kV, {1} kVA, {2}, {3} {4}').format(self.attributes['voltage']//1000, self.attributes['kVA'], _('Air-cooled') if self.options['cooling']=='Air' else __('Liquid_cooled') ,self.options['enclosure'], self.options['Service access'])
+        return _('VEDADRIVE {0}kV, {1} kVA, {2}, {3} {4}').format(self.attributes['voltage']//1000, self.attributes['kVA'], _('Air-cooled') if self.options['cooling']=='Air' else _('Liquid_cooled') ,self.options['enclosure'], self.options['Service access'])
 
     #do not use, use PriceList.package_matches_pricelist()
     def matches_pricelist(self, row):
@@ -171,6 +580,7 @@ class VEDADrive(Device):
         
     def delivery_items(self):
         #TODO: get weight (and mb size) of drive components
+        #see get_frame() and get_addons() methods
         assert(self.is_package)
         return [15, ]
         

@@ -119,7 +119,7 @@ class LoadQuestion(wizard.Question):
                         wizard.ChoiceField(_('Select braking mode'), 'select_braking_mode',
                                         (   wizard.Choice(_('Coasting stop'), rules.OptionRule('brake_mode', 'Coast'), options = {'brake_mode': 'Coast'}),
                                             wizard.Choice(_('Dynamic braking'), rules.OptionRule('brake_mode', 'Dynamic'), options = {'brake_mode': 'Dynamic'}),
-                                            wizard.Choice(_('Recuperation'), rules.OptionRule('brake_mode', 'Recuperation'), options = {'brake_mode': 'Recuperation', 'control_mode': 'Vector control', 'cooling': 'Liquid'}),                                            
+                                            wizard.Choice(_('Recuperation'), rules.OptionRule('brake_mode', 'Recuperation'), options = {'brake_mode': 'Recuperation', 'control_mode': 'Vector control', 'Service access':'Front and back'}),
                                         ), 
                                     devs, views, hint='',**kwargs
                                     ),
@@ -194,9 +194,9 @@ class PlacementQuestion(wizard.Question):
                                                         devs, views, hint='mconfig/hints/enclosure.html',**kwargs),
                                                                                                                                                       
                         wizard.ChoiceField(_('Select drive cooling'), 'select_cooling',
-                                        (   
-                                            OptionChoice(_('Air cooling'), 'cooling', 'Air'),
-                                            OptionChoice(_('Liquid cooling'), 'cooling', 'Liquid'),
+                                        (                                               
+                                            wizard.Choice(_('Air cooling'), rules.OptionRule('cooling', 'Air'), options = {'cooling':'Air'}),
+                                            wizard.Choice(_('Liquid cooling'), rules.OptionRule('cooling', 'Liquid'), options = {'cooling':'Liquid', 'Service access' : 'Front and back'}),
                                         ), 
                                     devs, views, hint='mconfig/hints/cooling.html', **kwargs
                                     ),
