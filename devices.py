@@ -105,15 +105,19 @@ class VEDADrive(Device):
             self.diode_count = diode_count
             self.nom_voltage = nom_voltage
             self.nom_current = nom_current
+            
+    class SizeDependent:
+        def __init__(self, weight, therm_loss):            
+            self.weight = weight
+            self.therm_loss = therm_loss
 
     class Frame:
-        def __init__(self, voltage, width, height, length, weight, term_loss=0, name='Unknown frame'):
+        size_dependent = {}
+        def __init__(self, voltage, width, height, length, name='Unknown frame'):
             self.voltage = voltage            
             self.width = width
             self.height = height
-            self.length = length
-            self.weight = weight
-            self.term_loss = term_loss
+            self.length = length                        
             self.size_name = name
             
         @property
@@ -126,14 +130,21 @@ class VEDADrive(Device):
         def __repr__(self):
             return self.name
             
+        def weight(self, device):
+            return self.size_dependent[device.attributes['kVA']].weight
+        
+        def therm_loss(self, device):
+            return self.size_dependent[device.attributes['kVA']].therm_loss
+
+        
     class C(Frame):
         _type = 'C'
         service = 'Front and back'
         cooling = 'Air'
-        powers = {6000: (315, 400, 500, 630), 10000: (500, 630, 800, 1000)}
+        powers = {6000: (315, 400, 500, 630), 10000: (500, 630, 800, 1000)}               
         
-        def __init__(self, voltage, width, height, length, weight=0, term_loss=0, powers=(), name='Unknown С'):
-            super().__init__(voltage, width, height, length, weight, term_loss, name)
+        def __init__(self, voltage, width, height, length, powers=(), name='Unknown'):
+            super().__init__(voltage, width, height, length, name)
             self.powers = self.powers[voltage]
         
         @classmethod
@@ -152,8 +163,19 @@ class VEDADrive(Device):
                     and package.attributes['kVA'] in self.powers
             
     CA01 = C(6000, 2150, 2400, 1400, name='01')
-    CC01 = C(10000, 2150, 2400, 1400, name='01')
+    CA01.size_dependent = { 315: SizeDependent(3836, 13), 
+                            400: SizeDependent(4036, 16),
+                            500: SizeDependent(4236, 20),
+                            630: SizeDependent(4436, 25),
+    }    
     
+    CC01 = C(10000, 2150, 2400, 1400, name='01')
+    CC01.size_dependent = { 500: SizeDependent(3904, 13), 
+                            630: SizeDependent(4104, 16),
+                            800: SizeDependent(4304, 20),
+                            1000: SizeDependent(4504, 25),
+    }    
+
     C.frames = (CA01, CC01)
         
     class D(Frame):
@@ -161,8 +183,8 @@ class VEDADrive(Device):
         cooling = 'Air'        
         _type = 'D'
         
-        def __init__(self, voltage, width, height, length, weight=0, term_loss=0, powers=(), name='Unknown D'):
-            super().__init__(voltage, width, height, length, weight, term_loss, name)        
+        def __init__(self, voltage, width, height, length, powers=(), name='Unknown D'):
+            super().__init__(voltage, width, height, length, name)        
             self.powers = powers            
 
         @classmethod
@@ -181,37 +203,184 @@ class VEDADrive(Device):
                     and package.attributes['kVA'] in self.powers
                                 
     DA01 = D(6000, 2150, 2400, 1400, powers = (315, 400, 500, 630), name='01')    
+    DA01.size_dependent = { 315: SizeDependent(3836, 13), 
+                            400: SizeDependent(4036, 16),
+                            500: SizeDependent(4236, 20),
+                            630: SizeDependent(4436, 25),
+    }    
+    
     DA02 = D(6000, 3450, 2200, 1600, powers = (800, 1000, 1250), name='02')
+    DA02.size_dependent = { 800: SizeDependent(4430, 32), 
+                            1000: SizeDependent(4770, 40),
+                            1250: SizeDependent(5180, 50),
+    }    
+    
     DA03 = D(6000, 4150, 2200, 1600, powers = (1600, 1800, 2000, 2250, 2500), name='03')
+    DA01.size_dependent = { 1600: SizeDependent(5085, 63), 
+                            1800: SizeDependent(5320, 70),
+                            2000: SizeDependent(5560, 80),
+                            2250: SizeDependent(5830, 90),
+                            2500: SizeDependent(6115, 100)
+    }    
+    
     DA04 = D(6000, 5850, 2400, 1400, powers = (2800, 3200, 3500, 4000), name='04')
+    DA04.size_dependent = { 2800: SizeDependent(8840, 113), 
+                            3200: SizeDependent(9190, 125),
+                            3500: SizeDependent(9690, 140),
+                            4000: SizeDependent(10290, 160),
+    }    
+
     DA05 = D(6000, 7350, 2400, 1400, powers = (4500, 5000), name='05')
+    DA05.size_dependent = { 4500: SizeDependent(12700, 180), 
+                            5000: SizeDependent(13200, 200),
+    }    
+    
     DA06 = D(6000, 7650, 2400, 1600, powers = (6300, ), name='06')
+    DA06.size_dependent = { 6300: SizeDependent(14000, 250), 
+    }    
+    
     DA07 = D(6000, 11250, 2400, 1600, powers = (7000, 7900, 8250), name='07')
+    DA07.size_dependent = { 7000: SizeDependent(24590, 280), 
+                            7900: SizeDependent(26180, 315),
+                            8250: SizeDependent(26780, 330),
+    }    
     
     DB01 = D(6600, 2150, 2400, 1400, powers = (315, 400, 500, 630), name='01')
+    DB01.size_dependent = { 315: SizeDependent(3836, 19), 
+                            400: SizeDependent(4036, 19),
+                            500: SizeDependent(4236, 22),
+                            630: SizeDependent(4436, 28),
+    }    
+    
     DB02 = D(6600, 3450, 2202, 1600, powers = (800, 1000, 1250), name='02')
+    DB02.size_dependent = { 800: SizeDependent(4430, 35), 
+                            1000: SizeDependent(4770, 44),
+                            1250: SizeDependent(5180, 60),
+    }    
+    
     DB03 = D(6600, 4150, 2202, 1600, powers = (1600, 1800, 2000, 2250, 2500), name='03')
+    DB03.size_dependent = { 1600: SizeDependent(5085, 70), 
+                            1800: SizeDependent(5320, 80),
+                            2000: SizeDependent(5560, 90),
+                            2250: SizeDependent(5830, 100),
+                            2500: SizeDependent(6115, 113)
+    }    
+        
     DB04 = D(6600, 5850, 2400, 1400, powers = (2800, 3200, 3500, 4000), name='04')
+    DB04.size_dependent = { 2800: SizeDependent(8840, 125), 
+                            3200: SizeDependent(9190, 140),
+                            3500: SizeDependent(9690, 155),
+                            4000: SizeDependent(10290, 180),
+    }    
+    
     DB05 = D(6600, 7350, 2400, 1400, powers = (4500, ), name='05')
+    DB05.size_dependent = { 4500: SizeDependent(12486, 195), 
+    }    
+    
     DB06 = D(6600, 7650, 2400, 1600, powers = (5000, 6300, 7000), name='06')
+    DB06.size_dependent = { 5000: SizeDependent(12986, 228), 
+                            6300: SizeDependent(14348, 250),
+                            7000: SizeDependent(14348, 275),
+    }    
+    
     DB07 = D(6600, 11250, 2400, 1600, powers = (7900, 8250, 9000), name='07')
+    DB07.size_dependent = { 7900: SizeDependent(24580, 300), 
+                            8250: SizeDependent(26180, 345),
+                            9000: SizeDependent(26780, 370),
+    }    
+    
     
     DC01 = D(10000, 4000, 2000, 1400, powers = (500, 630, 800, 1000), name='01')
+    DC01.size_dependent = { 500: SizeDependent(3800, 20), 
+                            630: SizeDependent(4000, 25),
+                            800: SizeDependent(4250, 32),
+                            1000: SizeDependent(4500, 40),
+    }    
+    
     DC02 = D(10000, 4300, 2200, 1600, powers = (1250, 1600, 1800, 2000, 2250), name='02')
+    DC02.size_dependent = { 1250: SizeDependent(5470, 50), 
+                            1600: SizeDependent(5910, 63),
+                            1800: SizeDependent(6210, 70),
+                            2000: SizeDependent(6380, 80),
+                            2250: SizeDependent(6670, 90),
+    }    
+
     DC03 = D(10000, 4750, 2250, 1600, powers = (2500, 2800, 3200, 3500, 4000), name='03')
+    DC03.size_dependent = { 2500: SizeDependent(6610, 100), 
+                            2800: SizeDependent(7105, 113),
+                            3200: SizeDependent(7545, 125),
+                            3500: SizeDependent(7860, 140),
+                            4000: SizeDependent(8375, 160),
+    }    
+    
     DC04 = D(10000, 7400, 2400, 1600, powers = (4500, 5000, 5500, 6300), name='04')
+    DC04.size_dependent = { 4500: SizeDependent(12440, 180), 
+                            5000: SizeDependent(13040, 200),
+                            5500: SizeDependent(13740, 225),
+                            6300: SizeDependent(14340, 250),
+    }    
+    
     DC05 = D(10000, 8700, 2600, 1600, powers = (7000, ), name='05')
+    DC05.size_dependent = { 7000: SizeDependent(16926, 275), 
+    }    
+    
     DC06 = D(10000, 13300, 2400, 1600, powers = (7900, 8250), name='06')
+    DC06.size_dependent = { 7900: SizeDependent(29490, 315), 
+                            8250: SizeDependent(32090, 355),
+    }    
+    
     DC07 = D(10000, 13900, 2400, 1600, powers = (10000, ), name='07')
+    DC07.size_dependent = { 10000: SizeDependent(35490, 400), 
+    }    
+    
     DC08 = D(10000, 14550, 2600, 1600, powers = (12500, ), name='08')
+    DC08.size_dependent = { 12500: SizeDependent(42052, 500), 
+    }    
+    
 
     DD01 = D(11000, 4000, 2000, 1400, powers = (500, 630, 800, 1000), name='01')
+    DD01.size_dependent = { 500: SizeDependent(3800, 24), 
+                            630: SizeDependent(4000, 31),
+                            800: SizeDependent(4250, 37),
+                            1000: SizeDependent(4500, 47),
+    }    
+    
     DD02 = D(11000, 4300, 2200, 1600, powers = (1600, 1800, 2000, 2250, 2500), name='02')
+    DD02.size_dependent = { 1600: SizeDependent(5470, 60), 
+                            1800: SizeDependent(5910, 73),
+                            2000: SizeDependent(6210, 78),
+                            2250: SizeDependent(6380, 88),
+                            2500: SizeDependent(6670, 100),
+    }    
+    
     DD03 = D(11000, 4750, 2250, 1600, powers = (2800, 3200, 3500, 4000), name='03')
+    DD03.size_dependent = { 2800: SizeDependent(6610, 120), 
+                            3200: SizeDependent(7150, 125),
+                            3500: SizeDependent(7545, 148),
+                            4000: SizeDependent(7860, 158),
+    }    
+    
     DD04 = D(11000, 7400, 2400, 1600, powers = (4500, 5000, 5500, 6300, 7000), name='04')
+    DD04.size_dependent = { 4500: SizeDependent(8375, 185), 
+                            5000: SizeDependent(12590, 200),
+                            5500: SizeDependent(13140, 233),
+                            6300: SizeDependent(13840, 250),
+                            7000: SizeDependent(14490, 278),
+    }    
+    
     DD05 = D(11000, 8700, 2600, 1600, powers = (7900, ), name='05')
+    DD05.size_dependent = { 7900: SizeDependent(15090, 305), 
+    }    
+    
     DD06 = D(11000, 13300, 2400, 1600, powers = (8250, ), name='06')
+    DD06.size_dependent = { 8250: SizeDependent(29490, 353), 
+    }    
+    
     DD07 = D(11000, 13900, 2400, 1600, powers = (10000, 12500), name='07')
+    DD07.size_dependent = { 10000: SizeDependent(32090, 380), 
+                            12500: SizeDependent(32090, 460),
+    }    
+    
     DD08 = D(11000, 14550, 2600, 1600, powers = (14500, ), name='08')
     
     D.frames = (DA01, DA02, DA03, DA04, DA05, DA06, DA07,
@@ -226,8 +395,8 @@ class VEDADrive(Device):
         cooling = 'Air'
         service = 'Front and back'
         
-        def __init__(self, voltage, width, height, length, weight=0, term_loss=0, motor_type='Induction', powers=(), name='Unknown R'):
-            super().__init__(voltage, width, height, length, weight, term_loss, name)        
+        def __init__(self, voltage, width, height, length, motor_type='Induction', powers=(), name='Unknown R'):
+            super().__init__(voltage, width, height, length, name)        
             self.powers = powers        
             self.motor_type = motor_type
         
@@ -246,17 +415,63 @@ class VEDADrive(Device):
                     and package.attributes['kVA'] in self.powers
                                                 
     RA01 = R(6000, 2100, 2300, 1400, motor_type='Induction', powers=(400, 500), name='01')
+    RA01.size_dependent = { 400: SizeDependent(3150, 23), 
+                            500: SizeDependent(3400, 28),
+    }    
+    
     RA02 = R(6000, 5100, 2100, 1200, motor_type='Induction', powers=(630, 800, 1000), name='02')
+    RA02.size_dependent = { 630: SizeDependent(5625, 35), 
+                            800: SizeDependent(6185, 45),
+                            1000: SizeDependent(6700, 56),
+    }    
+
     RA03 = R(6000, 5900, 2300, 1400, motor_type='Induction', powers=(1250, 1600, 1800, 2000, 2500), name='03')
+    RA03.size_dependent = { 1250: SizeDependent(7470, 70), 
+                            1600: SizeDependent(8060, 88),
+                            1800: SizeDependent(8570, 98),
+                            2000: SizeDependent(9270, 112),
+                            2500: SizeDependent(9640, 140),
+    }    
+    
     RA04 = R(6000, 7825, 2400, 1610, motor_type='Induction', powers=(3200, ), name='04')
+    RA04.size_dependent = { 3200: SizeDependent(12980, 175), 
+    }    
+    
     
     RC01 = R(10000, 2400, 2400, 1600, motor_type='Induction', powers=(500, 630), name='01')
+    RC01.size_dependent = { 500: SizeDependent(4060, 28), 
+                            630: SizeDependent(4260, 35),
+    }    
+    
     RC02 = R(10000, 5850, 2100, 1200, motor_type='Induction', powers=(800, 1000, 1250, 1600), name='02')
+    RC02.size_dependent = { 800: SizeDependent(8085, 45), 
+                            1000: SizeDependent(8260, 56),
+                            1250: SizeDependent(8850, 70),
+                            1600: SizeDependent(9635, 112),
+    }    
+    
     RC03 = R(10000, 7400, 2300, 1400, motor_type='Induction', powers=(2250, 2500, 3200, 4000), name='03')
+    RC03.size_dependent = { 2250: SizeDependent(10855, 126), 
+                            2500: SizeDependent(12115, 140),
+                            3200: SizeDependent(13205, 175),
+                            4000: SizeDependent(14035, 224),
+    }    
     
     RAS1 = R(6000, 7275, 2400, 1600, motor_type='PM', powers=(1800, 2000), name='S1')
+    RAS1.size_dependent = { 1800: SizeDependent(11030, 98), 
+                            2000: SizeDependent(11580, 112),
+    }    
+    
     RAS2 = R(6000, 7825, 2400, 1400, motor_type='PM', powers=(2250, 2500, 3200, 4000), name='S2')
+    RAS2.size_dependent = { 2250: SizeDependent(12980, 126), 
+                            2500: SizeDependent(13460, 140),
+                            3200: SizeDependent(14140, 175),
+                            4000: SizeDependent(15230, 224),
+    }    
+    
     RAS3 = R(6000, 8850, 2400, 1600, motor_type='PM', powers=(4500, ), name='S3')
+    RAS3.size_dependent = { 4500: SizeDependent(21770, 252), 
+    }    
     
     R.frames = (RA01, RA02, RA03, RA04, 
                 RC01, RC02, RC03,
@@ -267,8 +482,8 @@ class VEDADrive(Device):
         service = 'Front'
         cooling = 'Air'
 
-        def __init__(self, voltage, width, height, length, weight=0, term_loss=0, powers=(), name='Unknown S'):
-            super().__init__(voltage, width, height, length, weight, term_loss, name)        
+        def __init__(self, voltage, width, height, length, powers=(), name='Unknown S'):
+            super().__init__(voltage, width, height, length, name)        
             self.powers = powers
         
         @classmethod
@@ -284,12 +499,46 @@ class VEDADrive(Device):
                     and package.attributes['kVA'] in self.powers
                     
     SA01 = S(6000, 3000, 1900, 1200, powers=(315, 400, 500, 630), name='01')
+    SA01.size_dependent = { 315: SizeDependent(2516, 13), 
+                            400: SizeDependent(2676, 16),
+                            500: SizeDependent(2851, 20),
+                            630: SizeDependent(3186, 25),
+    }    
+    
     SA02 = S(6000, 3850, 2100, 1200, powers=(800, 1000, 1250), name='02')
+    SA02.size_dependent = { 800: SizeDependent(3876, 32), 
+                            1000: SizeDependent(4216, 40),
+                            1250: SizeDependent(4656, 50),
+    }    
+    
     SA03 = S(6000, 4500, 2100, 1200, powers=(1600, 1800, 2000, 2250, 2500), name='03')
+    SA03.size_dependent = { 1600: SizeDependent(5070, 63), 
+                            1800: SizeDependent(5600, 70),
+                            2000: SizeDependent(5600, 80),
+                            2250: SizeDependent(6170, 90),
+                            2500: SizeDependent(6170, 100)
+    }    
+    
 
     SC01 = S(10000, 4550, 1900, 1200, powers=(500, 630, 800, 1000), name='01')
+    SC01.size_dependent = { 500: SizeDependent(3630, 20), 
+                            630: SizeDependent(3860, 25),
+                            800: SizeDependent(4170, 32),
+                            1000: SizeDependent(4530, 40),
+    }    
+    
     SC02 = S(10000, 5400, 2100, 1200, powers=(1250, 1600, 2000, 2250), name='02')
+    SC02.size_dependent = { 1250: SizeDependent(3876, 63), 
+                            1600: SizeDependent(4216, 70),
+                            2000: SizeDependent(4656, 80),
+                            2250: SizeDependent(4656, 90),
+    }    
+    
     SC03 = S(10000, 6500, 2300, 1200, powers=(2500, 3200, 4000), name='03')
+    SC03.size_dependent = { 2500: SizeDependent(8410, 100), 
+                            3200: SizeDependent(9170, 125),
+                            4000: SizeDependent(10720, 160),
+    }    
 
     S.frames = (SA01, SA02, SA03,
                 SC01, SC02, SC03,
@@ -298,8 +547,8 @@ class VEDADrive(Device):
     class L(Frame):
         _type = 'L'
         cooling = 'Liquid'      
-        def __init__(self, voltage, width, height, length, weight=0, term_loss=0, powers=(), name='Unknown L'):
-            super().__init__(voltage, width, height, length, weight, term_loss, name)        
+        def __init__(self, voltage, width, height, length, powers=(), name='Unknown L'):
+            super().__init__(voltage, width, height, length, name)        
             self.powers = powers
         
         @classmethod
@@ -313,7 +562,7 @@ class VEDADrive(Device):
             return self.voltage == package.attributes['voltage'] \
                     and package.attributes['kVA'] in self.powers
                     
-    LA01 = L(6000, 8000, 2400, 1400, powers=(2800, 3200, 3500, 4000), name='01')
+    LA01 = L(6000, 8000, 2400, 1400, powers=(2800, 3200, 3500, 4000), name='01')    
     LA02 = L(6000, 9400, 2400, 1600, powers=(4500, 5000, 6300), name='02')
     LA03 = L(6000, 10000, 2400, 1600, powers=(7000, 7900, 8250), name='03')
     LA04 = L(6000, 0, 0, 0, powers=(10000, 12500, 14500), name='04')
@@ -336,9 +585,15 @@ class VEDADrive(Device):
         _type = 'MB'
 
         def __init__(self, max_current, width, length, name):
-            super().__init__(self, 0 , width, 0, length, 0, name)
+            super().__init__(0 , width, 0, length, name)
             self.max_current = max_current
 
+        def weight(self, device):
+            return 0
+        
+        def therm_loss(self, device):
+            return 0
+            
         @classmethod
         def matches(cls, package):            
             if package.options['power_option'] == 'Manual bypass':
@@ -363,12 +618,18 @@ class VEDADrive(Device):
         _type = 'AB'
         
         def __init__(self, width, length, name):
-            super().__init__(self, 0 , width, 0, length, 0, name)            
+            super().__init__(0 , width, 0, length, name)            
+            
+        def weight(self, device):
+            return 0
+        
+        def therm_loss(self, device):
+            return 0            
         
         @classmethod
         def matches(cls, package):            
             if package.options['power_option'] == 'Autobypass':
-                if package.main_cabinet.length <= 1600:
+                if package.main_cabinet.length <= 1400:
                     frame = VEDADrive.AB01
                 else:
                     frame = VEDADrive.AB02
@@ -385,7 +646,7 @@ class VEDADrive(Device):
         _type = 'AB'
         
         def __init__(self, voltage, width, length, height, powers, name):
-            super().__init__(self, voltage , width, height, length, name)            
+            super().__init__(voltage , width, height, length, name)            
             self.powers = powers
             
         @classmethod
@@ -400,21 +661,62 @@ class VEDADrive(Device):
                     and package.attributes['kVA'] in self.powers
                     
     EA01 = Reactor(6000, 1200, 2400, 1400, powers=(250, 315, 400, 500), name = '01')
+    EA01.size_dependent = { 250: SizeDependent(209, 0), 
+                            315: SizeDependent(223, 0),
+                            400: SizeDependent(256, 0),
+                            500: SizeDependent(286, 0),
+    }    
+    
     EA02 = Reactor(6000, 1400, 2200, 1600, powers=(630, 800, 1000), name = '02')
+    EA02.size_dependent = { 630: SizeDependent(335, 0), 
+                            800: SizeDependent(360, 0),
+                            1000: SizeDependent(480, 0),
+    }    
+    
     EA03 = Reactor(6000, 1600, 2200, 1600, powers=(1250, 1400, 1600, 1800, 2000), name = '03')
+    EA03.size_dependent = { 1250: SizeDependent(566, 0), 
+                            1400: SizeDependent(682, 0),
+                            1600: SizeDependent(682, 0),
+                            1800: SizeDependent(837, 0),
+                            2000: SizeDependent(837, 0)
+    }    
+    
     EA04 = Reactor(6000, 0, 0, 0, powers=(2250, 2500, 2800, 3200), name = '04')
 
     EC01 = Reactor(10000, 1200, 2400, 1400, powers=(250, 315, 400, 500), name = '01')
-    EC02 = Reactor(10000, 1400, 2200, 1600, powers=(630, 800, 1000), name = '02')
-    EC03 = Reactor(10000, 1600, 2200, 1600, powers=(1250, 1400, 1600, 1800, 2000), name = '03')
-    EC04 = Reactor(10000, 0, 0, 0, powers=(2250, 2500, 2800, 3200), name = '04')
+    EC01.size_dependent = { 250: SizeDependent(283, 0), 
+                            315: SizeDependent(293, 0),
+                            400: SizeDependent(339, 0),
+                            500: SizeDependent(384, 0),
+    }    
     
+    EC02 = Reactor(10000, 1400, 2200, 1600, powers=(630, 800, 1000), name = '02')
+    EC02.size_dependent = { 630: SizeDependent(0, 0), 
+                            800: SizeDependent(0, 0),
+                            1000: SizeDependent(0, 0),
+    }    
+    
+    EC03 = Reactor(10000, 1600, 2200, 1600, powers=(1250, 1400, 1600, 1800, 2000), name = '03')
+    EC03.size_dependent = { 1250: SizeDependent(759, 0), 
+                            1400: SizeDependent(990, 0),
+                            1600: SizeDependent(990, 0),
+                            1800: SizeDependent(1217, 0),
+                            2000: SizeDependent(1217, 0)
+    }    
+    
+    EC04 = Reactor(10000, 0, 0, 0, powers=(2250, 2500, 2800, 3200), name = '04')
+    EC04.size_dependent = { 2250: SizeDependent(1408, 0), 
+                            2500: SizeDependent(1408, 0),
+                            2800: SizeDependent(1691, 0),
+                            3200: SizeDependent(1691, 0),
+    }    
+        
     Reactor.frames = (EA01, EA02, EA03, EA04)            
         
     class Multistart(Addon):
         _type = 'MS'
         def __init__(self, width, length, name):
-            super().__init__(self, 0 , width, 0, length, 0, name)            
+            super().__init__(0 , width, 0, length, name)            
 
         @classmethod
         def matches(cls, package):
@@ -577,6 +879,31 @@ class VEDADrive(Device):
                 return False
             
         return True
+        
+    @property
+    def width(self):
+        assert self.is_package
+        return self.main_cabinet.width + sum([o.width for o in self.addons])
+        
+    @property
+    def height(self):
+        assert self.is_package
+        return self.main_cabinet.height
+    
+    @property
+    def length(self):
+        assert self.is_package
+        return self.main_cabinet.length
+        
+    @property
+    def weight(self):
+        assert self.is_package
+        return self.main_cabinet.weight(self) + sum([o.weight(self) for o in self.addons])
+
+    @property
+    def therm_loss(self):
+        assert self.is_package
+        return self.main_cabinet.therm_loss(self) + sum([o.therm_loss(self) for o in self.addons])        
         
     def delivery_items(self):
         #TODO: get weight (and mb size) of drive components

@@ -5,6 +5,12 @@ function updatePackage(data)
 	document.getElementById("short_descr").innerHTML = data.short_descr;
 	document.getElementById("order_code").innerHTML = data.order_code;
 	document.getElementById("main_cabinet").innerHTML = data.main_cabinet;
+	document.getElementById("addons").innerHTML = data.addons;
+	document.getElementById("width").innerHTML = data.width;
+	document.getElementById("height").innerHTML = data.height;
+	document.getElementById("length").innerHTML = data.length;
+	document.getElementById("weight").innerHTML = data.weight;
+	document.getElementById("therm_loss").innerHTML = data.therm_loss;
 	
 	for(var propt in data.options){
 		document.getElementById(propt).innerHTML = data.options[propt]
@@ -37,16 +43,28 @@ function updatePrice(data)
 	<label>Корпус</label>
 	<span id="main_cabinet"> {{ package.main_cabinet.name }}</span>
 	<span id="addons">
-		<table id="addons">
+<!-- 		<table id="addons">
 			{% for a in package.addons %}
 				<tr>
 					<td>
 						{{ a.name }}
 					</td>
 				</tr>
-			{% endfor %}	
+			{% endfor %}	 -->
 		</table>
 	</span>
+</div>
+
+<div class="val-fileld">
+	<label>Габариты, мм</label><span  id="width">x</span>x<span id="height"></span>x<span  id="length"></span>
+</div>
+
+<div class="val-fileld">
+	<label>Масса, кг</label> <span  id="weight"> </span>
+</div>
+
+<div class="val-fileld">
+	<label>Тепловые потери, кВт</label> <span  id="therm_loss"> </span>
 </div>
 
 <h3>Введенные данные</h3>

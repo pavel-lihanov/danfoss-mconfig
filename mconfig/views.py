@@ -172,7 +172,13 @@ class VEDADriveView:
                     'order_code': self.package.order_code(),
                     'short_descr': self.package.short_descr(),
                     'options': {option : value for option,value in self.package.display_options().items()},
-                    'main_cabinet': self.package.main_cabinet.name
+                    'main_cabinet': self.package.main_cabinet.name,
+                    'addons': '+'.join([o.name for o in self.package.addons]),
+                    'width': self.package.width,
+                    'height': self.package.height,
+                    'length': self.package.length,
+                    'weight': self.package.weight,
+                    'therm_loss': self.package.therm_loss
                 }
         
 class PriceView:
