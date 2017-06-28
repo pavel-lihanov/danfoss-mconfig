@@ -93,8 +93,15 @@ VOLTAGES = {
                 10000: 'C',
                 11000: 'D'
 }        
+
+class NotSpecified(Exception):
+    pass
         
 class VEDADrive(Device):
+    class UnknownParameters:
+        def __getitem__(self, key):
+            raise NotSpecified
+    
     class PowerModule:
         def __init__(self, cell, cell_count):
             self.cell = cell
@@ -643,7 +650,7 @@ class VEDADrive(Device):
     AB02 = Autobypass(1000, 1600, name='02')
     
     class Reactor(Addon):
-        _type = 'AB'
+        _type = 'E'
         
         def __init__(self, voltage, width, length, height, powers, name):
             super().__init__(voltage , width, height, length, name)            
@@ -754,7 +761,7 @@ class VEDADrive(Device):
         self.template = "mconfig/VEDADrive.html"
         
         if options:
-            self.options = VEDAOpts(**options)
+            self.options = VEDAOpts(device=self, **options)
         else:
             self.options = VEDAOpts(device=self)
 
@@ -773,7 +780,7 @@ class VEDADrive(Device):
         fields = [(0, self.name), (17, '{0:03}'.format(self.attributes['nom_current']))] \
             + [(self.options._opts[n].code_pos, self.options._opts[n].choices_to_codes[v]) for n,v in self.options.items() if n in self.options._opts]
         return ''.join([f[1] for f in sorted(fields, key=operator.itemgetter(0))])
-
+        
     #cabinet calculation logic
     def get_power_module(self):
         return None
@@ -913,13 +920,25 @@ class VEDADrive(Device):
         
     def display_options(self):
         infos = self.options._opts
-        opts = self.options.items()
-        res = {}
+        opts = self.options.items()        
+        
+        rl = []        
+        
+        il = [k for k,v in infos.items()]
+        
+        i = len(il)
+        
         for k,v in opts:
             if k in infos:
-                res[infos[k].display_name] = infos[k].display_choices[v]
+                #res[infos[k].display_name] = infos[k].display_choices[v]
+                rl.append((il.index(k), (infos[k].display_name, infos[k].display_choices[v])))                
             else:
-                res[k] = v
+                #res[k] = v
+                print('Unknown option?', k, v)
+                rl.append((i, (k, v)))
+                i+=1 
+                
+        res = collections.OrderedDict([a[1] for a in sorted(rl, key=lambda a: a[0])])
         return res
         
         
@@ -990,13 +1009,19 @@ class CoolingOption(VEDAOption):
     def choices(self, dev):
         if dev.attributes['voltage'] == 6000:
             if dev.attributes['nom_current'] >= 275:
+                print('Any cooling')
+                print(self._choices)
                 return self._choices
             else:
+                print('Air cooling only')
+                print((self._choices[0], ))
                 return (self._choices[0], )
         elif dev.attributes['voltage'] == 10000:
             if dev.attributes['nom_current'] >= 260:
+                print(self._choices)
                 return self._choices
             else:
+                print((self._choices[0], ))
                 return (self._choices[0], )    
 
 class ServiceOption(VEDAOption):                
@@ -1076,16 +1101,19 @@ class VEDAOpts:
                         display_name=_('Motor voltage'),
                         ),
                 ):
-            self._opts[o.name] = o        
+            self._opts[o.name] = o
         
+        if 'device' in args:
+            dev = args['device'] if 'device' in args else None
+            del args['device']
+            
         self.opts = collections.OrderedDict()
         for on, ov in self._opts.items():
-                if 'device' in args:
-                    device = args['device']
-                    self.opts[on] = ov.choices(device)
+                if dev:                    
+                    self.opts[on] = ov.choices(dev)
                 else:
                     self.opts[on] = ()
-                
+                        
         self.opts.update(args)
 
     def __getitem__(self, key):
@@ -1096,8 +1124,6 @@ class VEDAOpts:
         return self._opts.items()
         
     def items(self):
-        #print(self.opts)
-        #print(list(self.opts.items()))
         return self.opts.items()
 
 devices = [
@@ -1124,21 +1150,21 @@ devices = [
     VEDADrive('VD-P7900U1', attributes={'voltage': 6000, 'nom_current': 750, 'kVA': 7900}),
     VEDADrive('VD-P8250U1', attributes={'voltage': 6000, 'nom_current': 800, 'kVA': 8250}),
     
-    VEDADrive('VD-P500KU3', attributes={'voltage': 10000, 'nom_current': 31, 'kVA': 500}),
-    VEDADrive('VD-P630KU3', attributes={'voltage': 10000, 'nom_current': 40, 'kVA': 630}),
-    VEDADrive('VD-P800KU3', attributes={'voltage': 10000, 'nom_current': 48, 'kVA': 800}),
-    VEDADrive('VD-P1000U3', attributes={'voltage': 10000, 'nom_current': 61, 'kVA': 1000}),
-    VEDADrive('VD-P1250U3', attributes={'voltage': 10000, 'nom_current': 77, 'kVA': 1250}),
-    VEDADrive('VD-P1600U3', attributes={'voltage': 10000, 'nom_current': 96, 'kVA': 1600}),
-    VEDADrive('VD-P1800U3', attributes={'voltage': 10000, 'nom_current': 104, 'kVA': 1800}),
-    VEDADrive('VD-P2000U3', attributes={'voltage': 10000, 'nom_current': 115, 'kVA': 2000}),
-    VEDADrive('VD-P2250U3', attributes={'voltage': 10000, 'nom_current': 130, 'kVA': 2250}),
-    VEDADrive('VD-P2500U3', attributes={'voltage': 10000, 'nom_current': 154, 'kVA': 2500}),
-    VEDADrive('VD-P2800U3', attributes={'voltage': 10000, 'nom_current': 165, 'kVA': 2800}),
-    VEDADrive('VD-P3150U3', attributes={'voltage': 10000, 'nom_current': 192, 'kVA': 3150}),
-    VEDADrive('VD-P3500U3', attributes={'voltage': 10000, 'nom_current': 205, 'kVA': 3500}),
-    VEDADrive('VD-P4000U3', attributes={'voltage': 10000, 'nom_current': 243, 'kVA': 4000}),
-    VEDADrive('VD-P4500U3', attributes={'voltage': 10000, 'nom_current': 260, 'kVA': 4500}),
+    VEDADrive('VD-P500KU3', attributes={'voltage': 10000, 'nom_current': 31, 'kVA': 500}, options={'cooling': 'Air'}),
+    VEDADrive('VD-P630KU3', attributes={'voltage': 10000, 'nom_current': 40, 'kVA': 630}, options={'cooling': 'Air'}),
+    VEDADrive('VD-P800KU3', attributes={'voltage': 10000, 'nom_current': 48, 'kVA': 800}, options={'cooling': 'Air'}),
+    VEDADrive('VD-P1000U3', attributes={'voltage': 10000, 'nom_current': 61, 'kVA': 1000}, options={'cooling': 'Air'}),
+    VEDADrive('VD-P1250U3', attributes={'voltage': 10000, 'nom_current': 77, 'kVA': 1250}, options={'cooling': 'Air'}),
+    VEDADrive('VD-P1600U3', attributes={'voltage': 10000, 'nom_current': 96, 'kVA': 1600}, options={'cooling': 'Air'}),
+    VEDADrive('VD-P1800U3', attributes={'voltage': 10000, 'nom_current': 104, 'kVA': 1800}, options={'cooling': 'Air'}),
+    VEDADrive('VD-P2000U3', attributes={'voltage': 10000, 'nom_current': 115, 'kVA': 2000}, options={'cooling': 'Air'}),
+    VEDADrive('VD-P2250U3', attributes={'voltage': 10000, 'nom_current': 130, 'kVA': 2250}, options={'cooling': 'Air'}),
+    VEDADrive('VD-P2500U3', attributes={'voltage': 10000, 'nom_current': 154, 'kVA': 2500}, options={'cooling': 'Air'}),
+    VEDADrive('VD-P2800U3', attributes={'voltage': 10000, 'nom_current': 165, 'kVA': 2800}, options={'cooling': 'Air'}),
+    VEDADrive('VD-P3150U3', attributes={'voltage': 10000, 'nom_current': 192, 'kVA': 3150}, options={'cooling': 'Air'}),
+    VEDADrive('VD-P3500U3', attributes={'voltage': 10000, 'nom_current': 205, 'kVA': 3500}, options={'cooling': 'Air'}),
+    VEDADrive('VD-P4000U3', attributes={'voltage': 10000, 'nom_current': 243, 'kVA': 4000}, options={'cooling': 'Air'}),
+    VEDADrive('VD-P4500U3', attributes={'voltage': 10000, 'nom_current': 260, 'kVA': 4500}, options={'cooling': 'Air'}),
     VEDADrive('VD-P5000U3', attributes={'voltage': 10000, 'nom_current': 304, 'kVA': 5000}),
     VEDADrive('VD-P5630U3', attributes={'voltage': 10000, 'nom_current': 325, 'kVA': 5630}),
     VEDADrive('VD-P6300U3', attributes={'voltage': 10000, 'nom_current': 364, 'kVA': 6300}),

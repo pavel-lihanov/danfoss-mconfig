@@ -171,7 +171,7 @@ class VEDADriveView:
                     'name': self.package.name,
                     'order_code': self.package.order_code(),
                     'short_descr': self.package.short_descr(),
-                    'options': {option : value for option,value in self.package.display_options().items()},
+                    'options': self.package.display_options(),
                     'main_cabinet': self.package.main_cabinet.name,
                     'addons': '+'.join([o.name for o in self.package.addons]),
                     'width': self.package.width,

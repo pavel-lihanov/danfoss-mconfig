@@ -30,20 +30,26 @@ class LoadQuestion(wizard.Question):
         def __init__(self, current_getter, devs, views, **kwargs):
             self.custom_app = wizard.Choice(_('Custom'), rules.TrueRule())
             self.apps = (   
-                            ('1.1', wizard.Choice(_('Centr. pump (k=1.1)'), rules.OverloadRule(1.1, current_getter))),
-                            ('1.5', wizard.Choice(_('Submer. pump (k=1.5)'), rules.OverloadRule(1.5, current_getter))),
                             ('1.1', wizard.Choice(_('Fan (k=1.1)'), rules.OverloadRule(1.1, current_getter))),
-                            ('2.0', wizard.Choice(_('Piston pump (k=2)'), rules.OverloadRule(2.0, current_getter))),
-                            ('2.0', wizard.Choice(_('Grinder (k=2)'), rules.OverloadRule(2.0, current_getter))),
-                            ('1.6', wizard.Choice(_('Compressor (k=1.6)'), rules.OverloadRule(1.6, current_getter))),
+                            ('1.5', wizard.Choice(_('Smoke extractor (k=1.5)'), rules.OverloadRule(1.5, current_getter))),
+                            ('1.15', wizard.Choice(_('Compressor (k=1.15)'), rules.OverloadRule(1.15, current_getter))),
                             ('2.0', wizard.Choice(_('2-piston compressor (k=2)'), rules.OverloadRule(2.0, current_getter))),
                             ('1.6', wizard.Choice(_('4-piston compressor (k=1.6)'), rules.OverloadRule(1.6, current_getter))),
                             ('1.5', wizard.Choice(_('6-piston compressor (k=1.5)'), rules.OverloadRule(1.5, current_getter))),
+                            ('1.6', wizard.Choice(_('Piston pump (k=1.6)'), rules.OverloadRule(1.6, current_getter))),
+                            ('1.1', wizard.Choice(_('Centr. pump (k=1.1)'), rules.OverloadRule(1.1, current_getter))),
+                            ('1.3', wizard.Choice(_('Submer. pump (pulp) (k=1.3)'), rules.OverloadRule(1.3, current_getter))),
+                            ('1.3', wizard.Choice(_('Submer. pump (wastewater) (k=1.3)'), rules.OverloadRule(1.3, current_getter))),
+                            ('1.1', wizard.Choice(_('Fan (k=1.1)'), rules.OverloadRule(1.1, current_getter))),
+                            ('1.5', wizard.Choice(_('Smoke extractor (k=1.5)'), rules.OverloadRule(1.5, current_getter))),
+                            ('2.0', wizard.Choice(_('Grinder (k=2)'), rules.OverloadRule(2.0, current_getter))),
+                            ('1.4', wizard.Choice(_('Autogenous mill (k=1.4)'), rules.OverloadRule(1.4, current_getter))),
+                            ('1.8', wizard.Choice(_('Ball mill (k=1.8)'), rules.OverloadRule(1.8, current_getter))),
                             ('1.2', wizard.Choice(_('Processing machine, light load (k=1.2)'), rules.OverloadRule(1.2, current_getter))),
                             ('1.5', wizard.Choice(_('Processing machine, medium load (k=1.5)'), rules.OverloadRule(1.5, current_getter))),
                             ('2.0', wizard.Choice(_('Processing machine, heavy load (k=2)'), rules.OverloadRule(2.0, current_getter))),
-                            ('1.6', wizard.Choice(_('Conveyour, light load (k=1.6)'), rules.OverloadRule(1.6, current_getter))),
-                            ('2.0', wizard.Choice(_('Conveyour, heavy load (k=2)'), rules.OverloadRule(2.0, current_getter))),  
+                            ('1.4', wizard.Choice(_('Conveyour, light load (k=1.4)'), rules.OverloadRule(1.4, current_getter))),
+                            ('1.8', wizard.Choice(_('Conveyour, heavy load (k=1.8)'), rules.OverloadRule(1.8, current_getter))),  
                             ('0.0', self.custom_app),
                     )
             
@@ -118,7 +124,7 @@ class LoadQuestion(wizard.Question):
 
                         wizard.ChoiceField(_('Select braking mode'), 'select_braking_mode',
                                         (   wizard.Choice(_('Coasting stop'), rules.OptionRule('brake_mode', 'Coast'), options = {'brake_mode': 'Coast'}),
-                                            wizard.Choice(_('Dynamic braking'), rules.OptionRule('brake_mode', 'Dynamic'), options = {'brake_mode': 'Dynamic'}),
+                                            #wizard.Choice(_('Dynamic braking'), rules.OptionRule('brake_mode', 'Dynamic'), options = {'brake_mode': 'Dynamic'}),
                                             wizard.Choice(_('Recuperation'), rules.OptionRule('brake_mode', 'Recuperation'), options = {'brake_mode': 'Recuperation', 'control_mode': 'Vector control', 'Service access':'Front and back'}),
                                         ), 
                                     devs, views, hint='',**kwargs
@@ -175,9 +181,9 @@ class PlacementQuestion(wizard.Question):
         self.fields = [ wizard.ChoiceField(_('Select drive voltage'), 'select_drive_voltage',
                                         (   wizard.Choice('', rules.TrueRule(), mean=False),
                                             wizard.Choice(_('6kV  50Hz'), rules.AttributeRule('voltage', 6000), options = {'input_freq': 50}),
-                                            wizard.Choice(_('6kV  60Hz'), rules.AttributeRule('voltage', 6000), options = {'input_freq': 60}),                                            
+                                            #wizard.Choice(_('6kV  60Hz'), rules.AttributeRule('voltage', 6000), options = {'input_freq': 60}),                                            
                                             wizard.Choice(_('10kV 50Hz'), rules.AttributeRule('voltage', 10000), options = {'input_freq': 50}),                                            
-                                            wizard.Choice(_('10kV 60Hz'), rules.AttributeRule('voltage', 10000), options = {'input_freq': 60}),
+                                            #wizard.Choice(_('10kV 60Hz'), rules.AttributeRule('voltage', 10000), options = {'input_freq': 60}),
                                         ), 
                                     devs, views, required = True, hint='mconfig/hints/drive_voltage.html',**kwargs
                                     ),                                                            
@@ -188,15 +194,20 @@ class PlacementQuestion(wizard.Question):
                                                             OptionChoice(_('IP30'), 'enclosure', 'IP30'),
                                                             OptionChoice(_('IP31'), 'enclosure', 'IP31'),
                                                             OptionChoice(_('IP41'), 'enclosure', 'IP41'),
-                                                            OptionChoice(_('IP42'), 'enclosure', 'IP42'),
-                                                            OptionChoice(_('IP54'), 'enclosure', 'IP54'),                                                            
+                                                            #OptionChoice(_('IP42'), 'enclosure', 'IP42'),
+                                                            #OptionChoice(_('IP54'), 'enclosure', 'IP54'),                                                            
                                                         ), 
                                                         devs, views, hint='mconfig/hints/enclosure.html',**kwargs),
                                                                                                                                                       
                         wizard.ChoiceField(_('Select drive cooling'), 'select_cooling',
                                         (                                               
-                                            wizard.Choice(_('Air cooling'), rules.OptionRule('cooling', 'Air'), options = {'cooling':'Air'}),
-                                            wizard.Choice(_('Liquid cooling'), rules.OptionRule('cooling', 'Liquid'), options = {'cooling':'Liquid', 'Service access' : 'Front and back'}),
+                                            wizard.Choice(_('Air cooling'),                                                 
+                                                rules.OptionRule('cooling', 'Air'),                                                                                                         
+                                                options = {'cooling':'Air'}),
+                                            wizard.Choice(_('Liquid cooling'), 
+                                                rules.OptionRule('cooling', 'Liquid'),
+                                                options = {'cooling':'Liquid', 'Service access' : 'Front and back'}
+                                            ),
                                         ), 
                                     devs, views, hint='mconfig/hints/cooling.html', **kwargs
                                     ),

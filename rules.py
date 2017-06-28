@@ -15,10 +15,11 @@ class OptionRule:
         self.value = value
         
     def apply(self, device, transform, options):
-        #if self.value in device.options[self.name]:
+        if self.value in device.options[self.name]:
+            pass
+        else:
+            print('OptionRule.apply: False', self.value, device.options[self.name])
         return self.value in device.options[self.name]
-        #else:
-        #    print('OptionRule.apply: False', self.value, device.attributes['nom_current'], device.options[self.name])
 
 class AttributeRule:
     def __init__(self, name, value):
@@ -142,7 +143,21 @@ class CurrentRule:
         self.curr_getter = curr_getter
         
     def apply(self, device, transform, options):
-        return device.attributes['nom_current'] > self.curr_getter()
+        my_cur = device.attributes['nom_current']
+        req_cur = self.curr_getter()        
+        #TODO - do not oversize, should be checked by devices
+        if req_cur > 0:
+            return my_cur >= req_cur * 0.9999 and my_cur < req_cur * 1.1
+        else:
+            return True
+
+class CurrentLesserRule:
+    def __init__(self, curr_getter):
+        self.curr_getter = curr_getter
+        
+    def apply(self, device, transform, options):        
+        return device.attributes['nom_current'] < self.curr_getter()
+
         
 class CanSeeDeliveryRule:
     def __init__(self, user_getter):
