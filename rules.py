@@ -147,7 +147,7 @@ class CurrentRule:
         req_cur = self.curr_getter()        
         #TODO - do not oversize, should be checked by devices
         if req_cur > 0:
-            return my_cur >= req_cur * 0.9999 and my_cur < req_cur * 1.1
+            return my_cur >= req_cur * 0.9999 and my_cur < req_cur * 1.3
         else:
             return True
 
