@@ -476,7 +476,7 @@ def field(request, session):
     
     field = request.GET['field']
     #print(request.GET)
-    print('requested field', field)
+    #print('requested field', field)
     try:
         f = question.get_field(field)
         
@@ -612,7 +612,7 @@ def question(request, session):
     if request.method == 'GET':    
         question = wiz.current_screen
         question.select()
-        print(type(question), question.view.template)
+        #print(type(question), question.view.template)
         opts = wiz.get_options(question)  
         all_devs = wiz.apply_filters_nosave(question.next, options=opts)
         devs = decider.select_devices(all_devs)
