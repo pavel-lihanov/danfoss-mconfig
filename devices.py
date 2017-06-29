@@ -166,7 +166,7 @@ class VEDADrive(Device):
                 return None
                     
         def size_matches(self, package):
-            return self.voltage == package.attributes['voltage'] \
+            return self.voltage == package.options['mains_voltage'] \
                     and package.attributes['kVA'] in self.powers
             
     CA01 = C(6000, 2150, 2400, 1400, name='01')
@@ -206,7 +206,7 @@ class VEDADrive(Device):
                 return None
                     
         def size_matches(self, package):            
-            return self.voltage == package.attributes['voltage'] \
+            return self.voltage == package.options['mains_voltage'] \
                     and package.attributes['kVA'] in self.powers
                                 
     DA01 = D(6000, 2150, 2400, 1400, powers = (315, 400, 500, 630), name='01')    
@@ -417,7 +417,7 @@ class VEDADrive(Device):
                         return f
 
         def size_matches(self, package):
-            return self.voltage == package.attributes['voltage'] \
+            return self.voltage == package.options['mains_voltage'] \
                     and package.options['motor_type'] == self.motor_type \
                     and package.attributes['kVA'] in self.powers
                                                 
@@ -502,7 +502,7 @@ class VEDADrive(Device):
                         return f
                     
         def size_matches(self, package):
-            return self.voltage == package.attributes['voltage'] \
+            return self.voltage == package.options['mains_voltage'] \
                     and package.attributes['kVA'] in self.powers
                     
     SA01 = S(6000, 3000, 1900, 1200, powers=(315, 400, 500, 630), name='01')
@@ -566,7 +566,7 @@ class VEDADrive(Device):
                         return f
                 
         def size_matches(self, package):            
-            return self.voltage == package.attributes['voltage'] \
+            return self.voltage == package.options['mains_voltage'] \
                     and package.attributes['kVA'] in self.powers
                     
     LA01 = L(6000, 8000, 2400, 1400, powers=(2800, 3200, 3500, 4000), name='01')    
@@ -812,15 +812,15 @@ class VEDADrive(Device):
     def package(self, options, decider):
         #check if we need power transformer                    
         options = dict(options)
-        drive_voltage = self.attributes['voltage']
-        if 'motor_voltage' in options:
-            print('Drive voltage:', drive_voltage)
-            print('Motor voltage:', options['motor_voltage'])
-            if self.attributes['voltage'] != options['motor_voltage']:
-                motor_voltage = options['motor_voltage']
-                options['transformer'] =  str(drive_voltage) + '-' + str(motor_voltage)                
+        motor_voltage = self.attributes['voltage']
+        if 'mains_voltage' in options:
+            mains_voltage = options['mains_voltage']
+            print('Mains voltage:', mains_voltage)
+            print('Motor voltage:', motor_voltage)
+            if motor_voltage != mains_voltage:                
+                options['transformer'] =  str(mains_voltage) + '-' + str(motor_voltage)                
         else:
-            raise KeyError('Motor voltage is not specified')
+            raise KeyError('Supply voltage is not specified')
         
         new_options = collections.OrderedDict()
         
@@ -873,7 +873,15 @@ class VEDADrive(Device):
         doc.save(path)        
         
     def short_descr(self):
-        return _('VEDADRIVE {0}kV, {1} kVA, {2}, {3} {4}').format(self.attributes['voltage']//1000, self.attributes['kVA'], _('Air-cooled') if self.options['cooling']=='Air' else _('Liquid_cooled') ,self.options['enclosure'], self.options['Service access'])
+        return _('VEDADRIVE Uin={0}kV, Uout={5}kV, {1}A {6} cells per phase, {2}, {3} {4} service access').format(
+            self.options['mains_voltage']//1000,
+            self.attributes['nom_current'],
+            _('Air-cooled') if self.options['cooling']=='Air' else _('Liquid_cooled'),
+            self.options['enclosure'], 
+            self.options._opts['Service access'].display_choices[self.options['Service access']],
+            #self.options['Service access'], 
+            self.attributes['voltage'],
+            self.options['power_cells'])
 
     #do not use, use PriceList.package_matches_pricelist()
     def matches_pricelist(self, row):
@@ -1009,21 +1017,24 @@ class CoolingOption(VEDAOption):
     def choices(self, dev):
         if dev.attributes['voltage'] == 6000:
             if dev.attributes['nom_current'] >= 275:
-                print('Any cooling')
-                print(self._choices)
                 return self._choices
             else:
-                print('Air cooling only')
-                print((self._choices[0], ))
                 return (self._choices[0], )
         elif dev.attributes['voltage'] == 10000:
             if dev.attributes['nom_current'] >= 260:
-                print(self._choices)
                 return self._choices
             else:
-                print((self._choices[0], ))
                 return (self._choices[0], )    
 
+class PowerCellOption(VEDAOption):
+    def choices(self, dev):
+        if dev.attributes['voltage'] == 6000:
+            #6kV - 5 or 6 cells
+            return self._choices[0:2]
+        elif dev.attributes['voltage'] == 10000:
+            return self._choices[2:]
+                
+                
 class ServiceOption(VEDAOption):                
     def choices(self, dev):
         if dev.attributes['nom_current'] <= 243:
@@ -1097,9 +1108,17 @@ class VEDAOpts:
                         price_field=19, price_getter=VEDAOption.generic_getter,
                         display_name=_('Service access'), display_choices={'Front':_('Front'), 'Front and back':_('Front and back')}
                         ),                    
-                    VEDAOption('motor_voltage', (6000, 10000), ('', ''), 0,
+                    VEDAOption('mains_voltage', (6000, 10000), ('', ''), 0,
                         display_name=_('Motor voltage'),
+                        ),                                                
+                    #motor_voltage is attributes['voltage']
+                    #VEDAOption('motor_voltage', (6000, 10000), ('', ''), 0,
+                    #    display_name=_('Motor voltage'),
+                    #    ),                        
+                    PowerCellOption('power_cells', (5, 6, 8, 9), ('', '', '', ''), 0,
+                        display_name=_('Power cells count'),
                         ),
+                        
                 ):
             self._opts[o.name] = o
         

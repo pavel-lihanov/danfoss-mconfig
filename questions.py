@@ -90,8 +90,10 @@ class LoadQuestion(wizard.Question):
 
         self.motor_voltage_field = wizard.ChoiceField(_('Select motor voltage'), 'select_motor_voltage',
                                         (   wizard.Choice('', rules.TrueRule(), mean=False),
-                                            wizard.Choice(_('6kV'), rules.TrueRule(), options = {'motor_voltage': 6000}), #rules.AttributeRule('motor_voltage', 6000)),
-                                            wizard.Choice(_('10kV'), rules.TrueRule(), options = {'motor_voltage': 10000}),#rules.AttributeRule('motor_voltage', 10000)),
+                                            wizard.Choice(_('6kV'), rules.AttributeRule('voltage', 6000)), #),
+                                            wizard.Choice(_('10kV'), rules.AttributeRule('voltage', 10000)),#),                                        
+                                            #wizard.Choice(_('6kV'), rules.AttributeRule('voltage', 6000), options = {'motor_voltage': 6000}), #),
+                                            #wizard.Choice(_('10kV'), rules.AttributeRule('voltage', 10000), options = {'motor_voltage': 10000}),#),
                                         ), 
                                                         devs, views, required=True, hint='',**kwargs
                                     )
@@ -180,15 +182,11 @@ class PlacementQuestion(wizard.Question):
         self.fields = None      
         self.fields = [ wizard.ChoiceField(_('Select drive voltage'), 'select_drive_voltage',
                                         (   wizard.Choice('', rules.TrueRule(), mean=False),
-                                            wizard.Choice(_('6kV  50Hz'), rules.AttributeRule('voltage', 6000), options = {'input_freq': 50}),
-                                            #wizard.Choice(_('6kV  60Hz'), rules.AttributeRule('voltage', 6000), options = {'input_freq': 60}),                                            
-                                            wizard.Choice(_('10kV 50Hz'), rules.AttributeRule('voltage', 10000), options = {'input_freq': 50}),                                            
-                                            #wizard.Choice(_('10kV 60Hz'), rules.AttributeRule('voltage', 10000), options = {'input_freq': 60}),
+                                            wizard.Choice(_('6kV  50Hz'), rules.TrueRule(), options = {'input_freq': 50, 'mains_voltage':6000}),
+                                            wizard.Choice(_('10kV 50Hz'), rules.TrueRule(), options = {'input_freq': 50, 'mains_voltage':10000}),
                                         ), 
                                     devs, views, required = True, hint='mconfig/hints/drive_voltage.html',**kwargs
-                                    ),                                                            
-
-        
+                                    ),
         
                         wizard.ChoiceField(_('Select enclosure'), 'select_enclosure', (   
                                                             OptionChoice(_('IP30'), 'enclosure', 'IP30'),
@@ -250,6 +248,16 @@ class PlacementQuestion(wizard.Question):
                                                         ), 
                                                         devs, views, hint='mconfig/hints/fieldbus.html', **kwargs),
                                                         
+                        wizard.ChoiceField(_('Select power cell count'), 'select_power_cells',
+                                        (                                               
+                                            wizard.Choice(_('5'), rules.OptionRule('power_cells', 5), options = {'power_cells': 5}),
+                                            wizard.Choice(_('6'), rules.OptionRule('power_cells', 6), options = {'power_cells': 6}),
+                                            wizard.Choice(_('8'), rules.OptionRule('power_cells', 8), options = {'power_cells': 8}),
+                                            wizard.Choice(_('9'), rules.OptionRule('power_cells', 9), options = {'power_cells': 9}),
+                                        ), 
+                                    devs, views, hint='mconfig/hints/power_cells.html',**kwargs
+                                    ),
+                                                        
                         wizard.ChoiceField(_('Select drive bypass'), 'select_c',
                                         (   
                                             wizard.Choice(_('None'),   rules.OptionRule('power_option', 'None'), options = {'power_option': 'None'}),
@@ -257,7 +265,7 @@ class PlacementQuestion(wizard.Question):
                                                                             rules.CanUseBypassRule(), 
                                                                             rules.OptionRule('power_option', 'Manual bypass')
                                                                             ), 
-                                                                       options = {'power_option': 'Manual bypass'}),                                                                            
+                                                                       options = {'power_option': 'Manual bypass'}),
                                             wizard.Choice(_('Auto'),   rules.RuleAndChain(
                                                                             rules.CanUseBypassRule(), 
                                                                             rules.OptionRule('power_option', 'Autobypass'),
@@ -271,7 +279,10 @@ class PlacementQuestion(wizard.Question):
                         wizard.ChoiceField(_('Select power cell bypass'), 'select_d',
                                         (   
                                             OptionChoice(_('None'), 'power_cell_autobypass', 'No'),
-                                            OptionChoice(_('Autobypass'), 'power_cell_autobypass', 'Yes'),
+                                            wizard.Choice(_('Autobypass'), 
+                                                            rules.OptionRule('power_cell_autobypass', 'Yes'), 
+                                                            options = {'power_cell_autobypass': 'Yes', 'motor_type':'Induction'}),
+                                            #OptionChoice(_('Autobypass'), 'power_cell_autobypass', 'Yes'),
                                         ), 
                                     devs, views, hint='mconfig/hints/power_cell_bypass.html',**kwargs
                                     ),                        

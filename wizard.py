@@ -167,6 +167,7 @@ class ChoiceField(Field):
         
 
     def update(self, devs, opts={}):
+        #print('Field.update() ', self)
         #print(self.choices)
         #check what choices are valid for subset of devices     
         for choice in self.choices.values():
@@ -177,10 +178,13 @@ class ChoiceField(Field):
             #print('Update: choice', choice, 'was', choice.enabled)
             if not devs:
                 print('Will surely be disabled (no devs)', choice, choice.rule, opts)
-            newdevs = self.filter(devs, choice.rule, opts)
+            topts = dict(opts)
+            #print(choice, choice.options)
+            topts.update(choice.options)
+            newdevs = self.filter(devs, choice.rule, topts)
             choice.enabled = len(newdevs) > 0
-            if not choice.enabled:
-                print('Disabled (no devs)', choice, choice.rule, opts)
+            #if not choice.enabled:
+            #    print('Disabled (no devs)', choice, choice.rule, topts)
                 
             #print('Update: choice', choice, choice.enabled)            
             #print(choice.options)
@@ -191,14 +195,14 @@ class ChoiceField(Field):
                     elif isinstance(choice.options[opt], collections.Iterable) and val in choice.options[opt]:
                         pass
                     else:
-                        #print('Disabled', self, opt, opts)
+                        #print('Disabled (different opts)', self, opt, opts)
                         choice.enabled = False            
                 
         valid_choices = [c for c in self.choices.values() if c.enabled]
                 
         if not valid_choices:
-            print('Field', self.name, 'no valid choices!')
-            print([c for c in self.choices.values()])
+            #print('Field', self.name, 'no valid choices!')
+            #print([c for c in self.choices.values()])
             raise ValidationError(self.name)        
         
         mean_choices = [c for c in valid_choices if c.mean]     
@@ -236,19 +240,21 @@ class ChoiceField(Field):
             #newdevs = [d for d in filter(choice.rule.apply, devs)]
             #assert(newdevs)
             if not newdevs:
+                #print('No matches')
                 raise NoMatches('No device matches choice {0} in {1}'.format(choice, self))
             self.selected = choice
             self.update(newdevs, opts)
-            #print(choice, "selected in ", self)
+            #print(choice, "selected in ", self, self.selected)
             for s in self.on_changed:
                 s(self)
             return newdevs
         else:
-            print("Warning, ", choice, "not in choices of ", self)              
+            #print("Warning, ", choice, "not in choices of ", self)              
             raise ValueError('{0} is not a valid choice of {1}'.format(choice, self))
                     
             
     def undo(self):
+        print('Undo', self)
         self.selected = self.old
             
             
@@ -325,7 +331,7 @@ class ValueField(Field):
 
     def undo(self):
         self.value = self.old
-        print('ValueField.undo(): value is now', self.old)
+        #print('ValueField.undo(): value is now', self.old)
             
     def filter(self, devs, opts):
         ds = [(d, rules.Transform()) for d in devs]
@@ -371,7 +377,7 @@ class StreetAddressField(Field):
         self.init_view(views, **kwargs)
  
     def select(self, choice, devs, opts):
-        print('StreetAddressField: selected', choice)
+        #print('StreetAddressField: selected', choice)
         self.value, loc = choice.split('/')        
         lat, lng = loc[1: -1].split(',')
         self.location = (lat.strip(), lng.strip())
@@ -462,7 +468,7 @@ class OneOfManyField(Field):
         return list(itertools.chain.from_iterable(f.get_rules() for f,e in self.fields if e))
         
     def select(self, choice, devs, opts):
-        print('OneOfManyField.select()', choice)
+        #print('OneOfManyField.select()', choice)
         for f in self.fields:
             f[1] = False
         fs = {f[0].name:i for i,f in enumerate(self.fields)} 
@@ -698,7 +704,6 @@ class Wizard:
         cur = self.screens[0]
         while cur != last_screen:       
             for field in cur.get_fields():
-                #TODO: check 
                 #note: field may have several options
                 if field not in exclude:
                     opts.update(field.get_option())
@@ -708,39 +713,57 @@ class Wizard:
     def refresh_field(self, question, field):
         devs = self.devs        
         opts = self.get_options(question)
+        opts2 = self.get_options(question.next)
             
-        devs = self.apply_filters_nosave(question.next, exclude=field.get_rules(), options=opts)        
+        devs = self.apply_filters_nosave(question.next, exclude=field.get_rules(), options=opts)
+        
         if devs:                
             for f in question.get_fields():
                 opts = self.get_options(question.next, exclude=(f, ))
                 devs = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts)
                 f.update(devs, opts)
         else:
-            #should not happen
-            print('WARNING: refresh_field(): empty devs')
+            #may happen if other fields in this question depend on options of this
+            devs = self.apply_filters_nosave(question.next, exclude=field.get_rules(), options=opts2)
+            if devs:
+                for f in question.get_fields():
+                    opts = self.get_options(question.next, exclude=(f, ))
+                    devs = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts)
+                    f.update(devs, opts)
+            else:
+                print('WARNING: refresh_field(): empty devs for next')
             #field.undo()
             #question.last_error = _('No device matches current selection')
             #raise _('No device matches current selection')
+        #print('refresh_field end')
         
         
     def update(self, question, field, value):
         question = self.current_screen
         devs = self.devs        
         opts = self.get_options(question)
-        try:                
-            opts = self.get_options(question)                
+        try:
             field.select(value, devs, opts)
         except NoMatches:
-            raise
+            opts2 = self.get_options(question.next, exclude=(field,))
+            try:
+                field.select(value, devs, opts2)
+            except NoMatches:
+                raise
         except ValueError:
             raise
-            
-        devs = self.apply_filters_nosave(question.next, exclude=field.get_rules(), options=opts)        
+        #Value set, check if it compatible with other fields
+        opts = self.get_options(question.next)
+        devs = self.apply_filters_nosave(question.next, exclude=field.get_rules(), options=opts)
         #opts = self.get_options(question.next, exclude=(field, ))
         if devs:                
-            for f in question.get_fields():
+            for f in question.get_fields():                
                 opts = self.get_options(question.next, exclude=(f, ))
                 devs = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts)
+                if not devs:
+                    print('Update will fail: no devs')
+                    opts = self.get_options(question.next)
+                    devs = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts)
                 f.update(devs, opts)
         else:
             field.undo()
