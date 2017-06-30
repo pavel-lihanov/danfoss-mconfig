@@ -250,9 +250,9 @@ class PlacementQuestion(wizard.Question):
                                                         
                         wizard.ChoiceField(_('Select power cell count'), 'select_power_cells',
                                         (                                               
-                                            wizard.Choice(_('5'), rules.OptionRule('power_cells', 5), options = {'power_cells': 5}),
+                                            wizard.Choice(_('5'), rules.OptionRule('power_cells', 5), options = {'power_cells': 5, 'motor_type':'Induction'}),
                                             wizard.Choice(_('6'), rules.OptionRule('power_cells', 6), options = {'power_cells': 6}),
-                                            wizard.Choice(_('8'), rules.OptionRule('power_cells', 8), options = {'power_cells': 8}),
+                                            wizard.Choice(_('8'), rules.OptionRule('power_cells', 8), options = {'power_cells': 8, 'motor_type':'Induction'}),
                                             wizard.Choice(_('9'), rules.OptionRule('power_cells', 9), options = {'power_cells': 9}),
                                         ), 
                                     devs, views, hint='mconfig/hints/power_cells.html',**kwargs
@@ -281,7 +281,10 @@ class PlacementQuestion(wizard.Question):
                                             OptionChoice(_('None'), 'power_cell_autobypass', 'No'),
                                             wizard.Choice(_('Autobypass'), 
                                                             rules.OptionRule('power_cell_autobypass', 'Yes'), 
-                                                            options = {'power_cell_autobypass': 'Yes', 'motor_type':'Induction'}),
+                                                            options = { 'power_cell_autobypass': 'Yes', 
+                                                                        'motor_type':'Induction',
+                                                                        'cooling':'Air'}
+                                                            ),
                                             #OptionChoice(_('Autobypass'), 'power_cell_autobypass', 'Yes'),
                                         ), 
                                     devs, views, hint='mconfig/hints/power_cell_bypass.html',**kwargs

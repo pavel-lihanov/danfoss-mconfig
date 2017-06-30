@@ -873,14 +873,16 @@ class VEDADrive(Device):
         doc.save(path)        
         
     def short_descr(self):
+        sacc = self.options._opts['Service access'].display_choices[self.options['Service access']]
+        sacc = sacc[0].lower() + sacc[1:]
         return _('VEDADRIVE Uin={0}kV, Uout={5}kV, {1}A {6} cells per phase, {2}, {3} {4} service access').format(
             self.options['mains_voltage']//1000,
             self.attributes['nom_current'],
             _('Air-cooled') if self.options['cooling']=='Air' else _('Liquid_cooled'),
             self.options['enclosure'], 
-            self.options._opts['Service access'].display_choices[self.options['Service access']],
+            sacc,
             #self.options['Service access'], 
-            self.attributes['voltage'],
+            self.attributes['voltage']//1000,
             self.options['power_cells'])
 
     #do not use, use PriceList.package_matches_pricelist()
