@@ -74,7 +74,7 @@ border-left:1px #e7e7e7 solid;border-bottom:1px #e7e7e7 solid;}
     line-height: 1;}
 	.btn-controls button.prev:before { content: "\e60d";}
 	.btn-controls button.next:before { content: "\e60c"; right:0;}
-	.btn-controls button.disable {opacity:0.2;cursor:none;}
+	.btn-controls button.disable {opacity:0.2;cursor: default;}
 .btn-controls button.next {float:right;position:relative;padding: 5px 28px 5px 26px ;}
 
 	.btn-controls button:hover,.calc-btn button#savePdf:hover,.calc-btn button#sendPdf:hover{	
