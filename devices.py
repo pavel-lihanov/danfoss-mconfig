@@ -857,18 +857,23 @@ class VEDADrive(Device):
     def make_offer_template(self, path):            
         assert(self.is_package)
         assert(self.price)
+       
         
         doc = docx.Document('offer_template.docx')
         par = get_bookmark_par_element(doc, "order_code")
         #insert_text(par, self.order_code())
         
-        for b,g in self.bookmarks.items():
-            par = get_bookmark_par_element(doc, b)
-            insert_text(par, g())
-            
+        #for b,g in self.bookmarks.items():
+        #    par = get_bookmark_par_element(doc, b)
+        #    insert_text(par, g())
+        par=doc.add_heading('Введение',level=1)
+        insert_text(par,self)
         
-        #par = get_bookmark_par_element(doc, "price")
-        #insert_text(par, '{0:.2f}'.format(self.price.total))
+        par = get_bookmark_par_element(doc, "price")
+        insert_text(par, '{0:.2f}'.format(self.price.total))
+        
+        par = get_bookmark_par_element(doc, "order_code")
+        insert_text(par, self.order_code())
         
         doc.save(path)        
         
