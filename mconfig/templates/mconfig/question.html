@@ -3,6 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>{% trans "Drive configurator" %}</title>
+
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -139,7 +140,9 @@ $( document ).ready(function() {
 	<button type="button" {% if not question.can_proceed %}disabled="disabled"{% endif %} onclick="document.getElementById('logout_form').submit()">Logout</button>
 </form>
  -->
+ <p align="right"> Пользователь: {{ user }} </p>
 <h1>Конфигуратор высоковольтного привода</h1>
+
 
 <div class="error-msg">
 

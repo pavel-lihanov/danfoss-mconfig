@@ -296,6 +296,7 @@ class OrderView(PermissionRequiredMixin, AccessMixin, generic.ListView):
         return Order.objects.all()        
     
 def request_access(request, action):
+    
     if request.method == 'GET':
         template = loader.get_template('mconfig/request_access.html')
         context={}
@@ -333,7 +334,7 @@ def request_access(request, action):
             return HttpResponse('Registration request created, await confirmation email')
         else:
             return HttpResponse('Email already registered')            
-    
+    print ('user=',user)
 @user_passes_test(is_superuser, login_url='/mconfig/login/')
 def create_user(request, action):
     if request.method == 'GET':
@@ -393,7 +394,25 @@ def create_user(request, action):
                 user.user_permissions.add(permission)
                 permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
                 user.user_permissions.add(permission)
+            elif access_level == 3:
+                content_type = ContentType.objects.get_for_model(Order)    
+                permission = Permission.objects.get(content_type=content_type, codename='view_price')                 
+                user.user_permissions.add(permission)
+                permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
+                user.user_permissions.add(permission)
+                permission = Permission.objects.get(content_type=content_type, codename='view_details')
+                user.user_permissions.add(permission)                
                 
+        
+        #if access_level >= 0:   
+                
+        #   user.user_permissions.clear()
+        #   content_type = ContentType.objects.get_for_model(Order)    
+        #   permission = Permission.objects.get(content_type=content_type, codename='view_price') 
+        #   user.user_permissions.add(permission)
+        #   permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
+         #  user.user_permissions.add(permission)
+
         profile.save()        
         user.save()
         return HttpResponse('User created OK')
@@ -442,7 +461,7 @@ def download(request, session):
 
     print (session, wiz)
     package = wiz.screens[-1].packages[0]
-    filepath = 'C:\\Users\\u327397\\Desktop\\Projects\\HV\\configurator\\mysite\\test.docx'
+    filepath = 'P:\\danfoss-mconfig\\test.docx'
     path = os.path.join(os.path.dirname(filepath), '{0}.{1}'.format(session, 'docx'))
     package.make_offer_template(path)    
     '''
@@ -625,6 +644,7 @@ def question(request, session):
         #for field in question.fields:
         #    field.update(prev_devs, opts)
         
+        #profile = request.user.profile
         question.last_error = ''
         context['user'] = request.user
         context['question'] = question
