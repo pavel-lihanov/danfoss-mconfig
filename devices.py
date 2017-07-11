@@ -768,13 +768,35 @@ class VEDADrive(Device):
         #bookmarks getters
         self.bookmarks = {   'device_price': self.get_price,
                         'type_code': self.order_code,
-        }
+                        #'corpus': self.corpus
+                        
+                        }
 
     #getters for offer
     def get_price(self):
         assert(self.is_package)
         return self.price.total
-            
+    
+    def corpus(self):
+        assert(self.is_package)
+        corpus=res1['Корпус']  
+        return corpus
+
+    def input_cable(self):
+        assert(self.is_package)
+        input_cable=res1['Ввод питающего кабеля'] 
+        return input_cable
+        
+    def output_cable(self):
+        assert(self.is_package)
+        output_cable=res1['Вывод кабеля двигателя'] 
+        return output_cable
+        
+    def service(self):
+        assert(self.is_package)
+        output_cable=res1['Обслуживание'] 
+        return service
+        
     def order_code(self):
         assert(self.is_package)
         fields = [(0, self.name), (17, '{0:03}'.format(self.attributes['nom_current']))] \
@@ -857,6 +879,10 @@ class VEDADrive(Device):
     def make_offer_template(self, path):            
         assert(self.is_package)
         assert(self.price)
+        assert(self.corpus)
+        assert(self.input_cable)
+        assert(self.output_cable)
+        assert(self.service)
        
         
         doc = docx.Document('offer_template.docx')
@@ -866,14 +892,62 @@ class VEDADrive(Device):
         #for b,g in self.bookmarks.items():
         #    par = get_bookmark_par_element(doc, b)
         #    insert_text(par, g())
-        par=doc.add_heading('Введение',level=1)
-        insert_text(par,self)
+        #par=doc.add_heading('Введение',level=1)
+        #insert_text(par,self)
         
-        par = get_bookmark_par_element(doc, "price")
-        insert_text(par, '{0:.2f}'.format(self.price.total))
+        #par = get_bookmark_par_element(doc, "price")
+        #insert_text(par, '{0:.2f}'.format(self.price.total))
+        
+        #par = get_bookmark_par_element(doc, "price1")
+        #insert_text(par, '{0:.2f}'.format(self.price.total))
         
         par = get_bookmark_par_element(doc, "order_code")
         insert_text(par, self.order_code())
+        
+        par = get_bookmark_par_element(doc, "order_code1")
+        insert_text(par, self.order_code())
+        
+        par = get_bookmark_par_element(doc, "order_code2")
+        insert_text(par, self.order_code())
+        
+        par = get_bookmark_par_element(doc, "order_code3")
+        insert_text(par, self.order_code())
+        
+        par = get_bookmark_par_element(doc, "order_code4")
+        insert_text(par, self.order_code())
+        
+        par = get_bookmark_par_element(doc, "order_code5")
+        insert_text(par, self.order_code())
+        
+        #par = get_bookmark_par_element(doc, "corpus")
+        #insert_text(par, self.corpus())
+        #par = get_bookmark_par_element(doc, "order_code6")
+        #insert_text(par, self.order_code())
+        
+        par = get_bookmark_par_element(doc, "corpus1")
+        insert_text(par, self.corpus())
+        
+        par = get_bookmark_par_element(doc, "input_cable")
+        insert_text(par, self.input_cable())
+        
+        par = get_bookmark_par_element(doc, "output_cable")
+        insert_text(par, self.output_cable())
+        
+        par = get_bookmark_par_element(doc, "service")
+        insert_text(par, self.output_cable())
+        
+        par = get_bookmark_par_element(doc, "height")
+        insert_text(par,'{0:.0f}'.format(self.main_cabinet.height))
+        
+        par = get_bookmark_par_element(doc, "length")
+        insert_text(par,'{0:.0f}'.format(self.main_cabinet.length))
+        
+        par = get_bookmark_par_element(doc, "width")
+        insert_text(par,'{0:.0f}'.format(self.main_cabinet.width + sum([o.width for o in self.addons])))
+        
+        par = get_bookmark_par_element(doc, "weight")
+        insert_text(par,'{0:.0f}'.format(self.main_cabinet.weight(self) + sum([o.weight(self) for o in self.addons])))
+ 
         
         doc.save(path)        
         
@@ -946,15 +1020,21 @@ class VEDADrive(Device):
         for k,v in opts:
             if k in infos:
                 #res[infos[k].display_name] = infos[k].display_choices[v]
-                rl.append((il.index(k), (infos[k].display_name, infos[k].display_choices[v])))                
+                rl.append((il.index(k), (infos[k].display_name, infos[k].display_choices[v])))            
             else:
                 #res[k] = v
                 print('Unknown option?', k, v)
                 rl.append((i, (k, v)))
                 i+=1 
-                
-        res = collections.OrderedDict([a[1] for a in sorted(rl, key=lambda a: a[0])])
-        return res
+        global res1        
+        res1 = collections.OrderedDict([a[1] for a in sorted(rl, key=lambda a: a[0])])
+        print ('result=')
+        print (res1)
+        
+        #corpus=res['Корпус']
+        #print (corpus)
+        
+        return res1
         
         
 class VEDAAttrs:
