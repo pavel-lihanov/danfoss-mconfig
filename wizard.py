@@ -512,6 +512,7 @@ class Result(Screen):
         self.view.question = self
         
     def select(self):
+        global opts
         opts = self.wizard.get_options() 
         devs = self.wizard.apply_filters(options=opts)        
         print('Wizard options:', opts)

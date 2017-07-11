@@ -6,6 +6,7 @@ import openpyxl
 import codecs
 import types
 import delivery
+import wizard
 
 import docx
 from docx.oxml.shared import qn
@@ -796,6 +797,32 @@ class VEDADrive(Device):
         assert(self.is_package)
         output_cable=res1['Обслуживание'] 
         return service
+    
+    def opt_b(self):
+        assert(self.is_package)
+        opt_b=res1['Опция B'] 
+        return opt_b
+        
+    #выходное_напряжение  
+    def output_voltage(self):
+        assert(self.is_package)
+        output_voltage=self.attributes['voltage'] 
+        return output_voltage
+    #входное_напряжение     
+    def input_voltage(self):
+        assert(self.is_package)
+        input_voltage=wizard.opts['mains_voltage'] 
+        return input_voltage    
+        
+    def power_cell(self):
+        assert(self.is_package)
+        power_cell=res1['Силовых ячеек на фазу'] 
+        return power_cell
+        
+    def nom_current(self):
+        assert(self.is_package)
+        nom_current=self.attributes['nom_current'] 
+        return nom_current
         
     def order_code(self):
         assert(self.is_package)
@@ -883,7 +910,11 @@ class VEDADrive(Device):
         assert(self.input_cable)
         assert(self.output_cable)
         assert(self.service)
-       
+        assert(self.opt_b)
+        assert(self.output_voltage)
+        assert(self.input_voltage)
+        assert(self.power_cell)
+        assert(self.nom_current)
         
         doc = docx.Document('offer_template.docx')
         par = get_bookmark_par_element(doc, "order_code")
@@ -935,6 +966,38 @@ class VEDADrive(Device):
         
         par = get_bookmark_par_element(doc, "service")
         insert_text(par, self.output_cable())
+        
+        
+        par = get_bookmark_par_element(doc, "opt_b")
+        if self.opt_b() == 'Нет':
+            insert_text(par, 'ModBus RTU')    
+        else:
+            insert_text(par, self.opt_b())
+
+        par = get_bookmark_par_element(doc, "opt_b1")
+        if self.opt_b() == 'Нет':
+            insert_text(par, 'ModBus-встроен')    
+        else:
+            insert_text(par, self.opt_b()) 
+            
+        par = get_bookmark_par_element(doc, "power_cell")
+        insert_text(par,'{0:.0f}'.format(self.power_cell()*3)+' ( ' +'{0:.0f}'.format(self.power_cell())+' на одну фазу)')
+        #insert_text(par, ('{0:.0f}'.format(self.power_cell()*3)+'( '+ '{0:.0f}'.format(self.power_cell()) +' на одну фазу)'))        
+            
+        par = get_bookmark_par_element(doc, "output_voltage")
+        insert_text(par, ('{0:.0f}'.format(self.output_voltage()/1000)))        
+        
+        par = get_bookmark_par_element(doc, "input_voltage")
+        insert_text(par, ('{0:.0f}'.format(self.input_voltage()/1000))) 
+        
+        par = get_bookmark_par_element(doc, "output_voltage_trans")
+        insert_text(par,'{0:.0f}'.format(self.power_cell()*3)+' x 690')
+        
+        par = get_bookmark_par_element(doc, "diods")
+        insert_text(par,'{0:.0f}'.format(self.power_cell()*3*2))
+        
+        par = get_bookmark_par_element(doc, "nom_current")
+        insert_text(par,'690В, '+'{0:.0f}'.format(self.nom_current())+' A')
         
         par = get_bookmark_par_element(doc, "height")
         insert_text(par,'{0:.0f}'.format(self.main_cabinet.height))
