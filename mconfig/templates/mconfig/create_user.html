@@ -1,5 +1,14 @@
 <form name="create_user_form" id="create_user_form" action="do" method="post" style="border: 1px solid; padding: 10px;">
+  <table border="0">
+  
+   <tr>
+    <th><a href="../start">Вернуться на стартовую страницу</a</th>
+    <th><a href="../create_user">Создать профайл</a></th>
+	<th> Пользователь: {{ user }} </th>
+   </tr>
+
 	{% csrf_token %}
+
 	<table>
 		<tr>
 			<td>

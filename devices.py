@@ -43,7 +43,9 @@ def get_bookmark_par_element(document, bookmark_name):
     
 def insert_text(par, text):            
     tmp_doc = docx.Document()
-    tmp_doc.add_paragraph(text)
+    tmp_doc.add_paragraph(text,style='IntenseQuote')
+    font = tmp_doc.styles['Normal'].font
+    font.name='Calibri'
     bookmark_par_parent = par.getparent()
     index = bookmark_par_parent.index(par) + 1
     for child in tmp_doc._element.body:
@@ -823,7 +825,12 @@ class VEDADrive(Device):
         assert(self.is_package)
         nom_current=self.attributes['nom_current'] 
         return nom_current
-        
+    #полная мощность
+    def kVA(self):
+        assert(self.is_package)
+        kVA=self.attributes['kVA'] 
+        return kVA
+    
     def order_code(self):
         assert(self.is_package)
         fields = [(0, self.name), (17, '{0:03}'.format(self.attributes['nom_current']))] \
@@ -915,6 +922,7 @@ class VEDADrive(Device):
         assert(self.input_voltage)
         assert(self.power_cell)
         assert(self.nom_current)
+        assert(self.kVA)
         
         doc = docx.Document('offer_template.docx')
         par = get_bookmark_par_element(doc, "order_code")
@@ -1011,6 +1019,8 @@ class VEDADrive(Device):
         par = get_bookmark_par_element(doc, "weight")
         insert_text(par,'{0:.0f}'.format(self.main_cabinet.weight(self) + sum([o.weight(self) for o in self.addons])))
  
+        par = get_bookmark_par_element(doc, "kVA")
+        insert_text(par,'{0:.0f}'.format(self.kVA()))
         
         doc.save(path)        
         

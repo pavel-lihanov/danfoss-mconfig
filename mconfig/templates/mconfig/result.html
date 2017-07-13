@@ -52,6 +52,9 @@ $( document ).ready(function() {
 </script>
 
 <div id="question">
+	<p align="right"> Пользователь: {{ user }} </p>
+	<p align="right"><a href="../../../login">Войти/Перелогиниться</a></p>
+	<p align="right"><a href="../../../create_user">Создать профайл</a></p>
 	<h1>Конфигуратор высоковольтного привода</h1>
 	<div class="error-msg">
 		<div id="err_panel" class="w3-panel w3-orange w3-card-8" style="display:none;">
@@ -63,6 +66,7 @@ $( document ).ready(function() {
 	<div id="main_area">
 		<div class="clear"></div>
 		<div class="results">
+			
 			<h3>Результаты подбора</h3>
 			<div>
 				<p>
