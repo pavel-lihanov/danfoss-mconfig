@@ -184,20 +184,25 @@ class VEDADriveView:
         
 class PriceView:
     _template = "price.html"
-    def __init__(self, show_details):
+    def __init__(self, show_details=False, show_price=False):
         self.show_details = show_details
-        
+        self.show_price = show_price
+       
+    
+    #def __init__(self, show_price):
+    #    self.show_price = show_price    
     @property
     def template(self):
         return self._template
 
-    def as_json(self):                
+    def as_json(self):
+        #if self.show_price:
         if self.show_details:
             dv = PriceDetailsView()
             dv.price = self.price        
-            return {'total': self.price.total, 'details': dv.as_json()}
+            return {'total': '{0:.2f}'.format( self.price.total), 'details': dv.as_json()}
         else:
-            return {'total': self.price.total, 'details': None}
+            return {'total': '{0:.2f}'.format( self.price.total), 'details': None}
         
 class PriceDetailsView:
     _template = "price.html"                            
@@ -205,9 +210,9 @@ class PriceDetailsView:
         return self._template
 
     def as_json(self):                
-        return {'supplier_price': self.price.supplier_price,
-                'delivery_cost': self.price.delivery_cost,
-                'sale_price': self.price.sale_price}
+        return {'supplier_price':'{0:.2f}'.format( self.price.supplier_price),
+                'delivery_cost':'{0:.2f}'.format( self.price.delivery_cost),
+                'sale_price': '{0:.2f}'.format(self.price.sale_price)}
                             
 class HTMLResult:
     _template = "mconfig/result.html"
@@ -218,21 +223,27 @@ class HTMLResult:
         return self._template
     
     #TODO: view should tell if current user has appropriate access level
-    def as_json(self, show_details):        
+    def as_json(self, show_details,show_price):        
         package = self.question.packages[0]        
         package.view = VEDADriveView()
         package.view.package = package
-        try:
-            package.calculate_price()
-            package.price.view = PriceView(show_details)
-            package.price.view.price = package.price
-            return json.dumps({'package': package.view.as_json(),
-                                'price': package.price.view.as_json(),
-                                })            
-        except price.NotInPricelist:
+        if show_price:
+            try:
+                package.calculate_price()
+                package.price.view = PriceView(show_details)
+                package.price.view.price = package.price
+                return json.dumps({'package': package.view.as_json(),
+                                    'price': package.price.view.as_json(),
+                                    })            
+            except price.NotInPricelist:
+                return json.dumps({'package': package.view.as_json(),
+                                    'price': None,
+                                    })
+        else:
             return json.dumps({'package': package.view.as_json(),
                                 'price': None,
                                 })
+            
         
 class HTMLWizard(wizard.Wizard):
     def __init__(self, devices, questions):
@@ -525,7 +536,7 @@ def question_refresh(request, session, _context={}, error=''):
     question = wiz.current_screen
     question.last_error = error
     
-    data = question.view.as_json(show_details=request.user.is_superuser)
+    data = question.view.as_json(show_details=request.user.is_superuser,show_price=request.user.is_superuser)
     return HttpResponse(data, content_type="application/json")    
     
 def show_question(session, request, wiz, context):   
