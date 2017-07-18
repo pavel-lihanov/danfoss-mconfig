@@ -62,22 +62,37 @@ lock = threading.Lock()
 
 
 def send_mail(server, from_, to, subject, html, text):
-    msg = MIMEMultipart('alternative')
-    html = html
+    #msg = MIMEMultipart('alternative')
+    #html = html
 
-    msg['Subject'] = subject
-    msg['From'] = from_
-    msg['To'] = to
+    #msg['Subject'] = subject
+    #msg['From'] = from_
+    #msg['To'] = to
 
-    part1 = MIMEText(text, 'plain')
-    part2 = MIMEText(html, 'html')
+    #part1 = MIMEText(text, 'plain')
+    #part2 = MIMEText(html, 'html')
 
-    msg.attach(part1)
-    msg.attach(part2)
+    #msg.attach(part1)
+    #msg.attach(part2)
 
-    s = smtplib.SMTP(server)
-    s.sendmail(from_, to, msg.as_string())
-    s.quit()
+    #s = smtplib.SMTP(server)
+    #s.sendmail(from_, to, msg.as_string())
+    #s.quit()
+    credentials = exchange.Credentials(username='U334081@danfoss.com', password='Kris1985')
+
+    config = exchange.Configuration(server='outlook.office365.com', credentials=credentials)
+    account = exchange.Account(primary_smtp_address='U334081@danfoss.com', config=config, autodiscover=False, access_type=exchange.DELEGATE)
+    
+    m = exchange.Message(
+    account=account,
+    folder=account.sent,
+    subject='Test email',
+    body='exchangelib works!',
+    to_recipients=[exchange.Mailbox(email_address='U334081@danfoss.com')]
+    
+    )
+    m.send_and_save()    
+    
 
 class Reaper(threading.Thread):    
     #deletes inactive sessions after 1 day
@@ -244,7 +259,7 @@ class HTMLResult:
     #TODO: view should tell if current user has appropriate access level
     def as_json(self, show_details,show_price,show_options):        
         package = self.question.packages[0]        
-        package.view = VEDADriveView()
+        package.view = VEDADriveView(show_options)
         package.view.package = package
         if show_price:
             try:
