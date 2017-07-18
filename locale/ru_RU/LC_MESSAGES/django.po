@@ -1,695 +1,2942 @@
+# Russian (Russia) translations for PROJECT.
+# Copyright (C) 2017 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-03 14:30+0300\n"
-"PO-Revision-Date: 2017-03-03 14:30+0300\n"
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2017-07-18 12:31+0300\n"
+"PO-Revision-Date: 2017-07-18 13:17+0300\n"
 "Last-Translator: \n"
-"Language-Team: \n"
 "Language: ru_RU\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
-"X-Poedit-Basepath: ../../..\n"
+"Language-Team: \n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: mconfig/Lib\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+"X-Generator: Poedit 2.0.1\n"
 
-#: .\devices.py:158
-#, python-brace-format
-msgid "VEDADRIVE {0}kV, {1} kVA, {2}, {3} {4}"
-msgstr "VEDADRIVE {0}кВ, {1} кВА, {2}, {3} {4}"
+#: devices.py:1030
+msgid ""
+"VEDADRIVE Uin={0}kV, Uout={5}kV, {1}A {6} cells per phase, {2}, {3} {4} "
+"service access"
+msgstr ""
+"VEDADRIVE Uin={0}кВ, Uout={5}кВ, {1}A {6} ячеек на фазу, {2}, {3}, {4} "
+"обслуживание"
 
-#: .\devices.py:158
+#: devices.py:1033
 msgid "Air-cooled"
 msgstr "Воздушное"
 
-#: .\devices.py:278
+#: devices.py:1033
+msgid "Liquid_cooled"
+msgstr "Жидкостное охлаждение"
+
+#: devices.py:1211
 msgid "Motor type"
 msgstr "Тип двигателя"
 
-#: .\devices.py:278 .\questions.py:80
+#: devices.py:1211 questions.py:86
 msgid "Induction"
 msgstr "Асинхронный"
 
-#: .\devices.py:278 .\questions.py:81
+#: devices.py:1211 questions.py:87
 msgid "PMSM"
 msgstr "Синхронный"
 
-#: .\devices.py:282
+#: devices.py:1215
 msgid "Supply frequency"
 msgstr "Частота питающей сети"
 
-#: .\devices.py:286
+#: devices.py:1219
 msgid "Enclosure"
 msgstr "Корпус"
 
-#: .\devices.py:290
+#: devices.py:1223
 msgid "Motor contol mode"
 msgstr "Режим управления двигателем"
 
-#: .\devices.py:290 .\questions.py:114
+#: devices.py:1223 questions.py:122
 msgid "U/f control"
 msgstr "Скалярное"
 
-#: .\devices.py:290 .\questions.py:115
+#: devices.py:1223 questions.py:123
 msgid "Vector control"
 msgstr "Векторное"
 
-#: .\devices.py:294
+#: devices.py:1227
 msgid "Braking mode"
 msgstr "Режим торможения"
 
-#: .\devices.py:294 .\questions.py:120
+#: devices.py:1227 questions.py:128
 msgid "Coasting stop"
 msgstr "Выбегом"
 
-#: .\devices.py:294 .\questions.py:121
+#: devices.py:1227
 msgid "Dynamic braking"
 msgstr "Динамическое"
 
-#: .\devices.py:294 .\questions.py:122
+#: devices.py:1227 questions.py:130
 msgid "Recuperation"
 msgstr "Рекуперация"
 
-#: .\devices.py:298
+#: devices.py:1231
 msgid "Cooling"
 msgstr "Охлаждение"
 
-#: .\devices.py:298 .\questions.py:322
+#: devices.py:1231 questions.py:347
 msgid "Air"
 msgstr "Воздушное"
 
-#: .\devices.py:298
+#: devices.py:1231
 msgid "Liquid"
 msgstr "Жидкостное"
 
-#: .\devices.py:302
+#: devices.py:1235
 msgid "Power cell autobypass"
 msgstr "Автобайпас силовой ячейки"
 
-#: .\devices.py:302 .\devices.py:320 .\devices.py:332
+#: devices.py:1235 devices.py:1253 devices.py:1265
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:246
 msgid "No"
 msgstr "Нет"
 
-#: .\devices.py:302 .\devices.py:320 .\devices.py:332
+#: devices.py:1235 devices.py:1253 devices.py:1265
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:245
 msgid "Yes"
 msgstr "Да"
 
-#: .\devices.py:305
+#: devices.py:1238
 msgid "Power option"
 msgstr "Силовая опция"
 
-#: .\devices.py:305 .\devices.py:312 .\devices.py:316 .\questions.py:244
-#: .\questions.py:262 .\questions.py:289 .\questions.py:307
+#: devices.py:1238 devices.py:1245 devices.py:1249
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:197
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:225 questions.py:263
+#: questions.py:281 questions.py:314 questions.py:332
 msgid "None"
 msgstr "Нет"
 
-#: .\devices.py:305
+#: devices.py:1238
 msgid "Manual bypass"
 msgstr "Ручной байпас"
 
-#: .\devices.py:305 .\questions.py:263 .\questions.py:308
+#: devices.py:1238 questions.py:282 questions.py:333
 msgid "Autobypass"
 msgstr "Автобайпас"
 
-#: .\devices.py:305
+#: devices.py:1238
 msgid "Multistart"
 msgstr "Мультистарт"
 
-#: .\devices.py:305
+#: devices.py:1238
 msgid "Interchange"
 msgstr "Чередование двигателей"
 
-#: .\devices.py:309
+#: devices.py:1242
 msgid "Number of motors"
 msgstr "Количество двигателей"
 
-#: .\devices.py:312
+#: devices.py:1245
 msgid "Option B"
 msgstr "Опция B"
 
-#: .\devices.py:312
+#: devices.py:1245
 msgid "Encoder board"
 msgstr "Плата энкодера"
 
-#: .\devices.py:312 .\questions.py:236 .\questions.py:281
+#: devices.py:1245 questions.py:245 questions.py:306
 msgid "EtherNet IP"
 msgstr "EtherNet IP"
 
-#: .\devices.py:312 .\questions.py:237 .\questions.py:282
+#: devices.py:1245 questions.py:246 questions.py:307
 msgid "ProfiBus DP"
 msgstr "ProfiBus DP"
 
-#: .\devices.py:312 .\questions.py:238 .\questions.py:283
+#: devices.py:1245 questions.py:247 questions.py:308
 msgid "Modbus TCP/IP"
 msgstr "Modbus TCP/IP"
 
-#: .\devices.py:316
+#: devices.py:1249
 msgid "Power transformer"
 msgstr "Трансформатор"
 
-#: .\devices.py:320
+#: devices.py:1253
 msgid "PMSM exciter"
 msgstr "Возбудитель синхронного двигателя"
 
-#: .\devices.py:324
+#: devices.py:1257
 msgid "Input mains location"
 msgstr "Ввод питающего кабеля"
 
-#: .\devices.py:324 .\devices.py:328 .\questions.py:207 .\questions.py:215
+#: devices.py:1257 devices.py:1261 questions.py:216 questions.py:224
 msgid "Top"
 msgstr "Сверху"
 
-#: .\devices.py:324 .\devices.py:328 .\questions.py:206 .\questions.py:214
+#: devices.py:1257 devices.py:1261 questions.py:215 questions.py:223
 msgid "Bottom"
 msgstr "Снизу"
 
-#: .\devices.py:328
+#: devices.py:1261
 msgid "Motor cable location"
 msgstr "Вывод кабеля двигателя"
 
-#: .\devices.py:332
+#: devices.py:1265
 msgid "Output reactor"
 msgstr "Выходной реактор"
 
-#: .\devices.py:336
+#: devices.py:1269
 msgid "Service access"
 msgstr "Зона обслуживания"
 
-#: .\devices.py:336 .\questions.py:223
+#: devices.py:1269 questions.py:232
 msgid "Front"
 msgstr "Одностороннее"
 
-#: .\devices.py:336 .\questions.py:222
+#: devices.py:1269 questions.py:231
 msgid "Front and back"
 msgstr "Двустороннее"
 
-#: .\devices.py:339
+#: devices.py:1272
 msgid "Motor voltage"
 msgstr "Напряжение"
 
-#: .\mconfig\templates\mconfig\logged_out.html:4
-#: .\mconfig\templates\mconfig\password_change_done.html:6
-#: .\mconfig\templates\mconfig\password_change_form.html:7
-#: .\mconfig\templates\mconfig\password_reset_complete.html:6
-#: .\mconfig\templates\mconfig\password_reset_confirm.html:6
-#: .\mconfig\templates\mconfig\password_reset_done.html:6
-#: .\mconfig\templates\mconfig\password_reset_form.html:6
-msgid "Home"
-msgstr ""
+#: devices.py:1279
+msgid "Power cells count"
+msgstr "Силовых ячеек на фазу"
 
-#: .\mconfig\templates\mconfig\logged_out.html:8
-msgid "Thanks for spending some quality time with the Web site today."
-msgstr ""
-
-#: .\mconfig\templates\mconfig\logged_out.html:10
-msgid "Log in again"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_change_done.html:3
-#: .\mconfig\templates\mconfig\password_change_form.html:4
-msgid "Documentation"
-msgstr "Документация"
-
-#: .\mconfig\templates\mconfig\password_change_done.html:3
-#: .\mconfig\templates\mconfig\password_change_form.html:4
-msgid "Change password"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_change_done.html:3
-#: .\mconfig\templates\mconfig\password_change_form.html:4
-msgid "Log out"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_change_done.html:7
-#: .\mconfig\templates\mconfig\password_change_form.html:8
-msgid "Password change"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_change_done.html:14
-msgid "Your password was changed."
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_change_form.html:21
-msgid "Please correct the error below."
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_change_form.html:21
-msgid "Please correct the errors below."
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_change_form.html:26
-msgid ""
-"Please enter your old password, for security's sake, and then enter your new "
-"password twice so we can verify you typed it in correctly."
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_change_form.html:54
-#: .\mconfig\templates\mconfig\password_reset_confirm.html:24
-msgid "Change my password"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_complete.html:7
-#: .\mconfig\templates\mconfig\password_reset_done.html:7
-#: .\mconfig\templates\mconfig\password_reset_form.html:7
-msgid "Password reset"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_complete.html:16
-msgid "Your password has been set.  You may go ahead and log in now."
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_complete.html:18
-msgid "Log in"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_confirm.html:7
-msgid "Password reset confirmation"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_confirm.html:17
-msgid ""
-"Please enter your new password twice so we can verify you typed it in "
-"correctly."
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_confirm.html:21
-msgid "New password:"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_confirm.html:23
-msgid "Confirm password:"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_confirm.html:29
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used.  Please request a new password reset."
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_done.html:15
-msgid ""
-"We've emailed you instructions for setting your password, if an account "
-"exists with the email you entered. You should receive them shortly."
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_done.html:17
-msgid ""
-"If you don't receive an email, please make sure you've entered the address "
-"you registered with, and check your spam folder."
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_email.html:2
-#, python-format
-msgid ""
-"You're receiving this email because you requested a password reset for your "
-"user account at %(site_name)s."
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_email.html:4
-msgid "Please go to the following page and choose a new password:"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_email.html:8
-msgid "Your username, in case you've forgotten:"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_email.html:10
-msgid "Thanks for using our site!"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_email.html:12
-#, python-format
-msgid "The %(site_name)s team"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_form.html:15
-msgid ""
-"Forgotten your password? Enter your email address below, and we'll email "
-"instructions for setting a new one."
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_form.html:19
-msgid "Email address:"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\password_reset_form.html:19
-msgid "Reset my password"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\question.html:5
-msgid "Drive configurator"
-msgstr ""
-
-#: .\mconfig\templates\mconfig\question.html:167
-#: .\mconfig\templates\mconfig\result_unpriced.html:49
-msgid "Prev"
-msgstr "Назад"
-
-#: .\mconfig\templates\mconfig\question.html:173
-msgid "Next"
-msgstr "Далее"
-
-#: .\mconfig\templates\mconfig\register.html:5
-msgid "Drive configurator user register request"
-msgstr ""
-
-#: .\mconfig\views.py:117
-msgid "Hello"
-msgstr "Превед"
-
-#: .\mconfig\views.py:572
-#, python-brace-format
-msgid "No device matches value {0} for field {1}"
-msgstr "Нет устройств соотвествующих значению {0} в поле \"{1}\""
-
-#: .\mconfig\views.py:576
-#, python-brace-format
-msgid "Invalid value {0} for field {1}"
-msgstr "Неверное значение {0} в поле \"{1}\""
-
-#: .\questions.py:31
+#: questions.py:31
 msgid "Custom"
 msgstr "Пользовательское"
 
-#: .\questions.py:33
-msgid "Centr. pump (k=1.1)"
-msgstr "Насос центробежный (k=1.1)"
-
-#: .\questions.py:34
-msgid "Submer. pump (k=1.5)"
-msgstr "Насос погружной (k=1.5)"
-
-#: .\questions.py:35
+#: questions.py:33 questions.py:43
 msgid "Fan (k=1.1)"
 msgstr "Вентилятор (k=1.1)"
 
-#: .\questions.py:36
-msgid "Piston pump (k=2)"
-msgstr "Поршневая помпа (k=2)"
+#: questions.py:34 questions.py:44
+msgid "Smoke extractor (k=1.5)"
+msgstr "Дымосос (k=1.5)"
 
-#: .\questions.py:37
-msgid "Grinder (k=2)"
-msgstr "Дробилка (k=2)"
+#: questions.py:35
+msgid "Compressor (k=1.15)"
+msgstr "Винтовой компрессор (k=1.15)"
 
-#: .\questions.py:38
-msgid "Compressor (k=1.6)"
-msgstr "Компрессор винтовой (k=1.6)"
-
-#: .\questions.py:39
+#: questions.py:36
 msgid "2-piston compressor (k=2)"
 msgstr "Компрессор 2-поршневый  (k=2)"
 
-#: .\questions.py:40
+#: questions.py:37
 msgid "4-piston compressor (k=1.6)"
 msgstr "Компрессор 4-поршневый (k=1.6)"
 
-#: .\questions.py:41
+#: questions.py:38
 msgid "6-piston compressor (k=1.5)"
 msgstr "Компрессор 6-поршневый (k=1.5)"
 
-#: .\questions.py:42
+#: questions.py:39
+msgid "Piston pump (k=1.6)"
+msgstr "Поршневой насос (k=1.6)"
+
+#: questions.py:40
+msgid "Centr. pump (k=1.1)"
+msgstr "Насос центробежный (k=1.1)"
+
+#: questions.py:41
+msgid "Submer. pump (pulp) (k=1.3)"
+msgstr "Пульпонасос (k=1.3)"
+
+#: questions.py:42
+msgid "Submer. pump (wastewater) (k=1.3)"
+msgstr "Канализационный насос (k=1.3)"
+
+#: questions.py:45
+msgid "Grinder (k=2)"
+msgstr "Дробилка (k=2)"
+
+#: questions.py:46
+msgid "Autogenous mill (k=1.4)"
+msgstr "Мельница самоизмельчения (k=1.4)"
+
+#: questions.py:47
+msgid "Ball mill (k=1.8)"
+msgstr "Шаровая мельница (k=1.8)"
+
+#: questions.py:48
 msgid "Processing machine, light load (k=1.2)"
 msgstr "Станок, низкий пусковой момент (k=1.2)"
 
-#: .\questions.py:43
+#: questions.py:49
 msgid "Processing machine, medium load (k=1.5)"
 msgstr "Станок, средний пусковой момент (k=1.5)"
 
-#: .\questions.py:44
+#: questions.py:50
 msgid "Processing machine, heavy load (k=2)"
 msgstr "Станок, высокий пусковой момент (k=2)"
 
-#: .\questions.py:45
-msgid "Conveyour, light load (k=1.6)"
-msgstr "Конвейер, низкий пусковой момент (k=1.6)"
+#: questions.py:51
+msgid "Conveyour, light load (k=1.4)"
+msgstr "Конвейер, низкий пусковой момент (k=1.4)"
 
-#: .\questions.py:46
-msgid "Conveyour, heavy load (k=2)"
-msgstr "Конвейер, высокий пусковой момент (k=2)"
+#: questions.py:52
+msgid "Conveyour, heavy load (k=1.8)"
+msgstr "Конвейер, высокий пусковой момент (k=1.8)"
 
-#: .\questions.py:50
+#: questions.py:56
 msgid "Select application"
 msgstr "Применение"
 
-#: .\questions.py:61
+#: questions.py:67
 msgid "Input overload factor"
 msgstr "Коэффициент перегрузки"
 
-#: .\questions.py:71
+#: questions.py:77
 msgid "Choose basic application parameters"
 msgstr "Задайте параметры применения"
 
-#: .\questions.py:79
+#: questions.py:85
 msgid "Select motor type"
 msgstr "Тип двигателя"
 
-#: .\questions.py:85
+#: questions.py:91
 msgid "Select motor voltage"
 msgstr "Номинальное напряжение"
 
-#: .\questions.py:87
+#: questions.py:93
 msgid "6kV"
 msgstr "6 кВ"
 
-#: .\questions.py:88
+#: questions.py:94
 msgid "10kV"
 msgstr "10 кВ"
 
-#: .\questions.py:93
+#: questions.py:101
 msgid "Select SM exciter"
 msgstr "Возбудитель синхронного двигателя"
 
-#: .\questions.py:94
+#: questions.py:102
 msgid "None/External"
 msgstr "Нет/внешний"
 
-#: .\questions.py:95
+#: questions.py:103
 msgid "Built-in"
 msgstr "Встроенный"
 
-#: .\questions.py:99
+#: questions.py:107
 msgid "Input nominal current"
 msgstr "Номинальный ток (А)"
 
-#: .\questions.py:105
+#: questions.py:113
 msgid "Motor data"
 msgstr "Данные двигателя"
 
-#: .\questions.py:111
+#: questions.py:119
 msgid "Control data"
 msgstr "Способ управления"
 
-#: .\questions.py:112
+#: questions.py:120
 msgid "Select control mode"
 msgstr "Метод управления"
 
-#: .\questions.py:119
+#: questions.py:127
 msgid "Select braking mode"
 msgstr "Торможение"
 
-#: .\questions.py:127
+#: questions.py:135
 msgid "Select multimotor mode"
 msgstr "Управление несколькими двигателями"
 
-#: .\questions.py:128
+#: questions.py:136
 msgid "No multimotor"
 msgstr "Нет"
 
-#: .\questions.py:129
+#: questions.py:137
 msgid "Multistart, 2 motors"
 msgstr "Мультистарт, 2 двигателя"
 
-#: .\questions.py:130
+#: questions.py:138
 msgid "Multistart, 3 motors"
 msgstr "Мультистарт, 3 двигателя"
 
-#: .\questions.py:131
+#: questions.py:139
 msgid "Multistart, 4 motors"
 msgstr "Мультистарт, 4 двигателя"
 
-#: .\questions.py:173 .\questions.py:276
+#: questions.py:181 questions.py:301
 msgid "Choose installation parameters"
 msgstr "Параметры установки"
 
-#: .\questions.py:175
+#: questions.py:183
 msgid "Select drive voltage"
 msgstr "Напряжение питания ЧРП"
 
-#: .\questions.py:177
+#: questions.py:185
 msgid "6kV  50Hz"
 msgstr "6кВ  50Гц"
 
-#: .\questions.py:178
-msgid "6kV  60Hz"
-msgstr "6кВ  60Гц"
-
-#: .\questions.py:179
+#: questions.py:186
 msgid "10kV 50Hz"
 msgstr "10кВ 50Гц"
 
-#: .\questions.py:180
-msgid "10kV 60Hz"
-msgstr "10кВ 60Гц"
-
-#: .\questions.py:187
+#: questions.py:191
 msgid "Select enclosure"
 msgstr "Степень защиты корпуса"
 
-#: .\questions.py:188
+#: questions.py:192
 msgid "IP30"
 msgstr "IP30"
 
-#: .\questions.py:189
+#: questions.py:193
 msgid "IP31"
 msgstr "IP31"
 
-#: .\questions.py:190
+#: questions.py:194
 msgid "IP41"
 msgstr "IP41"
 
-#: .\questions.py:191
-msgid "IP42"
-msgstr "IP42"
-
-#: .\questions.py:192
-msgid "IP54"
-msgstr "IP54"
-
-#: .\questions.py:196
+#: questions.py:200
 msgid "Select drive cooling"
 msgstr "Тип охлаждения"
 
-#: .\questions.py:198
+#: questions.py:202
 msgid "Air cooling"
 msgstr "Воздушное"
 
-#: .\questions.py:199
+#: questions.py:205
 msgid "Liquid cooling"
 msgstr "Жидкостное"
 
-#: .\questions.py:204
+#: questions.py:213
 msgid "Select power mains location"
 msgstr "Ввод питающего кабеля "
 
-#: .\questions.py:212
+#: questions.py:221
 msgid "Select motor mains location"
 msgstr "Вывод кабеля двигателя"
 
-#: .\questions.py:220
+#: questions.py:229
 msgid "Select service access"
 msgstr "Зона обслуживания"
 
-#: .\questions.py:228
+#: questions.py:237
 msgid "Input motor cable len"
 msgstr "Длина моторного кабеля (м)"
 
-#: .\questions.py:231
+#: questions.py:240
 msgid "Options"
 msgstr "Опции"
 
-#: .\questions.py:233 .\questions.py:278
+#: questions.py:242 questions.py:303
 msgid "Select fieldbus option"
 msgstr "Выберите плату расширения интерфейса"
 
-#: .\questions.py:242 .\questions.py:287
+#: questions.py:251
+msgid "Select power cell count"
+msgstr "Ячеек на фазу"
+
+#: questions.py:253
+msgid "5"
+msgstr "5"
+
+#: questions.py:254
+msgid "6"
+msgstr "6"
+
+#: questions.py:255
+msgid "8"
+msgstr "8"
+
+#: questions.py:256
+msgid "9"
+msgstr "9"
+
+#: questions.py:261 questions.py:312
 msgid "Select drive bypass"
 msgstr "Байпас ЧРП"
 
-#: .\questions.py:245 .\questions.py:290
+#: questions.py:264 questions.py:315
 msgid "Manual"
 msgstr "Ручной"
 
-#: .\questions.py:250 .\questions.py:295
+#: questions.py:269 questions.py:320
 msgid "Auto"
 msgstr "Авто"
 
-#: .\questions.py:255 .\questions.py:300 .\questions.py:320
+#: questions.py:274 questions.py:325 questions.py:345
 msgid "N/A"
 msgstr "N/A"
 
-#: .\questions.py:260 .\questions.py:305
+#: questions.py:279 questions.py:330
 msgid "Select power cell bypass"
 msgstr "Байпас силовой ячейки"
 
-#: .\questions.py:317
+#: questions.py:342
 msgid "Choose delivery"
 msgstr "Выберите параметры доставки"
 
-#: .\questions.py:319
+#: questions.py:344
 msgid "Select delivery method"
 msgstr "Выберите способ доставки"
 
-#: .\questions.py:321
+#: questions.py:346
 msgid "Sea"
 msgstr "Морская перевозка"
 
-#: .\questions.py:323
+#: questions.py:348
 msgid "Truck"
 msgstr "Автотранспорт"
 
-#: .\questions.py:324
+#: questions.py:349
 msgid "Rail"
 msgstr "Ж/д"
 
-#: .\questions.py:327
+#: questions.py:352
 msgid "Enter delivery address"
 msgstr "Введите адрес доставки"
 
-#: .\wizard.py:219 .\wizard.py:356 .\wizard.py:410
-#, python-brace-format
+#: wizard.py:223 wizard.py:362 wizard.py:416
 msgid "Field {0} is required"
 msgstr "Заполните поле \"{0}\""
 
-#: .\wizard.py:747 .\wizard.py:748
+#: wizard.py:771 wizard.py:772
 msgid "No device matches current selection"
 msgstr "Нет устройств, соответствующих всем критериям"
 
-#~ msgid "Select encoder/fieldbus option"
-#~ msgstr "Интерфейсная плата"
+#: mconfig/views.py:118
+msgid "Hello"
+msgstr "Превед"
 
-#~ msgid "Select by application"
-#~ msgstr "Выбрать применение"
+#: mconfig/views.py:119
+msgid "I am VEDADrive configurator"
+msgstr "Я конфигуратор VEDADrive"
 
-#~ msgid "Select by overload factor"
-#~ msgstr "Выбрать по коэффициенту перегрузки"
+#: mconfig/views.py:630
+msgid "No device matches value {0} for field {1}"
+msgstr "Нет устройств соотвествующих значению {0} в поле \"{1}\""
 
-#~ msgid "Interchange, 2 motors"
-#~ msgstr "Автопереключение, 2 двигателя"
+#: mconfig/views.py:634
+msgid "Invalid value {0} for field {1}"
+msgstr "Неверное значение {0} в поле \"{1}\""
 
-#~ msgid "Input motor nominal current"
-#~ msgstr "Введите номинальный ток двигателя"
+#: mconfig/Lib/site-packages/django/contrib/admin/actions.py:50
+#, python-format
+msgid "Successfully deleted %(count)d %(items)s."
+msgstr ""
 
-#~ msgid "Select supply voltage"
-#~ msgstr "Выберите напряжение питания"
+#: mconfig/Lib/site-packages/django/contrib/admin/actions.py:62
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1725
+#, python-format
+msgid "Cannot delete %(name)s"
+msgstr ""
 
-#~ msgid "Choose extra current"
-#~ msgstr "Choose extra current"
+#: mconfig/Lib/site-packages/django/contrib/admin/actions.py:64
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1727
+msgid "Are you sure?"
+msgstr ""
 
-#~ msgid "Multistart, 2 motor"
-#~ msgstr "Мультистарт, 2 двигателя"
+#: mconfig/Lib/site-packages/django/contrib/admin/apps.py:11
+msgid "Administration"
+msgstr ""
 
-#~ msgid "Multistart, 3 motor"
-#~ msgstr "Мультистарт, 3 двигателя"
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:107
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:206
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:244
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:287
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:413
+msgid "All"
+msgstr ""
 
-#~ msgid "Multistart, 4 motor"
-#~ msgstr "Мультистарт, 4 двигателя"
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:260
+msgid "Unknown"
+msgstr ""
 
-#~ msgid "Interchange, 2 motor"
-#~ msgstr "Чередование двигателей, 2 двигателя"
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:338
+msgid "Any date"
+msgstr ""
 
-#~ msgid "Interchange, 3 motor"
-#~ msgstr "Чередование двигателей, 3 двигателя"
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:339
+msgid "Today"
+msgstr ""
 
-#~ msgid "Interchange, 4 motor"
-#~ msgstr "Чередование двигателей, 4 двигателя"
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:343
+msgid "Past 7 days"
+msgstr ""
 
-#~ msgid "Choose drive options"
-#~ msgstr "Выберите опции"
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:347
+msgid "This month"
+msgstr ""
 
-#~ msgid "Select RFI Filter"
-#~ msgstr "Выберите ЭМС фильтр"
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:351
+msgid "This year"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:359
+msgid "No date"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/filters.py:360
+msgid "Has date"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/forms.py:13
+#, python-format
+msgid ""
+"Please enter the correct %(username)s and password for a staff account. Note "
+"that both fields may be case-sensitive."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/helpers.py:27
+msgid "Action:"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/helpers.py:299
+#, python-format
+msgid "Add another %(verbose_name)s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/helpers.py:302
+msgid "Remove"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:39
+msgid "action time"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:46
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:343
+msgid "user"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:51
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:67
+#: mconfig/Lib/site-packages/django/contrib/contenttypes/models.py:144
+msgid "content type"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:54
+msgid "object id"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:56
+msgid "object repr"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:57
+msgid "action flag"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:59
+msgid "change message"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:64
+msgid "log entry"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:65
+msgid "log entries"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:74
+#, python-format
+msgid "Added \"%(object)s\"."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:76
+#, python-format
+msgid "Changed \"%(object)s\" - %(changes)s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:81
+#, python-format
+msgid "Deleted \"%(object)s.\""
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:83
+msgid "LogEntry Object"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:108
+msgid "addedname"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:109
+msgid "Added {name} \"{object}\"."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:111
+msgid "Added."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:115
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1936
+#: mconfig/Lib/site-packages/django/db/models/base.py:1191
+#: mconfig/Lib/site-packages/django/forms/models.py:734
+msgid "and"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:118
+msgid "changedname"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:119
+msgid "Changed {fields} for {name} \"{object}\"."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:123
+msgid "Changed {fields}."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:126
+msgid "deletedname"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:127
+msgid "Deleted {name} \"{object}\"."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/models.py:130
+msgid "No fields changed."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:259
+msgid "Hold down \"Control\", or \"Command\" on a Mac, to select more than one."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1115
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1186
+msgid "The {name} \"{obj}\" was added successfully. You may edit it again below."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1129
+msgid ""
+"The {name} \"{obj}\" was added successfully. You may add another {name} below."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1139
+msgid "The {name} \"{obj}\" was added successfully."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1176
+msgid ""
+"The {name} \"{obj}\" was changed successfully. You may edit it again below."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1199
+msgid ""
+"The {name} \"{obj}\" was changed successfully. You may add another {name} "
+"below."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1211
+msgid "The {name} \"{obj}\" was changed successfully."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1296
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1575
+msgid ""
+"Items must be selected in order to perform actions on them. No items have been "
+"changed."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1315
+msgid "No action selected."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1337
+#, python-format
+msgid "The %(name)s \"%(obj)s\" was deleted successfully."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1435
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1700
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1756
+#: mconfig/Lib/site-packages/django/contrib/auth/admin.py:136
+#, python-format
+msgid "%(name)s object with primary key %(key)r does not exist."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1483
+#, python-format
+msgid "Add %s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1483
+#, python-format
+msgid "Change %s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1554
+msgid "Database error"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1617
+#, python-format
+msgid "%(count)s %(name)s was changed successfully."
+msgid_plural "%(count)s %(name)s were changed successfully."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1648
+#, python-format
+msgid "%(total_count)s selected"
+msgid_plural "All %(total_count)s selected"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1657
+#, python-format
+msgid "0 of %(cnt)s selected"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1774
+#, python-format
+msgid "Change history: %s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1930
+#, python-format
+msgid "%(class_name)s %(instance)s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/options.py:1937
+#, python-format
+msgid ""
+"Deleting %(class_name)s %(instance)s would require deleting the following "
+"protected related objects: %(related_objects)s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/sites.py:362
+#: mconfig/Lib/site-packages/django/contrib/admin/tests.py:123
+msgid "Log in"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/sites.py:490
+#, python-format
+msgid "%(app)s administration"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/widgets.py:91
+msgid "Date:"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/widgets.py:92
+msgid "Time:"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/widgets.py:176
+msgid "Lookup"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/widgets.py:382
+msgid "Currently:"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/widgets.py:383
+msgid "Change:"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/templatetags/admin_list.py:403
+msgid "All dates"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/views/main.py:81
+#, python-format
+msgid "Select %s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admin/views/main.py:83
+#, python-format
+msgid "Select %s to change"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admindocs/apps.py:7
+msgid "Administrative Documentation"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:76
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:78
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:80
+msgid "tag:"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:110
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:112
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:114
+msgid "filter:"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:190
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:192
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:194
+msgid "view:"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:222
+#, python-format
+msgid "App %(app_label)r not found"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:226
+#, python-format
+msgid "Model %(model_name)r not found in app %(app_label)r"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:232
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:234
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:249
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:272
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:277
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:292
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:327
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:332
+msgid "model:"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:245
+#, python-format
+msgid "the related `%(app_label)s.%(data_type)s` object"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:265
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:319
+#, python-format
+msgid "related `%(app_label)s.%(object_name)s` objects"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:272
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:327
+#, python-format
+msgid "all %s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:277
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:332
+#, python-format
+msgid "number of %s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admindocs/views.py:420
+#, python-format
+msgid "%s does not appear to be a urlpattern object"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admindocs/tests/test_fields.py:32
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:974
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/admindocs/tests/test_fields.py:42
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:134
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/admin.py:49
+msgid "Personal info"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/admin.py:50
+msgid "Permissions"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/admin.py:52
+msgid "Important dates"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/admin.py:146
+msgid "Password changed successfully."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/admin.py:166
+#, python-format
+msgid "Change password: %s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/apps.py:12
+msgid "Authentication and Authorization"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/base_user.py:53
+msgid "password"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/base_user.py:54
+msgid "last login"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:32
+msgid "No password set."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:37
+msgid "Invalid password format or unknown hashing algorithm."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:76
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:301
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:373
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:79
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:122
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:158
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:377
+msgid "Password"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:84
+msgid "Password confirmation"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:87
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:386
+msgid "Enter the same password as before, for verification."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:123
+msgid ""
+"Raw passwords are not stored, so there is no way to see this user's password, "
+"but you can change the password using <a href=\"../password/\">this form</a>."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:164
+#, python-format
+msgid ""
+"Please enter a correct %(username)s and password. Note that both fields may be "
+"case-sensitive."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:168
+msgid "This account is inactive."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:230
+msgid "Email"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:304
+msgid "New password"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:310
+msgid "New password confirmation"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:345
+msgid "Your old password was entered incorrectly. Please enter it again."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:348
+msgid "Old password"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/forms.py:383
+msgid "Password (again)"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:272
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:346
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:444
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:506
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:537
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:573
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:609
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:647
+msgid "algorithm"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:273
+msgid "iterations"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:274
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:352
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:446
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:507
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:538
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:648
+msgid "salt"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:275
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:353
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:508
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:539
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:574
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:610
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:649
+msgid "hash"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:347
+msgid "variety"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:348
+msgid "version"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:349
+msgid "memory cost"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:350
+msgid "time cost"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:351
+msgid "parallelism"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:445
+msgid "work factor"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/hashers.py:447
+msgid "checksum"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:63
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:118
+msgid "name"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:69
+msgid "codename"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:73
+msgid "permission"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:74
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:121
+msgid "permissions"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:128
+msgid "group"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:129
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:225
+msgid "groups"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:216
+msgid "superuser status"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:218
+msgid ""
+"Designates that this user has all permissions without explicitly assigning "
+"them."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:227
+msgid ""
+"The groups this user belongs to. A user will get all permissions granted to "
+"each of their groups."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:236
+msgid "user permissions"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:238
+msgid "Specific permissions for this user."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:310
+msgid "username"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:313
+msgid "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:316
+msgid "A user with that username already exists."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:319
+msgid "first name"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:320
+msgid "last name"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:321
+msgid "email address"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:323
+msgid "staff status"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:325
+msgid "Designates whether the user can log into this admin site."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:328
+msgid "active"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:330
+msgid ""
+"Designates whether this user should be treated as active. Unselect this "
+"instead of deleting accounts."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:335
+msgid "date joined"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/models.py:344
+msgid "users"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/password_validation.py:102
+#, python-format
+msgid ""
+"This password is too short. It must contain at least %(min_length)d character."
+msgid_plural ""
+"This password is too short. It must contain at least %(min_length)d characters."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/password_validation.py:112
+#, python-format
+msgid "Your password must contain at least %(min_length)d character."
+msgid_plural "Your password must contain at least %(min_length)d characters."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/password_validation.py:149
+#, python-format
+msgid "The password is too similar to the %(verbose_name)s."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/password_validation.py:155
+msgid "Your password can't be too similar to your other personal information."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/password_validation.py:182
+msgid "This password is too common."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/password_validation.py:187
+msgid "Your password can't be a commonly used password."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/password_validation.py:197
+msgid "This password is entirely numeric."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/password_validation.py:202
+msgid "Your password can't be entirely numeric."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/validators.py:12
+msgid ""
+"Enter a valid username. This value may contain only English letters, numbers, "
+"and @/./+/-/_ characters."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/validators.py:22
+msgid ""
+"Enter a valid username. This value may contain only letters, numbers, and @/./"
+"+/-/_ characters."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/views.py:133
+msgid "Logged out"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/views.py:211
+msgid "Password reset"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/views.py:224
+msgid "Password reset sent"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/views.py:261
+msgid "Enter new password"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/views.py:272
+msgid "Password reset unsuccessful"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/views.py:290
+msgid "Password reset complete"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/views.py:323
+msgid "Password change"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/auth/views.py:337
+msgid "Password change successful"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/contenttypes/apps.py:14
+msgid "Content Types"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/contenttypes/models.py:140
+msgid "python model class name"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/contenttypes/models.py:145
+msgid "content types"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/contenttypes/views.py:19
+#, python-format
+msgid "Content type %(ct_id)s object has no associated model"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/contenttypes/views.py:23
+#, python-format
+msgid "Content type %(ct_id)s object %(obj_id)s doesn't exist"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/contenttypes/views.py:29
+#, python-format
+msgid "%(ct_name)s objects don't have a get_absolute_url() method"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/admin.py:12
+msgid "Advanced options"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/apps.py:7
+msgid "Flat Pages"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/forms.py:9
+#: mconfig/Lib/site-packages/django/contrib/flatpages/models.py:12
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:2279
+msgid "URL"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/forms.py:12
+msgid ""
+"Example: '/about/contact/'. Make sure to have leading and trailing slashes."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/forms.py:14
+msgid ""
+"This value must contain only letters, numbers, dots, underscores, dashes, "
+"slashes or tildes."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/forms.py:29
+msgid "URL is missing a leading slash."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/forms.py:37
+msgid "URL is missing a trailing slash."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/forms.py:54
+#, python-format
+msgid "Flatpage with url %(url)s already exists for site %(site)s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/models.py:13
+msgid "title"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/models.py:14
+msgid "content"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/models.py:15
+msgid "enable comments"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/models.py:17
+msgid "template name"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/models.py:20
+msgid ""
+"Example: 'flatpages/contact_page.html'. If this isn't provided, the system "
+"will use 'flatpages/default.html'."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/models.py:26
+msgid "registration required"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/models.py:27
+msgid "If this is checked, only logged-in users will be able to view the page."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/models.py:30
+#: mconfig/Lib/site-packages/django/contrib/sites/models.py:100
+msgid "sites"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/models.py:34
+msgid "flat page"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/flatpages/models.py:35
+msgid "flat pages"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/apps.py:8
+msgid "GIS"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/views.py:10
+msgid "No feeds are registered."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/views.py:16
+#, python-format
+msgid "Slug %r isn't registered."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/db/models/fields.py:81
+msgid "The base GIS field."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/db/models/fields.py:265
+msgid ""
+"The base Geometry field -- maps to the OpenGIS Specification Geometry type."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/db/models/fields.py:372
+msgid "Point"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/db/models/fields.py:378
+msgid "Line string"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/db/models/fields.py:384
+msgid "Polygon"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/db/models/fields.py:390
+msgid "Multi-point"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/db/models/fields.py:396
+msgid "Multi-line string"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/db/models/fields.py:402
+msgid "Multi polygon"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/db/models/fields.py:408
+msgid "Geometry collection"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/db/models/fields.py:414
+msgid "Extent Aggregate Field"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/db/models/fields.py:425
+msgid "Raster Field"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/forms/fields.py:20
+msgid "No geometry value provided."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/forms/fields.py:21
+msgid "Invalid geometry value."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/forms/fields.py:22
+msgid "Invalid geometry type."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/gis/forms/fields.py:23
+msgid ""
+"An error occurred when transforming the geometry to the SRID of the geometry "
+"form field."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/apps.py:7
+msgid "Humanize"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:30
+msgid "th"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:30
+msgid "st"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:30
+msgid "nd"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:30
+msgid "rd"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:61
+#, python-format
+msgid "%(value).1f million"
+msgid_plural "%(value).1f million"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:62
+#, python-format
+msgid "%(value)s million"
+msgid_plural "%(value)s million"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:65
+#, python-format
+msgid "%(value).1f billion"
+msgid_plural "%(value).1f billion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:66
+#, python-format
+msgid "%(value)s billion"
+msgid_plural "%(value)s billion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:69
+#, python-format
+msgid "%(value).1f trillion"
+msgid_plural "%(value).1f trillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:70
+#, python-format
+msgid "%(value)s trillion"
+msgid_plural "%(value)s trillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:73
+#, python-format
+msgid "%(value).1f quadrillion"
+msgid_plural "%(value).1f quadrillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:74
+#, python-format
+msgid "%(value)s quadrillion"
+msgid_plural "%(value)s quadrillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:77
+#, python-format
+msgid "%(value).1f quintillion"
+msgid_plural "%(value).1f quintillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:78
+#, python-format
+msgid "%(value)s quintillion"
+msgid_plural "%(value)s quintillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:81
+#, python-format
+msgid "%(value).1f sextillion"
+msgid_plural "%(value).1f sextillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:82
+#, python-format
+msgid "%(value)s sextillion"
+msgid_plural "%(value)s sextillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:85
+#, python-format
+msgid "%(value).1f septillion"
+msgid_plural "%(value).1f septillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:86
+#, python-format
+msgid "%(value)s septillion"
+msgid_plural "%(value)s septillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:89
+#, python-format
+msgid "%(value).1f octillion"
+msgid_plural "%(value).1f octillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:90
+#, python-format
+msgid "%(value)s octillion"
+msgid_plural "%(value)s octillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:93
+#, python-format
+msgid "%(value).1f nonillion"
+msgid_plural "%(value).1f nonillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:94
+#, python-format
+msgid "%(value)s nonillion"
+msgid_plural "%(value)s nonillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:97
+#, python-format
+msgid "%(value).1f decillion"
+msgid_plural "%(value).1f decillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:98
+#, python-format
+msgid "%(value)s decillion"
+msgid_plural "%(value)s decillion"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:101
+#, python-format
+msgid "%(value).1f googol"
+msgid_plural "%(value).1f googol"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:102
+#, python-format
+msgid "%(value)s googol"
+msgid_plural "%(value)s googol"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:153
+msgid "one"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:153
+msgid "two"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:153
+msgid "three"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:153
+msgid "four"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:153
+msgid "five"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:154
+msgid "six"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:154
+msgid "seven"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:154
+msgid "eight"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:154
+msgid "nine"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:178
+msgid "today"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:180
+msgid "tomorrow"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:182
+msgid "yesterday"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:201
+#, python-format
+msgctxt "naturaltime"
+msgid "%(delta)s ago"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:205
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:233
+msgid "now"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:207
+#, python-format
+msgid "a second ago"
+msgid_plural "%(count)s seconds ago"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:214
+#, python-format
+msgid "a minute ago"
+msgid_plural "%(count)s minutes ago"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:221
+#, python-format
+msgid "an hour ago"
+msgid_plural "%(count)s hours ago"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:229
+#, python-format
+msgctxt "naturaltime"
+msgid "%(delta)s from now"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:235
+#, python-format
+msgid "a second from now"
+msgid_plural "%(count)s seconds from now"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:242
+#, python-format
+msgid "a minute from now"
+msgid_plural "%(count)s minutes from now"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/humanize/templatetags/humanize.py:249
+#, python-format
+msgid "an hour from now"
+msgid_plural "%(count)s hours from now"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/contrib/messages/apps.py:7
+msgid "Messages"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/apps.py:12
+msgid "PostgreSQL extensions"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/validators.py:31
+#, python-format
+msgid "Some keys were missing: %(keys)s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/validators.py:32
+#, python-format
+msgid "Some unknown keys were provided: %(keys)s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/validators.py:76
+#, python-format
+msgid ""
+"Ensure that this range is completely less than or equal to %(limit_value)s."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/validators.py:82
+#, python-format
+msgid ""
+"Ensure that this range is completely greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/fields/array.py:21
+#: mconfig/Lib/site-packages/django/contrib/postgres/forms/array.py:18
+#: mconfig/Lib/site-packages/django/contrib/postgres/forms/array.py:154
+#, python-format
+msgid "Item %(nth)s in the array did not validate: "
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/fields/array.py:22
+msgid "Nested arrays must have the same length."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/fields/hstore.py:16
+msgid "Map of strings to strings"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/fields/hstore.py:18
+#, python-format
+msgid "The value of \"%(key)s\" is not a string."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/fields/jsonb.py:15
+msgid "A JSON object"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/fields/jsonb.py:17
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/forms/hstore.py:17
+msgid "Could not load JSON data."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/forms/hstore.py:18
+msgid "Input must be a JSON dictionary."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/forms/jsonb.py:16
+#, python-format
+msgid "'%(value)s' value must be valid JSON."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/forms/ranges.py:13
+msgid "Enter two valid values."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/forms/ranges.py:14
+msgid "The start of the range must not exceed the end of the range."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/forms/ranges.py:61
+msgid "Enter two whole numbers."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/forms/ranges.py:67
+msgid "Enter two numbers."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/forms/ranges.py:73
+msgid "Enter two valid date/times."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/postgres/forms/ranges.py:79
+msgid "Enter two valid dates."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/redirects/apps.py:7
+msgid "Redirects"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/redirects/models.py:9
+#: mconfig/Lib/site-packages/django/contrib/sites/models.py:99
+msgid "site"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/redirects/models.py:11
+msgid "redirect from"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/redirects/models.py:14
+msgid ""
+"This should be an absolute path, excluding the domain name. Example: '/events/"
+"search/'."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/redirects/models.py:17
+msgid "redirect to"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/redirects/models.py:20
+msgid ""
+"This can be either an absolute path (as above) or a full URL starting with "
+"'http://'."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/redirects/models.py:24
+msgid "redirect"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/redirects/models.py:25
+msgid "redirects"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/sessions/apps.py:7
+msgid "Sessions"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/sessions/base_session.py:31
+msgid "session key"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/sessions/base_session.py:32
+msgid "session data"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/sessions/base_session.py:33
+msgid "expire date"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/sessions/base_session.py:39
+msgid "session"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/sessions/base_session.py:40
+msgid "sessions"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/sitemaps/apps.py:7
+msgid "Site Maps"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/sites/apps.py:10
+msgid "Sites"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/sites/models.py:25
+msgid "The domain name cannot contain any spaces or tabs."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/sites/models.py:89
+msgid "domain name"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/sites/models.py:94
+msgid "display name"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/staticfiles/apps.py:7
+msgid "Static Files"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/contrib/syndication/apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/core/validators.py:33
+msgid "Enter a valid value."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/core/validators.py:106
+#: mconfig/Lib/site-packages/django/forms/fields.py:663
+msgid "Enter a valid URL."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/core/validators.py:159
+msgid "Enter a valid integer."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/core/validators.py:170
+msgid "Enter a valid email address."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/core/validators.py:243
+msgid ""
+"Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/core/validators.py:250
+msgid ""
+"Enter a valid 'slug' consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/core/validators.py:255
+#: mconfig/Lib/site-packages/django/core/validators.py:274
+msgid "Enter a valid IPv4 address."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/core/validators.py:260
+#: mconfig/Lib/site-packages/django/core/validators.py:275
+msgid "Enter a valid IPv6 address."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/core/validators.py:270
+#: mconfig/Lib/site-packages/django/core/validators.py:273
+msgid "Enter a valid IPv4 or IPv6 address."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/core/validators.py:305
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1110
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/core/validators.py:311
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/core/validators.py:342
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/core/validators.py:351
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/base.py:1193
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:110
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:111
+msgid "This field cannot be null."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:112
+msgid "This field cannot be blank."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:113
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:117
+#, python-format
+msgid "%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:881
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1788
+msgid "Integer"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:885
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1786
+#, python-format
+msgid "'%(value)s' value must be an integer."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:960
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1857
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:972
+#, python-format
+msgid "'%(value)s' value must be either True or False."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1040
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1094
+msgid "Comma-separated integers"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1151
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid date format. It must be in YYYY-MM-DD format."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1153
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1298
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1156
+msgid "Date (without time)"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1296
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1300
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]][TZ]) "
+"but it is an invalid date/time."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1304
+msgid "Date (with time)"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1454
+#, python-format
+msgid "'%(value)s' value must be a decimal number."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1456
+msgid "Decimal number"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1607
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in [DD] [HH:[MM:]]ss[."
+"uuuuuu] format."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1610
+msgid "Duration"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1662
+msgid "Email address"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1686
+msgid "File path"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1752
+#, python-format
+msgid "'%(value)s' value must be a float."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1754
+msgid "Floating point number"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1872
+msgid "IPv4 address"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1903
+msgid "IP address"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1985
+#, python-format
+msgid "'%(value)s' value must be either None, True or False."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:1987
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:2054
+msgid "Positive integer"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:2066
+msgid "Positive small integer"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:2079
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:2113
+msgid "Small integer"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:2120
+msgid "Text"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:2146
+#, python-format
+msgid ""
+"'%(value)s' value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:2148
+#, python-format
+msgid ""
+"'%(value)s' value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:2151
+msgid "Time"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:2302
+msgid "Raw binary data"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/__init__.py:2349
+#, python-format
+msgid "'%(value)s' is not a valid UUID."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/files.py:225
+msgid "File"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/files.py:387
+msgid "Image"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/related.py:734
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r does not exist."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/related.py:736
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/related.py:974
+msgid "One-to-one relationship"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/related.py:1049
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/related.py:1050
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/db/models/fields/related.py:1092
+msgid "Many-to-many relationship"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/boundfield.py:156
+msgid ":?.!"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:56
+msgid "This field is required."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:250
+msgid "Enter a whole number."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:295
+#: mconfig/Lib/site-packages/django/forms/fields.py:332
+msgid "Enter a number."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:410
+#: mconfig/Lib/site-packages/django/forms/fields.py:1136
+msgid "Enter a valid date."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:434
+#: mconfig/Lib/site-packages/django/forms/fields.py:1137
+msgid "Enter a valid time."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:456
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:485
+msgid "Enter a valid duration."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:542
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:543
+msgid "No file was submitted."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:544
+msgid "The submitted file is empty."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:549
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:610
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:767
+#: mconfig/Lib/site-packages/django/forms/fields.py:863
+#: mconfig/Lib/site-packages/django/forms/models.py:1240
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:864
+#: mconfig/Lib/site-packages/django/forms/fields.py:979
+#: mconfig/Lib/site-packages/django/forms/models.py:1239
+msgid "Enter a list of values."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:980
+msgid "Enter a complete value."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/fields.py:1195
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/forms.py:84
+msgid ":"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/forms.py:199
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/formsets.py:97
+msgid "ManagementForm data is missing or has been tampered with"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/formsets.py:349
+#, python-format
+msgid "Please submit %d or fewer forms."
+msgid_plural "Please submit %d or fewer forms."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/forms/formsets.py:356
+#, python-format
+msgid "Please submit %d or more forms."
+msgid_plural "Please submit %d or more forms."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/forms/formsets.py:385
+#: mconfig/Lib/site-packages/django/forms/formsets.py:387
+msgid "Order"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/formsets.py:389
+msgid "Delete"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/models.py:729
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/models.py:733
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/models.py:738
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique for "
+"the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/models.py:748
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/models.py:1072
+msgid "The inline foreign key did not match the parent instance primary key."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/models.py:1133
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/models.py:1242
+#, python-format
+msgid "\"%(pk)s\" is not a valid value for a primary key."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/forms/utils.py:171
+#, python-format
+msgid ""
+"%(datetime)s couldn't be interpreted in time zone %(current_timezone)s; it may "
+"be ambiguous or it may not exist."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/template/defaultfilters.py:848
+msgid "yes,no,maybe"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/template/defaultfilters.py:877
+#: mconfig/Lib/site-packages/django/template/defaultfilters.py:894
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: mconfig/Lib/site-packages/django/template/defaultfilters.py:896
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/template/defaultfilters.py:898
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/template/defaultfilters.py:900
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/template/defaultfilters.py:902
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/template/defaultfilters.py:904
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dateformat.py:66
+msgid "p.m."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dateformat.py:67
+msgid "a.m."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dateformat.py:72
+msgid "PM"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dateformat.py:73
+msgid "AM"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dateformat.py:158
+msgid "midnight"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dateformat.py:160
+msgid "noon"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:6
+msgid "Monday"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:6
+msgid "Tuesday"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:6
+msgid "Wednesday"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:6
+msgid "Thursday"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:6
+msgid "Friday"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:7
+msgid "Saturday"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:7
+msgid "Sunday"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:10
+msgid "Mon"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:10
+msgid "Tue"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:10
+msgid "Wed"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:10
+msgid "Thu"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:10
+msgid "Fri"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:11
+msgid "Sat"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:11
+msgid "Sun"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:18
+msgid "January"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:18
+msgid "February"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:18
+msgid "March"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:18
+msgid "April"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:18
+msgid "May"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:18
+msgid "June"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:19
+msgid "July"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:19
+msgid "August"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:19
+msgid "September"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:19
+msgid "October"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:19
+msgid "November"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:20
+msgid "December"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:23
+msgid "jan"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:23
+msgid "feb"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:23
+msgid "mar"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:23
+msgid "apr"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:23
+msgid "may"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:23
+msgid "jun"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:24
+msgid "jul"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:24
+msgid "aug"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:24
+msgid "sep"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:24
+msgid "oct"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:24
+msgid "nov"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/dates.py:24
+msgid "dec"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/ipv6.py:12
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/text.py:76
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s..."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/text.py:267
+#: mconfig/Lib/site-packages/django/utils/timesince.py:63
+msgid ", "
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/utils/timesince.py:52
+msgid "0 minutes"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/csrf.py:109
+msgid "Forbidden"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/csrf.py:110
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/csrf.py:113
+msgid ""
+"You are seeing this message because this HTTPS site requires a 'Referer "
+"header' to be sent by your Web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/csrf.py:118
+msgid ""
+"If you have configured your browser to disable 'Referer' headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for 'same-"
+"origin' requests."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/csrf.py:123
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure that "
+"your browser is not being hijacked by third parties."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/csrf.py:128
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable them, "
+"at least for this site, or for 'same-origin' requests."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/csrf.py:134
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/debug.py:509
+msgid "Welcome to Django"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/debug.py:510
+msgid "It worked!"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/debug.py:511
+msgid "Congratulations on your first Django-powered page."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/debug.py:512
+msgid ""
+"Of course, you haven't actually done any work yet. Next, start your first app "
+"by running <code>python manage.py startapp [app_label]</code>."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/debug.py:516
+msgid ""
+"You're seeing this message because you have <code>DEBUG = True</code> in your "
+"Django settings file and you haven't configured any URLs. Get to work!"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/static.py:58
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/static.py:60
+#, python-format
+msgid "\"%(path)s\" does not exist"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/generic/dates.py:48
+msgid "No year specified"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/generic/dates.py:104
+msgid "No month specified"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/generic/dates.py:163
+msgid "No day specified"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/generic/dates.py:219
+msgid "No week specified"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/generic/dates.py:378
+#: mconfig/Lib/site-packages/django/views/generic/dates.py:406
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/generic/dates.py:659
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/generic/dates.py:694
+#, python-format
+msgid "Invalid date string '%(datestr)s' given format '%(format)s'"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/generic/detail.py:55
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/generic/list.py:76
+msgid "Page is not 'last', nor can it be converted to an int."
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/generic/list.py:81
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/django/views/generic/list.py:171
+#, python-format
+msgid "Empty list and '%(class_name)s.allow_empty' is False."
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:313
+msgid "usage: "
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:821
+msgid ".__call__() not defined"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1105
+#, python-format
+msgid "unknown parser %r (choices: %s)"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1146
+#, python-format
+msgid "argument \"-\" with mode %r"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1349
+#, python-format
+msgid "cannot merge actions - two groups are named %r"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1387
+msgid "'required' is an invalid argument for positionals"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1407
+#, python-format
+msgid "invalid option string %r: must start with a character %r"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1428
+#, python-format
+msgid "dest= is required for options like %r"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1445
+#, python-format
+msgid "invalid conflict_resolution value: %r"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1463
+#, python-format
+msgid "conflicting option string(s): %s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1526
+msgid "mutually exclusive arguments must be optional"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1596
+msgid "positional arguments"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1597
+msgid "optional arguments"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1615
+msgid "show this help message and exit"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1621
+msgid "show program's version number and exit"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1653
+msgid "cannot have multiple subparser arguments"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1705
+#, python-format
+msgid "unrecognized arguments: %s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1802
+#, python-format
+msgid "not allowed with argument %s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1848
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1862
+#, python-format
+msgid "ignored explicit argument %r"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1952
+msgid "too few arguments"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1959
+#, python-format
+msgid "argument %s is required"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:1973
+#, python-format
+msgid "one of the arguments %s is required"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:2019
+msgid "expected one argument"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:2020
+msgid "expected at most one argument"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:2021
+msgid "expected at least one argument"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:2023
+#, python-format
+msgid "expected %s argument(s)"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:2080
+#, python-format
+msgid "ambiguous option: %s could match %s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:2142
+#, python-format
+msgid "unexpected option string: %s"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:2243
+#, python-format
+msgid "%r is not callable"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:2259
+#, python-format
+msgid "invalid %s value: %r"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:2269
+#, python-format
+msgid "invalid choice: %r (choose from %s)"
+msgstr ""
+
+#: mconfig/Lib/site-packages/gunicorn/argparse_compat.py:2362
+#, python-format
+msgid "%s: error: %s\n"
+msgstr ""
+
+#~ msgid "Documentation"
+#~ msgstr "Документация"
+
+#~ msgid "Email address:"
+#~ msgstr "Введите адрес доставки:"
+
+#~ msgid "Drive configurator"
+#~ msgstr "Конфигуратор"
+
+#~ msgid "Prev"
+#~ msgstr "Назад"
+
+#~ msgid "Next"
+#~ msgstr "Далее"
