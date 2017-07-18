@@ -50,19 +50,18 @@ $( document ).ready(function() {
 });
 
 </script>
-
+<div class="error-msg">
+	<div id="err_panel" class="w3-panel w3-orange w3-card-8" style="display:none;">
+		<span class="w3-closebtn" onclick="this.parentElement.style.display='none'">X</span>
+		<p id="err_text"><strong></strong></p>
+	</div>
+</div>
 <div id="question">
 	<p align="right"> Пользователь: {{ user }} </p>
 	<p align="right"><a href="../../../login">Войти/Перелогиниться</a></p>
 	<p align="right"><a href="../../../create_user">Создать профайл</a></p>
 	 <p align="right"><a href="../../../logout">Выйти</a></p>
 	<h1>Конфигуратор высоковольтного привода</h1>
-	<div class="error-msg">
-		<div id="err_panel" class="w3-panel w3-orange w3-card-8" style="display:none;">
-			<span class="w3-closebtn" onclick="this.parentElement.style.display='none'">X</span>
-			<p id="err_text"><strong></strong></p>
-		</div>
-	</div>
 
 	<div id="main_area">
 		<div class="clear"></div>
@@ -79,14 +78,20 @@ $( document ).ready(function() {
 				</p>
 			</div>
 			
-			<div id="price">
-				<div id="price_details">	
-					<div id="supplier_price">
+			<div id="price" style="display:none" style="display:inline";>
+				
+				<div id="price_details" >
+					
+					<div id="supplier_price" ;>
 					</div>
+					
 					<div id="delivery_cost">
 					</div>
 				</div>
-				Price:
+				<div>
+				
+				</div> 
+				Партнерская цена:
 				<div id="sale_price" style="display:inline;">
 					{{ package.price.sale_price }}
 				</div>	
@@ -105,6 +110,7 @@ $( document ).ready(function() {
 				{% include package.template with package=package unpriced=False only %}
 				<br>
 			{% endfor %}
+			
 		</div>
 	</div>
 </div>

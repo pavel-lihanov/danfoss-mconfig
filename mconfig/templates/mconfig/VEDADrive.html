@@ -12,8 +12,13 @@ function updatePackage(data)
 	document.getElementById("weight").innerHTML = data.weight;
 	document.getElementById("therm_loss").innerHTML = data.therm_loss;
 	
+	options=document.getElementById("options");
+	if (data.options) {
 	for(var propt in data.options){
 		document.getElementById(propt).innerHTML = data.options[propt]
+
+	} options.style.display="block";} else { options.style.display="none";
+		
 	}
 }
 
@@ -31,7 +36,7 @@ function updatePrice(data)
 	details = data.details;
 	if(details){
 		det_div.style.display="block";
-		det_div.innerHTML = "<br>" + details.supplier_price + "<br>" + details.sale_price + "<br>" + details.delivery_cost;
+		det_div.innerHTML = "<br>" +"Входная цена: "+ details.supplier_price + "<br>" + "Цена без учета доставки: "+ details.sale_price + "<br>" + "Цена доставки: "+ details.delivery_cost;
 	} else {
 	
 	}
@@ -67,15 +72,17 @@ function updatePrice(data)
 	<label>Тепловые потери, кВт</label> <span  id="therm_loss"> </span>
 </div>
 
-<h3>Введенные данные</h3>
 
+
+<div id="options" >
+<h3>Введенные данные</h3>
 {% for option in package.display_options.items %}
 	<div class="val-fileld">
 		<label>{{ option.0 }}</label>
 		<span id="{{ option.0 }}">{{ option.1 }}</span>
 	</div>	
 {% endfor %}
-
+</div>
 
 
 {% if not unpriced %}

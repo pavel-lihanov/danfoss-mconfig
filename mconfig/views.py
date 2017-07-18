@@ -163,24 +163,43 @@ class HTMLQuestion:
 
 class VEDADriveView:
     _template = "VEDADrive.html"
+    def __init__(self, show_options=False):
+        self.show_options = show_options
     @property
     def template(self):
         return self._template
+        
     
-    def as_json(self):                
-        return {    
-                    'name': self.package.name,
-                    'order_code': self.package.order_code(),
-                    'short_descr': self.package.short_descr(),
-                    'options': self.package.display_options(),
-                    'main_cabinet': self.package.main_cabinet.name,
-                    'addons': '+'.join([o.name for o in self.package.addons]),
-                    'width': self.package.width,
-                    'height': self.package.height,
-                    'length': self.package.length,
-                    'weight': self.package.weight,
-                    'therm_loss': self.package.therm_loss
-                }
+    def as_json(self):
+        if self.show_options:    
+            return {    
+                        'name': self.package.name,
+                        'order_code': self.package.order_code(),
+                        'short_descr': self.package.short_descr(),
+                        'options': self.package.display_options(),
+                        'main_cabinet': self.package.main_cabinet.name,
+                        'addons': '+'.join([o.name for o in self.package.addons]),
+                        'width': self.package.width,
+                        'height': self.package.height,
+                        'length': self.package.length,
+                        'weight': self.package.weight,
+                        'therm_loss': self.package.therm_loss
+                    }
+        else:
+            return {    
+                        'name': self.package.name,
+                        'order_code': self.package.order_code(),
+                        'short_descr': self.package.short_descr(),
+                        'main_cabinet': self.package.main_cabinet.name,
+                        'addons': '+'.join([o.name for o in self.package.addons]),
+                        'width': self.package.width,
+                        'height': self.package.height,
+                        'length': self.package.length,
+                        'weight': self.package.weight,
+                        'therm_loss': self.package.therm_loss
+                    }
+
+                    
         
 class PriceView:
     _template = "price.html"
@@ -223,7 +242,7 @@ class HTMLResult:
         return self._template
     
     #TODO: view should tell if current user has appropriate access level
-    def as_json(self, show_details,show_price):        
+    def as_json(self, show_details,show_price,show_options):        
         package = self.question.packages[0]        
         package.view = VEDADriveView()
         package.view.package = package
@@ -536,7 +555,7 @@ def question_refresh(request, session, _context={}, error=''):
     question = wiz.current_screen
     question.last_error = error
     
-    data = question.view.as_json(show_details=request.user.is_superuser,show_price=request.user.is_superuser)
+    data = question.view.as_json(show_details=request.user.is_superuser,show_price=request.user.is_superuser,show_options=request.user.is_superuser)
     return HttpResponse(data, content_type="application/json")    
     
 def show_question(session, request, wiz, context):   
