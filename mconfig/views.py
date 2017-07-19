@@ -48,6 +48,8 @@ import os.path
 import shutil
 
 import json
+import exchangelib as exchange
+from exchangelib import FileAttachment
 
 
 #import rpdb2
@@ -61,7 +63,7 @@ last_id = 0
 lock = threading.Lock()
 
 
-def send_mail(server, from_, to, subject, html, text):
+#def send_mail(server, from_, to, subject, html, text):
     #msg = MIMEMultipart('alternative')
     #html = html
 
@@ -78,20 +80,56 @@ def send_mail(server, from_, to, subject, html, text):
     #s = smtplib.SMTP(server)
     #s.sendmail(from_, to, msg.as_string())
     #s.quit()
-    credentials = exchange.Credentials(username='U334081@danfoss.com', password='Kris1985')
+def send_mail(request, session):
+
+    wiz, lock = sessions[int(session)]
+    credentials = exchange.Credentials(username='U334081@danfoss.com', password='********') # 1. тут должен быть общий ящик, к которому есть доступ у Стаса и Андрея. 2. Чтобы работала отправка с моего ящика, нужно подставить пароль
 
     config = exchange.Configuration(server='outlook.office365.com', credentials=credentials)
     account = exchange.Account(primary_smtp_address='U334081@danfoss.com', config=config, autodiscover=False, access_type=exchange.DELEGATE)
+    user = request.user
+    #profile = Profile.objects.get(email=user.email)
     
     m = exchange.Message(
     account=account,
     folder=account.sent,
     subject='Test email',
     body='exchangelib works!',
-    to_recipients=[exchange.Mailbox(email_address='U334081@danfoss.com')]
+    to_recipients=[exchange.Mailbox(email_address=user.email)]
     
     )
-    m.send_and_save()    
+    #e=email
+    
+    package = wiz.screens[-1].packages[0]
+    filepath = 'P:\\danfoss-mconfig\\'
+    path = os.path.join(os.path.dirname(filepath), '{0}.{1}'.format(session, 'docx'))
+    package.make_offer_template(path)
+    #binary_file_content = 'Hello from unicode æøå'.encode('utf-8')  # Or read from file, BytesIO etc.
+    #my_file = FileAttachment(name='my_file.txt', content=binary_file_content)
+    user = request.user
+    try:
+        profile = Profile.objects.get(email=user.email)
+        print ('profile=')
+        print (user.email)         
+        order = Order(date = datetime.date.today(), price_version = '0.0', typecode = package.order_code(), price=package.price.sale_price, user=user)
+        order.save()
+    except Profile.DoesNotExist:
+        #should never happen
+        pass
+    with open(path, 'rb') as f:
+        print(path)
+        file_content = f.read()
+        #file_content=''
+        my_file=FileAttachment(name=path, content=file_content)
+        m.attach(my_file)
+        m.send_and_save()
+        #filepath = 'P:\\danfoss-mconfig\\test.docx'
+        #path = os.path.join(os.path.dirname(filepath), '{0}.{1}'.format(session, 'docx'))
+
+    #return serve(request, os.path.basename(path), os.path.dirname(path))
+    
+    return show_question(session, request, wiz, {})
+    #return serve(request, os.path.basename(path), os.path.dirname(path))
     
 
 class Reaper(threading.Thread):    
@@ -507,7 +545,7 @@ def download(request, session):
 
     print (session, wiz)
     package = wiz.screens[-1].packages[0]
-    filepath = 'P:\\danfoss-mconfig\\test.docx'
+    filepath = 'P:\\danfoss-mconfig\\'
     path = os.path.join(os.path.dirname(filepath), '{0}.{1}'.format(session, 'docx'))
     package.make_offer_template(path)    
     '''
