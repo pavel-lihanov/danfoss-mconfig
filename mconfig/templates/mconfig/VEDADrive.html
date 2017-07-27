@@ -29,6 +29,7 @@ function updatePrice(data)
 	sp_div = document.getElementById("sale_price");
 	if(!data){
 		price_div.style.display="none";
+
 		return;
 	}
 	
@@ -36,14 +37,18 @@ function updatePrice(data)
 	details = data.details;
 	if(details){
 		det_div.style.display="block";
-		det_div.innerHTML = "<br>" +"Входная цена: "+ details.supplier_price + "<br>" + "Цена без учета доставки: "+ details.sale_price + "<br>" + "Цена доставки: "+ details.delivery_cost;
-	} else {
-	
-	}
+		det_div.innerHTML = "<br>" +"Выходная цена: "+ details.supplier_price + "<br>" + "Цена без учета доставки: "+ details.sale_price + "<br>" + "Цена доставки: "+ details.delivery_cost;
+	} else { }
 	sp_div.innerHTML = data.total;
 }
 </script>
-
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 <div class="val-fileld">
 	<label>Корпус</label>
 	<span id="main_cabinet"> {{ package.main_cabinet.name }}</span>

@@ -21,12 +21,13 @@ from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 #from django.core.urlresolvers import reverse
 
-from mconfig.models import Order, Profile
+from mconfig.models import Order, Profile, Base_price, Option_prices
 
 from field_views import HTMLChoiceMixin, HTMLEditMixin, HTMLCompoundMixin, HTMLOneOfManyMixin, HTMLSearchChoiceMixin, HTMLStreetAddressMixin, HTMLHeaderMixin
 import price
 
-price.price_lists['VEDADrive'] = price.VEDAXLPriceList('prices.xlsm')
+#price.price_lists['VEDADrive'] = price.VEDAXLPriceList('prices.xlsm')
+price.price_lists['VEDADrive'] = price.VEDADBPriceList()
 
 import smtplib
 from email.mime.multipart import MIMEMultipart
@@ -50,6 +51,7 @@ import shutil
 import json
 import exchangelib as exchange
 from exchangelib import FileAttachment
+from django.contrib import messages
 
 
 #import rpdb2
@@ -83,7 +85,7 @@ lock = threading.Lock()
 def send_mail(request, session):
 
     wiz, lock = sessions[int(session)]
-    credentials = exchange.Credentials(username='U334081@danfoss.com', password='********') # 1. тут должен быть общий ящик, к которому есть доступ у Стаса и Андрея. 2. Чтобы работала отправка с моего ящика, нужно подставить пароль
+    credentials = exchange.Credentials(username='U334081@danfoss.com', password='Kris1985')#Тут должен быть общий ящик, к которому есть доступ у Стаса и Андрея. 2. Чтобы работала отправка с моего ящика, нужно подставить пароль
 
     config = exchange.Configuration(server='outlook.office365.com', credentials=credentials)
     account = exchange.Account(primary_smtp_address='U334081@danfoss.com', config=config, autodiscover=False, access_type=exchange.DELEGATE)
@@ -306,14 +308,17 @@ class HTMLResult:
                 package.price.view.price = package.price
                 return json.dumps({'package': package.view.as_json(),
                                     'price': package.price.view.as_json(),
+                                    #'reason': _('Not in pricelist'),
                                     })            
             except price.NotInPricelist:
                 return json.dumps({'package': package.view.as_json(),
-                                    'price': None,
+                                    'price':None,
+                                    'reason': _('Уточните цену у менеджера'),
                                     })
         else:
             return json.dumps({'package': package.view.as_json(),
                                 'price': None,
+                                
                                 })
             
         
@@ -763,4 +768,11 @@ def upload_price(request, session):
         #recreate pricelist
         price.price_lists['VEDADrive'] = price.VEDAXLPriceList('prices.xlsm')
         return HttpResponse('Pricelist uploaded OK')
+
+#Пример как можно взять значение из базы с помощью модели
+#base_set=Price.objects.filter(voltage=6,current=96).values('price')
+#print('PRICE=')
+#for i in base_set:
+#    print (i['price'])
+
     

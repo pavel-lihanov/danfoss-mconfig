@@ -226,7 +226,7 @@ class VEDADrive(Device):
     }    
     
     DA03 = D(6000, 4150, 2200, 1600, powers = (1600, 1800, 2000, 2250, 2500), name='03')
-    DA01.size_dependent = { 1600: SizeDependent(5085, 63), 
+    DA03.size_dependent = { 1600: SizeDependent(5085, 63), 
                             1800: SizeDependent(5320, 70),
                             2000: SizeDependent(5560, 80),
                             2250: SizeDependent(5830, 90),
@@ -1206,6 +1206,7 @@ class VEDAOpts:
     def __init__(self, **args):        
         self._opts = collections.OrderedDict()
         for o in (
+                    #тип: асинхронный или синхронный
                     VEDAOption('motor_type', ('Induction', 'PM'), ('A', 'S'), 14, 
                         price_field=7, price_getter=VEDAOption.generic_getter,
                         display_name = _('Motor type'), display_choices = {'Induction':_('Induction'), 'PM':_('PMSM')},
@@ -1214,22 +1215,27 @@ class VEDAOpts:
                         price_field=5, price_getter=VEDAOption.generic_getter,
                         display_name = _('Supply frequency'), 
                         ),
+                    #корпус
                     VEDAOption('enclosure', ('IP30', 'IP31', 'IP41', 'IP42', 'IP54'), ('30', '31', '41', '42', '54'), 12, 
                         price_field=6, price_getter=VEDAOption.generic_getter,
                         display_name = _('Enclosure'), 
                         ),
+                    #режим управления: скалярный/векторный
                     VEDAOption('control_mode', ('U/f', 'Vector control'), ('S', 'V'), 15, 
                         price_field=8, price_getter=VEDAOption.generic_getter,
                         display_name = _('Motor contol mode'), display_choices={'U/f':_('U/f control'), 'Vector control':_('Vector control')}
                         ),
+                    #силовая опция торможения: без опции торможения/тормозной транзистор/рекуператор
                     VEDAOption('brake_mode', ('Coast', 'Dynamic', 'Recuperation'), ('X', 'B', 'R'), 16, 
                         price_field=9, price_getter=VEDAOption.generic_getter,
                         display_name = _('Braking mode'), display_choices={'Coast':_('Coasting stop'), 'Dynamic':_('Dynamic braking'), 'Recuperation':_('Recuperation')}
                         ),
+                    #тип охлаждения
                     CoolingOption('cooling', ('Air', 'Liquid'), ('A', 'L'), 20, 
                         price_field=11, price_getter=VEDAOption.generic_getter,
                         display_name= _('Cooling'), display_choices={'Air':_('Air'), 'Liquid':_('Liquid')}
                         ),
+                    #байпас ячейки
                     VEDAOption('power_cell_autobypass', ('No', 'Yes'), ('X', 'C'), 21, 
                         price_field=12, price_getter=VEDAOption.generic_getter,
                         display_name=_('Power cell autobypass'), display_choices={'No':_('No'), 'Yes':_('Yes')}),
@@ -1240,6 +1246,7 @@ class VEDAOpts:
                     VEDAOption('multi_motors', (1, 2, 3, 4), ('1', '2', '3', '4'), 24, 
                         price_field=13, price_getter=None,
                         display_name=_('Number of motors')),
+                    #опция B
                     VEDAOption('fieldbus', ('None', 'Encoder', 'EtherNet IP', 'ProfiBus DP', 'Modbus TCP/IP'), ('BX', 'B1', 'B2', 'B3', 'B4'), 25, 
                         price_field=14, price_getter=VEDAOption.letter_getter,
                         display_name=_('Option B'), display_choices={'None':_('None'), 'Encoder':_('Encoder board'), 'EtherNet IP':_('EtherNet IP'), 'ProfiBus DP':_('ProfiBus DP'), 'Modbus TCP/IP':_('Modbus TCP/IP')}
@@ -1316,9 +1323,9 @@ devices = [
     VEDADrive('VD-P1600U1', attributes={'voltage': 6000, 'nom_current': 154, 'kVA': 1600}),
     VEDADrive('VD-P1800U1', attributes={'voltage': 6000, 'nom_current': 173, 'kVA': 1800}),
     VEDADrive('VD-P2000U1', attributes={'voltage': 6000, 'nom_current': 192, 'kVA': 2000}),
-    VEDADrive('VD-P2250U1', attributes={'voltage': 6000, 'nom_current': 230, 'kVA': 2250}),
+    VEDADrive('VD-P2250U1', attributes={'voltage': 6000, 'nom_current': 230, 'kVA': 2250}), #У Валеры 220
     VEDADrive('VD-P2500U1', attributes={'voltage': 6000, 'nom_current': 243, 'kVA': 2500}),
-    VEDADrive('VD-P2800U1', attributes={'voltage': 6000, 'nom_current': 275, 'kVA': 2800}),
+    VEDADrive('VD-P2800U1', attributes={'voltage': 6000, 'nom_current': 275, 'kVA': 2800}), #У Валеры 271
     VEDADrive('VD-P3200U1', attributes={'voltage': 6000, 'nom_current': 304, 'kVA': 3200}),
     VEDADrive('VD-P3500U1', attributes={'voltage': 6000, 'nom_current': 340, 'kVA': 3500}),
     VEDADrive('VD-P4000U1', attributes={'voltage': 6000, 'nom_current': 400, 'kVA': 4000}),
@@ -1328,6 +1335,11 @@ devices = [
     VEDADrive('VD-P7000U1', attributes={'voltage': 6000, 'nom_current': 660, 'kVA': 7000}),
     VEDADrive('VD-P7900U1', attributes={'voltage': 6000, 'nom_current': 750, 'kVA': 7900}),
     VEDADrive('VD-P8250U1', attributes={'voltage': 6000, 'nom_current': 800, 'kVA': 8250}),
+    #new
+    #VEDADrive('VD-P10127U1', attributes={'voltage': 6000, 'nom_current': 960, 'kVA': 10127}),#kvA=8000кВт/0,79 нет данных по габаритам
+    #VEDADrive('VD-P12658U1', attributes={'voltage': 6000, 'nom_current': 1200, 'kVA': 12658}),#kvA=10000кВт/0,79 нет данных по габаритам
+    #VEDADrive('VD-P15823U1', attributes={'voltage': 6000, 'nom_current': 1250, 'kVA': 15823}),#kvA=12500кВт/0,79 нет данных по габаритам
+    
     
     VEDADrive('VD-P500KU3', attributes={'voltage': 10000, 'nom_current': 31, 'kVA': 500}, options={'cooling': 'Air'}),
     VEDADrive('VD-P630KU3', attributes={'voltage': 10000, 'nom_current': 40, 'kVA': 630}, options={'cooling': 'Air'}),

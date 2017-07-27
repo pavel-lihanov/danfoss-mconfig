@@ -1,6 +1,11 @@
 #delivery time and price calculator
 #abstract class for delivery provider and method
 from django.utils.translation import ugettext as _
+import devices
+from mconfig.models import Order, Profile,Option_prices,Base_price
+import openpyxl
+import pickle
+import zipfile
 
 class Delivery:
     def get_delivery_info(self, package, dest):
@@ -21,8 +26,11 @@ class TruckProvider(Provider):
     
 class SeaProvider(Provider):
     pass
+
+class MyProvider(Provider):
+    pass
     
-methods = {'truck': TruckProvider, 'rail': RailProvider, 'sea': SeaProvider}
+methods = {'truck': TruckProvider, 'rail': RailProvider, 'sea': SeaProvider, 'my': MyProvider}
     
 
 def calculate_capacities(delivery_items, capacities):
@@ -31,8 +39,11 @@ def calculate_capacities(delivery_items, capacities):
     return {20 : len(delivery_items)}
         
 class CMA_CGM(TruckProvider):    
-    def __init__(self, price_path):
+    #def __init__(self, price_path):
+    def __init__(self, package):
         #TODO: load from xls
+        
+              
         self.prices = {'Moscow': 6990}
         self.times = {'Moscow': 18}
         
@@ -70,15 +81,73 @@ class TruckDelivery(Delivery):
         price, time = self.provider.get_delivery_info(trucks, sorting_point)
         local_price, local_time = self.provider.get_local_delivery_info(trucks, sorting_point, dest)
         return price + local_price, time + local_time
+        
+class DanfossLogistics(MyProvider):
+    def delivery(self, meth):
+        if meth == 'my':
+            return MyDelivery(self)
+        else:
+            raise KeyError('Method not supported')
+    
+        
+class MyDelivery(Delivery):
+    def __init__(self, provider):
+        self.provider = provider
 
-providers = [CMA_CGM('')]
+    def get_delivery_info(self, package, dest):
+        '''
+        nom_cur=Base_price.objects.filter(nom_voltage=package.attributes['voltage']/1000,current=package.attributes['nom_current']).values('current')    
+        for i in nom_cur:
+            cur=i['current']
+
+        opt=Option_prices.objects.filter(option_value=package.options['Service access']).values('option_value')
+        for i in opt:
+            service=i['option_value']
+ 
+        if cur<=61:# and service='Front':
+            prices = {'Moscow': 8000}
+        elif cur<=61: #and service='Front and back':
+            prices = {'Moscow': 14000}
+        '''
+        
+        time = 10
+        corp=package.get_frame()
+        nom_cur=Base_price.objects.filter(nom_voltage=package.attributes['voltage']/1000,current=package.attributes['nom_current']).values('current')    
+        for i in nom_cur:
+            cur=i['current']
+            print('cur=')
+            print(cur)
+        if corp.name=='SA01':
+            price=8000
+        elif cur>61 and cur <96 and corp.name=='SA02':
+            price=8000
+        elif cur>96 and cur <130 and corp.name=='SA02':
+            price=10000
+        elif corp.name=='SA03':
+            price=10000
+        elif corp.name=='DA01':
+            price=14000
+        elif cur>77 and cur<96 and corp.name=='DA02':
+            price=8000
+        elif cur>96 and cur<130 and corp.name=='DA02':
+            price=10000
+        elif corp.name=='DA03':
+            price=10000
+        else:
+            price=0
+        print('corp=')
+        print(corp)
+        return price, time        
+        
+providers = [CMA_CGM(''), DanfossLogistics()]
 
 class SimpleDeliveryDecider:
     def select_delivery(self, details):
         return details[0]
        
     def default_delivery_method(self, package):
-        return 'truck'
+        #return 'truck'
+        return 'my'
         
     def default_delivery_destination(self, package):
         return 'Moscow'

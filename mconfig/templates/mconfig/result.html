@@ -30,9 +30,12 @@ function updateResult() {
 	if (this.readyState == 4 && this.status == 200) {						
 		data = JSON.parse(this.responseText);
 		updatePackage(data.package);
-		updatePrice(data.price);
+		if(data.price) {
+		updatePrice(data.price);}	
+		else { if (data.reason){ document.getElementById("reason").innerHTML=data.reason;} else {}}
+		//updatePrice(data.reason)	;
 		document.getElementById("err_panel").style.display="none";
-	} else {
+	} else { 
 		document.getElementById("err_panel").style.display="block";
 		document.getElementById("err_text").innerHTML = "Server error";		
 	}
@@ -50,6 +53,9 @@ $( document ).ready(function() {
 });
 
 </script>
+
+
+
 <div class="error-msg">
 	<div id="err_panel" class="w3-panel w3-orange w3-card-8" style="display:none;">
 		<span class="w3-closebtn" onclick="this.parentElement.style.display='none'">X</span>
@@ -78,7 +84,7 @@ $( document ).ready(function() {
 				</p>
 			</div>
 			
-			<div id="price" style="display:none" style="display:inline";>
+			<div id="price" style="display:none" ;>
 				
 				<div id="price_details" >
 					
@@ -105,6 +111,10 @@ $( document ).ready(function() {
 				</div>
 			
 			</div>
+			<div id="reason">
+			
+			</div>
+			
 			
 			{% for package in question.packages %}
 				{% include package.template with package=package unpriced=False only %}
