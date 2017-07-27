@@ -3,7 +3,7 @@ import pickle
 import zipfile
 from mconfig.models import Order, Profile,Option_prices,Base_price
 import devices
-from tkinter import *
+#from tkinter import *
 from django.contrib.messages import constants as messages
 from django.contrib import messages
 from django.template import loader
