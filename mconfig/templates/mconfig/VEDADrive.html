@@ -37,7 +37,7 @@ function updatePrice(data)
 	details = data.details;
 	if(details){
 		det_div.style.display="block";
-		det_div.innerHTML = "<br>" +"Выходная цена: "+ details.supplier_price + "<br>" + "Цена без учета доставки: "+ details.sale_price + "<br>" + "Цена доставки: "+ details.delivery_cost;
+		det_div.innerHTML = "<br>" +"<b>Выходная цена:</b> "+ details.supplier_price + "<br>" + "<b>Цена без учета доставки:</b>"+ details.sale_price + "<br>" + "<b>Цена доставки:</b>  "+ details.delivery_cost;
 	} else { }
 	sp_div.innerHTML = data.total;
 }

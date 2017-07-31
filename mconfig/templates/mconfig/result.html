@@ -21,7 +21,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body>
+<body link="red" >
 
 <script type='text/javascript'>
 
@@ -51,6 +51,9 @@ $( document ).ready(function() {
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');	
 	xhttp.send();
 });
+
+
+
 
 </script>
 
@@ -82,11 +85,11 @@ $( document ).ready(function() {
 			<h3>Результаты подбора</h3>
 			<div>
 				<p>
-					Тип ЧРЭП <strong style="display:none;" id="package_name">{{question.packages.0.name}}</strong><br>
+					<b>Тип ЧРЭП</b> <strong style="display:none;" id="package_name">{{question.packages.0.name}}</strong><br>
 					<strong id="order_code">{{question.packages.0.order_code}}</strong>			
 				</p>
 				<p>
-					Краткое описание: <small id="short_descr">{{question.packages.0.short_descr}}</small>
+					<b>Краткое описание:</b> <small id="short_descr">{{question.packages.0.short_descr}}</small>
 				</p>
 			</div>
 			
@@ -103,30 +106,138 @@ $( document ).ready(function() {
 				<div>
 				
 				</div> 
-				Партнерская цена:
+				<b>Партнерская цена:</b>
 				<div id="sale_price" style="display:inline;">
 					{{ package.price.sale_price }}
 				</div>	
 			
 			
 				<div class="btn-controls">
+				<p>
 					<div class="calc-btn">				 
 					   <button id="savePdf" type="button" onclick="self.location='download/'">Ком.Пред.</button>				 				 
 					   <button id="sendPdf" type="button" onclick="self.location='send_mail/'">Отправить на Email</button>				 
-					</div>			
+					</div>	
+				</p>
 				</div>
-			
+				<style>
+.notebook2 {
+    width: 640px;
+    height: 780px;
+    position: relative;
+}
+
+.notebook2 > input {
+    display: none;
+}
+
+.notebook2 > div {
+    position: absolute;
+    box-sizing: border-box;
+    top: 30px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    border-radius: 0px;
+    padding: 0px 1em;
+
+    z-index: 0;
+    background-color:#e50000;
+
+    transition: all 0.5s ease 0s, z-index 0s 0.5s;
+}
+
+.notebook2 > div > *:first-child {
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+    top: -30px;
+    width: 50px;
+    height: 30px;
+
+    font-family: Arial;
+    font-size: 13px;
+
+    border-radius: 0px 0px 0px 0px;
+    background-color: inherit;
+
+    color: #fff;
+    line-height: 28px;
+    cursor: pointer;
+    text-align: center;
+
+    transition: all 0.5s ease 0s;
+}
+
+.notebook2 > div > *:not(:first-child) {
+    opacity: 0;
+    transition: all 0.5s ease 0s;
+}
+
+.notebook2 > div:nth-of-type(1) > *:first-child { left: 1px; }
+.notebook2 > div:nth-of-type(2) > *:first-child { left: 190px; }
+.notebook2 > div:nth-of-type(3) > *:first-child { left: 320px; }
+.notebook2 > div:nth-of-type(4) > *:first-child { left: 470px; }
+
+.notebook2 > input:nth-of-type(1):checked ~ div:nth-of-type(1),
+.notebook2 > input:nth-of-type(2):checked ~ div:nth-of-type(2),
+.notebook2 > input:nth-of-type(3):checked ~ div:nth-of-type(3),
+.notebook2 > input:nth-of-type(4):checked ~ div:nth-of-type(4) {
+    z-index: 10;
+    background-color:#e7e7e7;
+    transition: all 0.5s ease 0.5s, z-index 0s 0.5s;
+}
+
+.notebook2 > input:nth-of-type(1):checked ~ div:nth-of-type(1) > *:first-child,
+.notebook2 > input:nth-of-type(2):checked ~ div:nth-of-type(2) > *:first-child,
+.notebook2 > input:nth-of-type(3):checked ~ div:nth-of-type(3) > *:first-child,
+.notebook2 > input:nth-of-type(4):checked ~ div:nth-of-type(4) > *:first-child {
+    color: #333;
+    transition: all 0.5s ease 0.5s;
+}
+
+.notebook2 > input:nth-of-type(1):checked ~ div:nth-of-type(1) > *:not(:first-child),
+.notebook2 > input:nth-of-type(2):checked ~ div:nth-of-type(2) > *:not(:first-child),
+.notebook2 > input:nth-of-type(3):checked ~ div:nth-of-type(3) > *:not(:first-child),
+.notebook2 > input:nth-of-type(4):checked ~ div:nth-of-type(4) > *:not(:first-child) {
+    opacity: 1;
+    transition: all 0.5s ease 0.5s;
+}
+
+</style>
+
+<div class="notebook2" id="notebook">
+    <input type="radio" name="notebook2a" id="notebook2a_1" checked="checked">
+    <input type="radio" name="notebook2a" id="notebook2a_2">
+
+
+    <div>
+        <label for="notebook2a_1">Описание</label>
+        <p>
+			{% for package in question.packages %}
+				{% include package.template with package=package unpriced=False only %}
+				<br>
+			{% endfor %}
+        </p>
+    </div>
+    <div>
+        <label for="notebook2a_2">Документация</label>
+        <p>
+        <a href="../../../static/VEDADRIVE_manual.pdf" download>Руководство по эксплуатации VEDADRIVE</a>
+		</p>
+    </div>
+
+</div>
 			</div>
 			<div id="reason">
 			
 			</div>
 			
-			
-			{% for package in question.packages %}
-				{% include package.template with package=package unpriced=False only %}
-				<br>
-			{% endfor %}
+			 
+
 			</div>
+			
+
 			
 		<div class="btn-controls">	
         <form action="prev" id="prev_form" method="post" style="display: inline; float: left; padding: 10px;">
@@ -136,7 +247,7 @@ $( document ).ready(function() {
 		</div>
 		<div class="clear"></div>
 
-	</div>
+		</div>
 	
 
 
