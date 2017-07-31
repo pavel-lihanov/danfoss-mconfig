@@ -140,10 +140,14 @@ $( document ).ready(function() {
 	<button type="button" {% if not question.can_proceed %}disabled="disabled"{% endif %} onclick="document.getElementById('logout_form').submit()">Logout</button>
 </form>
  -->
- <p align="right"> Пользователь: {{ user }} </p>
- <p align="right"><a href="../../../login">Войти/Перелогиниться</a></p>
- <p align="right"><a href="../../../create_user">Создать профайл</a></p>
- <p align="right"><a href="../../../logout">Выйти</a></p>
+	<table border="0">
+    <tr>
+    <th><a href="../../../login">Войти/Перелогиниться</a</th>
+    <th><a href="../../../create_user">Создать профайл</a></th>
+	<th><a href="../../../logout">Выйти</a></th>
+	<th> Пользователь: {{ user }} </th>
+    </tr>
+	</table> 
 <h1>Конфигуратор высоковольтного привода</h1>
 
 

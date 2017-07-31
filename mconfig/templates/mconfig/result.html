@@ -63,10 +63,16 @@ $( document ).ready(function() {
 	</div>
 </div>
 <div id="question">
-	<p align="right"> Пользователь: {{ user }} </p>
-	<p align="right"><a href="../../../login">Войти/Перелогиниться</a></p>
-	<p align="right"><a href="../../../create_user">Создать профайл</a></p>
-	 <p align="right"><a href="../../../logout">Выйти</a></p>
+
+	   <table border="0">
+  
+   <tr>
+    <th><a href="../../../login">Войти/Перелогиниться</a</th>
+    <th><a href="../../../create_user">Создать профайл</a></th>
+	 <th><a href="../../../logout">Выйти</a></th>
+	<th> Пользователь: {{ user }} </th>
+   </tr>
+	 </table> 
 	<h1>Конфигуратор высоковольтного привода</h1>
 
 	<div id="main_area">
@@ -120,16 +126,22 @@ $( document ).ready(function() {
 				{% include package.template with package=package unpriced=False only %}
 				<br>
 			{% endfor %}
+			</div>
 			
+		<div class="btn-controls">	
+        <form action="prev" id="prev_form" method="post" style="display: inline; float: left; padding: 10px;">
+	    {% csrf_token %}
+	    <button class="prev" type="button" id="prev_button" onclick="document.getElementById('prev_form').submit()">Назад</button>
+        </form>	
 		</div>
+		<div class="clear"></div>
+
 	</div>
+	
+
+
 </div>
 
-<div class="clear"></div>
-<div class="btn-controls">	
-<form action="prev" id="prev_form" method="post" style="display: inline; float: left; padding: 10px;">
-	{% csrf_token %}
-	<button class="prev" type="button" id="prev_button" onclick="document.getElementById('prev_form').submit()">Назад</button>
-</form>
-</div>
+
+
 </body>
