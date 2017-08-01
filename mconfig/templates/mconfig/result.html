@@ -21,7 +21,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body link="red" >
+<body link="red">
 
 <script type='text/javascript'>
 
@@ -29,7 +29,8 @@ function updateResult() {
 	var f;
 	if (this.readyState == 4 && this.status == 200) {						
 		data = JSON.parse(this.responseText);
-		updatePackage(data.package);
+		if(data.package){
+		updatePackage(data.package);} else {}
 		if(data.price) {
 		updatePrice(data.price);}	
 		else { if (data.reason){ document.getElementById("reason").innerHTML=data.reason;} else {}}
@@ -51,10 +52,6 @@ $( document ).ready(function() {
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');	
 	xhttp.send();
 });
-
-
-
-
 </script>
 
 
@@ -67,20 +64,19 @@ $( document ).ready(function() {
 </div>
 <div id="question">
 
-	   <table border="0">
-  
-   <tr>
+<table border="0"> 
+    <tr>
     <th><a href="../../../login">Войти/Перелогиниться</a</th>
     <th><a href="../../../create_user">Создать профайл</a></th>
-	 <th><a href="../../../logout">Выйти</a></th>
+	<th><a href="../../../logout">Выйти</a></th>
 	<th> Пользователь: {{ user }} </th>
-   </tr>
-	 </table> 
+    </tr>
+</table> 
 	<h1>Конфигуратор высоковольтного привода</h1>
 
-	<div id="main_area">
-		<div class="clear"></div>
-		<div class="results">
+<div id="main_area">
+	<div class="clear"></div>
+	<div class="results">
 			
 			<h3>Результаты подбора</h3>
 			<div>
@@ -93,25 +89,19 @@ $( document ).ready(function() {
 				</p>
 			</div>
 			
-			<div id="price" style="display:none" ;>
-				
-				<div id="price_details" >
-					
+		<div id="price" style="display:none" >			
+				<div id="price_details" >				
 					<div id="supplier_price" ;>
 					</div>
 					
 					<div id="delivery_cost">
 					</div>
-				</div>
-				<div>
-				
-				</div> 
+				</div>				
 				<b>Партнерская цена:</b>
 				<div id="sale_price" style="display:inline;">
 					{{ package.price.sale_price }}
 				</div>	
-			
-			
+
 				<div class="btn-controls">
 				<p>
 					<div class="calc-btn">				 
@@ -120,105 +110,54 @@ $( document ).ready(function() {
 					</div>	
 				</p>
 				</div>
-				
-				
-				<!--<style>
-				body {font-family: "Lato", sans-serif;}
 
-				/* Style the tab */
-				div.tab {
-					overflow: hidden;
-					border: 1px solid #ccc;
-					background-color: #f1f1f1;
-				}
+			
 
-				/* Style the buttons inside the tab */
-				div.tab button {
-					background-color: inherit;
-					float: left;
-					border: none;
-					outline: none;
-					cursor: pointer;
-					padding: 14px 16px;
-					transition: 0.3s;
-					font-size: 17px;
-				}
+		</div>
+		<div id="reason" >
+		
+		</div>
+		<div id="tab">
+		<div class="tab" >
+		  <button class="tablinks" onclick="openCity(event, 'description')" id="defaultOpen">Описание</button>
+		  <button class="tablinks" onclick="openCity(event, 'documentation')">Документация</button>
+		</div>
 
-				/* Change background color of buttons on hover */
-				div.tab button:hover {
-					background-color: #ddd;
-				}
+		<div id="description" class="tabcontent">
+		  <span onclick="this.parentElement.style.display='none'" class="topright">x</span>
+			<p>
+				{% for package in question.packages %}
+					{% include package.template with package=package unpriced=False only %}
+					<br>
+				{% endfor %}
+			</p>
+		</div>
 
-				/* Create an active/current tablink class */
-				div.tab button.active {
-					background-color: #ccc;
-				}
+		<div id="documentation" class="tabcontent">
+		  <span onclick="this.parentElement.style.display='none'" class="topright">x</span>
 
-				/* Style the tab content */
-				.tabcontent {
-					display: none;
-					padding: 6px 12px;
-					border: 1px solid #ccc;
-					border-top: none;
-				}
+		  <p><a href="../../../static/VEDADRIVE_manual.pdf" download>Руководство по эксплуатации VEDADRIVE</a></p> 
+		</div>
+		</div>
 
-				/* Style the close button */
-				.topright {
-					float: right;
-					cursor: pointer;
-					font-size: 20px;
-				}
+	<script>
+	function openCity(evt, cityName) {
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
+		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+		}
+		document.getElementById(cityName).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
 
-				.topright:hover {color: red;}
-				</style>
-				-->
-
-				<div class="tab">
-				  <button class="tablinks" onclick="openCity(event, 'description')" id="defaultOpen">Описание</button>
-				  <button class="tablinks" onclick="openCity(event, 'documentation')">Документация</button>
-				</div>
-
-				<div id="description" class="tabcontent">
-				  <span onclick="this.parentElement.style.display='none'" class="topright">x</span>
-										<p>
-											{% for package in question.packages %}
-												{% include package.template with package=package unpriced=False only %}
-												<br>
-											{% endfor %}
-										</p>
-				</div>
-
-				<div id="documentation" class="tabcontent">
-				  <span onclick="this.parentElement.style.display='none'" class="topright">x</span>
-
-				  <p><a href="../../../static/VEDADRIVE_manual.pdf" download>Руководство по эксплуатации VEDADRIVE</a></p> 
-				</div>
-
-
-			<script>
-			function openCity(evt, cityName) {
-				var i, tabcontent, tablinks;
-				tabcontent = document.getElementsByClassName("tabcontent");
-				for (i = 0; i < tabcontent.length; i++) {
-					tabcontent[i].style.display = "none";
-				}
-				tablinks = document.getElementsByClassName("tablinks");
-				for (i = 0; i < tablinks.length; i++) {
-					tablinks[i].className = tablinks[i].className.replace(" active", "");
-				}
-				document.getElementById(cityName).style.display = "block";
-				evt.currentTarget.className += " active";
-			}
-
-			// Get the element with id="defaultOpen" and click on it
-			document.getElementById("defaultOpen").click();
-			</script>
-			</div>
-			<div id="reason">			
-			</div>
-
-			</div>
-
+	// Get the element with id="defaultOpen" and click on it
+	document.getElementById("defaultOpen").click();
+	</script>
 		<div class="btn-controls">	
         <form action="prev" id="prev_form" method="post" style="display: inline; float: left; padding: 10px;">
 	    {% csrf_token %}
@@ -227,7 +166,7 @@ $( document ).ready(function() {
 		</div>
 		<div class="clear"></div>
 
-		</div>
+	</div>
 	
 
 

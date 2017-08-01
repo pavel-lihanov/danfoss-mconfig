@@ -4,22 +4,26 @@ function updatePackage(data)
 	document.getElementById("package_name").innerHTML = data.name;
 	document.getElementById("short_descr").innerHTML = data.short_descr;
 	document.getElementById("order_code").innerHTML = data.order_code;
-	document.getElementById("main_cabinet").innerHTML = data.main_cabinet;
-	document.getElementById("addons").innerHTML = data.addons;
-	document.getElementById("width").innerHTML = data.width;
-	document.getElementById("height").innerHTML = data.height;
-	document.getElementById("length").innerHTML = data.length;
-	document.getElementById("weight").innerHTML = data.weight;
-	document.getElementById("therm_loss").innerHTML = data.therm_loss;
 	
-	options=document.getElementById("options");
-	if (data.options) {
-	for(var propt in data.options){
-		document.getElementById(propt).innerHTML = data.options[propt]
+	if(data.details) {
+		document.getElementById("main_cabinet").innerHTML = data.details.main_cabinet;
+		document.getElementById("addons").innerHTML = data.details.addons;
+		document.getElementById("width").innerHTML = data.details.width;
+		document.getElementById("height").innerHTML = data.details.height;
+		document.getElementById("length").innerHTML = data.details.length;
+		document.getElementById("weight").innerHTML = data.details.weight;
+		document.getElementById("therm_loss").innerHTML = data.details.therm_loss;
+		//document.getElementById("options").innerHTML=data.details.options;
+		if (data.details.options) {
+		  for(var propt in data.details.options){
+			document.getElementById(propt).innerHTML = data.details.options[propt]
 
-	} options.style.display="block";} else { options.style.display="none";
+		  } options.style.display="block";} else { options.style.display="none";
+			
+		  }
+	 } else {document.getElementById("tab").style.display="none";
 		
-	}
+	 }
 }
 
 function updatePrice(data)

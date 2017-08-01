@@ -231,27 +231,32 @@ class VEDADriveView:
                         'name': self.package.name,
                         'order_code': self.package.order_code(),
                         'short_descr': self.package.short_descr(),
-                        'options': self.package.display_options(),
-                        'main_cabinet': self.package.main_cabinet.name,
-                        'addons': '+'.join([o.name for o in self.package.addons]),
-                        'width': self.package.width,
-                        'height': self.package.height,
-                        'length': self.package.length,
-                        'weight': self.package.weight,
-                        'therm_loss': self.package.therm_loss
+                        'details':{
+                            'options': self.package.display_options(),
+                            'main_cabinet': self.package.main_cabinet.name,
+                            'addons': '+'.join([o.name for o in self.package.addons]),
+                            'width': self.package.width,
+                            'height': self.package.height,
+                            'length': self.package.length,
+                            'weight': self.package.weight,
+                            'therm_loss': self.package.therm_loss,
+                        },
                     }
         else:
             return {    
                         'name': self.package.name,
                         'order_code': self.package.order_code(),
                         'short_descr': self.package.short_descr(),
-                        'main_cabinet': self.package.main_cabinet.name,
-                        'addons': '+'.join([o.name for o in self.package.addons]),
-                        'width': self.package.width,
-                        'height': self.package.height,
-                        'length': self.package.length,
-                        'weight': self.package.weight,
-                        'therm_loss': self.package.therm_loss
+                        'details': None
+                        # 'details':{
+                            # 'main_cabinet': self.package.main_cabinet.name,
+                            # 'addons': '+'.join([o.name for o in self.package.addons]),
+                            # 'width': self.package.width,
+                            # 'height': self.package.height,
+                            # 'length': self.package.length,
+                            # 'weight': self.package.weight,
+                            # 'therm_loss': self.package.therm_loss
+                        # }
                     }
 
                     
