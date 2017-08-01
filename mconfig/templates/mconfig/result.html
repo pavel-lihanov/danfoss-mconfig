@@ -85,7 +85,7 @@ $( document ).ready(function() {
 			<h3>Результаты подбора</h3>
 			<div>
 				<p>
-					<b>Тип ЧРЭП</b> <strong style="display:none;" id="package_name">{{question.packages.0.name}}</strong><br>
+					<b>Тип преобразователя чистоты</b> <strong style="display:none;" id="package_name">{{question.packages.0.name}}</strong><br>
 					<strong id="order_code">{{question.packages.0.order_code}}</strong>			
 				</p>
 				<p>
@@ -120,125 +120,105 @@ $( document ).ready(function() {
 					</div>	
 				</p>
 				</div>
-				<style>
-.notebook2 {
-    width: 640px;
-    height: 780px;
-    position: relative;
-}
+				
+				
+				<!--<style>
+				body {font-family: "Lato", sans-serif;}
 
-.notebook2 > input {
-    display: none;
-}
+				/* Style the tab */
+				div.tab {
+					overflow: hidden;
+					border: 1px solid #ccc;
+					background-color: #f1f1f1;
+				}
 
-.notebook2 > div {
-    position: absolute;
-    box-sizing: border-box;
-    top: 30px;
-    left: 0px;
-    bottom: 0px;
-    right: 0px;
-    border-radius: 0px;
-    padding: 0px 1em;
+				/* Style the buttons inside the tab */
+				div.tab button {
+					background-color: inherit;
+					float: left;
+					border: none;
+					outline: none;
+					cursor: pointer;
+					padding: 14px 16px;
+					transition: 0.3s;
+					font-size: 17px;
+				}
 
-    z-index: 0;
-    background-color:#e50000;
+				/* Change background color of buttons on hover */
+				div.tab button:hover {
+					background-color: #ddd;
+				}
 
-    transition: all 0.5s ease 0s, z-index 0s 0.5s;
-}
+				/* Create an active/current tablink class */
+				div.tab button.active {
+					background-color: #ccc;
+				}
 
-.notebook2 > div > *:first-child {
-    display: block;
-    position: absolute;
-    box-sizing: border-box;
-    top: -30px;
-    width: 50px;
-    height: 30px;
+				/* Style the tab content */
+				.tabcontent {
+					display: none;
+					padding: 6px 12px;
+					border: 1px solid #ccc;
+					border-top: none;
+				}
 
-    font-family: Arial;
-    font-size: 13px;
+				/* Style the close button */
+				.topright {
+					float: right;
+					cursor: pointer;
+					font-size: 20px;
+				}
 
-    border-radius: 0px 0px 0px 0px;
-    background-color: inherit;
+				.topright:hover {color: red;}
+				</style>
+				-->
 
-    color: #fff;
-    line-height: 28px;
-    cursor: pointer;
-    text-align: center;
+				<div class="tab">
+				  <button class="tablinks" onclick="openCity(event, 'description')" id="defaultOpen">Описание</button>
+				  <button class="tablinks" onclick="openCity(event, 'documentation')">Документация</button>
+				</div>
 
-    transition: all 0.5s ease 0s;
-}
+				<div id="description" class="tabcontent">
+				  <span onclick="this.parentElement.style.display='none'" class="topright">x</span>
+										<p>
+											{% for package in question.packages %}
+												{% include package.template with package=package unpriced=False only %}
+												<br>
+											{% endfor %}
+										</p>
+				</div>
 
-.notebook2 > div > *:not(:first-child) {
-    opacity: 0;
-    transition: all 0.5s ease 0s;
-}
+				<div id="documentation" class="tabcontent">
+				  <span onclick="this.parentElement.style.display='none'" class="topright">x</span>
 
-.notebook2 > div:nth-of-type(1) > *:first-child { left: 1px; }
-.notebook2 > div:nth-of-type(2) > *:first-child { left: 190px; }
-.notebook2 > div:nth-of-type(3) > *:first-child { left: 320px; }
-.notebook2 > div:nth-of-type(4) > *:first-child { left: 470px; }
-
-.notebook2 > input:nth-of-type(1):checked ~ div:nth-of-type(1),
-.notebook2 > input:nth-of-type(2):checked ~ div:nth-of-type(2),
-.notebook2 > input:nth-of-type(3):checked ~ div:nth-of-type(3),
-.notebook2 > input:nth-of-type(4):checked ~ div:nth-of-type(4) {
-    z-index: 10;
-    background-color:#e7e7e7;
-    transition: all 0.5s ease 0.5s, z-index 0s 0.5s;
-}
-
-.notebook2 > input:nth-of-type(1):checked ~ div:nth-of-type(1) > *:first-child,
-.notebook2 > input:nth-of-type(2):checked ~ div:nth-of-type(2) > *:first-child,
-.notebook2 > input:nth-of-type(3):checked ~ div:nth-of-type(3) > *:first-child,
-.notebook2 > input:nth-of-type(4):checked ~ div:nth-of-type(4) > *:first-child {
-    color: #333;
-    transition: all 0.5s ease 0.5s;
-}
-
-.notebook2 > input:nth-of-type(1):checked ~ div:nth-of-type(1) > *:not(:first-child),
-.notebook2 > input:nth-of-type(2):checked ~ div:nth-of-type(2) > *:not(:first-child),
-.notebook2 > input:nth-of-type(3):checked ~ div:nth-of-type(3) > *:not(:first-child),
-.notebook2 > input:nth-of-type(4):checked ~ div:nth-of-type(4) > *:not(:first-child) {
-    opacity: 1;
-    transition: all 0.5s ease 0.5s;
-}
-
-</style>
-
-<div class="notebook2" id="notebook">
-    <input type="radio" name="notebook2a" id="notebook2a_1" checked="checked">
-    <input type="radio" name="notebook2a" id="notebook2a_2">
+				  <p><a href="../../../static/VEDADRIVE_manual.pdf" download>Руководство по эксплуатации VEDADRIVE</a></p> 
+				</div>
 
 
-    <div>
-        <label for="notebook2a_1">Описание</label>
-        <p>
-			{% for package in question.packages %}
-				{% include package.template with package=package unpriced=False only %}
-				<br>
-			{% endfor %}
-        </p>
-    </div>
-    <div>
-        <label for="notebook2a_2">Документация</label>
-        <p>
-        <a href="../../../static/VEDADRIVE_manual.pdf" download>Руководство по эксплуатации VEDADRIVE</a>
-		</p>
-    </div>
+			<script>
+			function openCity(evt, cityName) {
+				var i, tabcontent, tablinks;
+				tabcontent = document.getElementsByClassName("tabcontent");
+				for (i = 0; i < tabcontent.length; i++) {
+					tabcontent[i].style.display = "none";
+				}
+				tablinks = document.getElementsByClassName("tablinks");
+				for (i = 0; i < tablinks.length; i++) {
+					tablinks[i].className = tablinks[i].className.replace(" active", "");
+				}
+				document.getElementById(cityName).style.display = "block";
+				evt.currentTarget.className += " active";
+			}
 
-</div>
+			// Get the element with id="defaultOpen" and click on it
+			document.getElementById("defaultOpen").click();
+			</script>
 			</div>
-			<div id="reason">
-			
+			<div id="reason">			
 			</div>
-			
-			 
 
 			</div>
-			
 
-			
 		<div class="btn-controls">	
         <form action="prev" id="prev_form" method="post" style="display: inline; float: left; padding: 10px;">
 	    {% csrf_token %}
