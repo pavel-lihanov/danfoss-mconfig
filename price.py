@@ -39,7 +39,11 @@ class Price:
         
     @property
     def total(self):
-        total = self.sale_price + self.delivery_cost
+        if type(self.delivery_cost) is float:
+            total = self.sale_price + self.delivery_cost
+        else:
+            total = self.sale_price
+        print (self.delivery_cost)
         return total
     
 class PriceList:    

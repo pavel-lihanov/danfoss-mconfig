@@ -288,11 +288,15 @@ class PriceDetailsView:
     def template(self):
         return self._template
 
-    def as_json(self):                
-        return {'supplier_price':'{0:.2f}'.format( self.price.supplier_price),
-                'delivery_cost':'{0:.2f}'.format( self.price.delivery_cost),
-                'sale_price': '{0:.2f}'.format(self.price.sale_price)}
-                            
+    def as_json(self):
+        if type(self.price.delivery_cost) is float:
+            return {'supplier_price':'{0:.2f}'.format( self.price.supplier_price),
+                    'delivery_cost':'{0:.2f}'.format( self.price.delivery_cost),
+                    'sale_price': '{0:.2f}'.format(self.price.sale_price)}
+        else:         
+            return {'supplier_price':'{0:.2f}'.format( self.price.supplier_price),
+                    'delivery_cost':self.price.delivery_cost,
+                    'sale_price': '{0:.2f}'.format(self.price.sale_price)}                   
 class HTMLResult:
     _template = "mconfig/result.html"
     _unpriced_template = "mconfig/result_unpriced.html"
@@ -477,35 +481,29 @@ def create_user(request, action):
         if access_level > 0:                               
             user.user_permissions.clear()
             if access_level == 1:
-                content_type = ContentType.objects.get_for_model(Order)    
-                permission = Permission.objects.get(content_type=content_type, codename='view_price') 
-                user.user_permissions.add(permission)
-                permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
-                user.user_permissions.add(permission)
+                pass
+                #content_type = ContentType.objects.get_for_model(Order)    
+                #permission = Permission.objects.get(content_type=content_type, codename='view_price') 
+                #user.user_permissions.add(permission)
+                #permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
+                #user.user_permissions.add(permission)
             elif access_level == 2:
-                content_type = ContentType.objects.get_for_model(Order)    
-                permission = Permission.objects.get(content_type=content_type, codename='view_price')                 
-                user.user_permissions.add(permission)
-                permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
-                user.user_permissions.add(permission)
+                #content_type = ContentType.objects.get_for_model(Order)    
+                #permission = Permission.objects.get(content_type=content_type, codename='view_price')                 
+                #user.user_permissions.add(permission)
+                #permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
+                #user.user_permissions.add(permission)
+                pass
             elif access_level == 3:
-                content_type = ContentType.objects.get_for_model(Order)    
-                permission = Permission.objects.get(content_type=content_type, codename='view_price')                 
-                user.user_permissions.add(permission)
-                permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
-                user.user_permissions.add(permission)
-                permission = Permission.objects.get(content_type=content_type, codename='view_details')
-                user.user_permissions.add(permission)                
-                
+                #content_type = ContentType.objects.get_for_model(Order)    
+                #permission = Permission.objects.get(content_type=content_type, codename='view_price')                 
+                #user.user_permissions.add(permission)
+                #permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
+                #user.user_permissions.add(permission)
+                #permission = Permission.objects.get(content_type=content_type, codename='view_details')
+                #user.user_permissions.add(permission)                
+                pass
         
-        #if access_level >= 0:   
-                
-        #   user.user_permissions.clear()
-        #   content_type = ContentType.objects.get_for_model(Order)    
-        #   permission = Permission.objects.get(content_type=content_type, codename='view_price') 
-        #   user.user_permissions.add(permission)
-        #   permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
-         #  user.user_permissions.add(permission)
 
         profile.save()        
         user.save()
