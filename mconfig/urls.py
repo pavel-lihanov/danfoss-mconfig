@@ -27,8 +27,9 @@ urlpatterns = [
     url(r'^start/([0-9]+)/questions/refresh/$', views.question_refresh, name='refresh_question'),
     url(r'^start/([0-9]+)/questions/fields/?$', views.field, name='field'),
     url(r'^start/([0-9]+)/questions/download/$', views.download, name='download'),
-     url(r'^start/([0-9]+)/questions/send_mail/$', views.send_mail, name='send_mail'),
-    #
+    url(r'^start/([0-9]+)/questions/send_mail/$', views.send_mail, name='send_mail'),
+    #url(r'^register/send_request/$', views.send_request, name='send_request'),
+    url(r'^register/send_request/$', views.send_request, name='send_request'),
     url(r'^create_user/(do)?$', views.create_user, name='create_user'),
     url(r'^request_access/(do)?$', views.request_access, name='request_access'),
     url(r'^upload_price/(do)?$', views.upload_price, name='upload_price'),

@@ -95,8 +95,8 @@ def send_mail(request, session):
     m = exchange.Message(
     account=account,
     folder=account.sent,
-    subject='Test email',
-    body='exchangelib works!',
+    subject='ТКП',
+    body='ТКП',
     to_recipients=[exchange.Mailbox(email_address=user.email)]
     
     )
@@ -133,7 +133,28 @@ def send_mail(request, session):
     return show_question(session, request, wiz, {})
     #return serve(request, os.path.basename(path), os.path.dirname(path))
     
+def send_request(request, session):
 
+    wiz, lock = sessions[int(session)]
+    credentials = exchange.Credentials(username='U334081@danfoss.com', password='Kris1985')#Тут должен быть общий ящик, к которому есть доступ у Стаса и Андрея. 2. Чтобы работала отправка с моего ящика, нужно подставить пароль
+
+    config = exchange.Configuration(server='outlook.office365.com', credentials=credentials)
+    account = exchange.Account(primary_smtp_address='U334081@danfoss.com', config=config, autodiscover=False, access_type=exchange.DELEGATE)
+    user = request.user
+   
+    m = exchange.Message(
+    account=account,
+    folder=account.sent,
+    subject='Регистрация нового пользователя',
+    body='',
+    to_recipients=[exchange.Mailbox(email_address='U334081@danfoss.com')]
+    
+    )
+   
+    m.send()
+
+    return show_question(session, request, wiz, {})
+    
 class Reaper(threading.Thread):    
     #deletes inactive sessions after 1 day
     def __init__(self):
