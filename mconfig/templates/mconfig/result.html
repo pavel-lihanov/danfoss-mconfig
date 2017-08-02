@@ -66,8 +66,8 @@ $( document ).ready(function() {
 
 <table border="0"> 
     <tr>
-    <th><a href="../../../login">Войти</a</th>
-    <th><a href="../../../create_user">Создать профайл</a></th>
+    <th><a href="../../../login">Войти</a></th>
+    <!--<th><a href="../../../create_user">Создать профайл</a></th>-->
 	<th><a href="../../../logout">Выйти</a></th>
 	<th> Пользователь: {{ user }} </th>
     </tr>
@@ -161,10 +161,15 @@ $( document ).ready(function() {
 		<div class="btn-controls">	
         <form action="prev" id="prev_form" method="post" style="display: inline; float: left; padding: 10px;">
 	    {% csrf_token %}
+		
 	    <button class="prev" type="button" id="prev_button" onclick="document.getElementById('prev_form').submit()">Назад</button>
+		
         </form>	
 		</div>
 		<div class="clear"></div>
+		<div id="request_reg">
+		<a href="../../../register">Отправить запрос на регистрацию</a>
+		</div>
 
 	</div>
 	

@@ -13,6 +13,7 @@ app_name = 'mconfig'
 urlpatterns = [    
     url(r'^orders/$', views.OrderView.as_view(), name='orders'),
     url(r'^login/$', django.contrib.auth.views.login, {'template_name': 'mconfig/login.html'}, name='login'),
+    url(r'^register/$', django.contrib.auth.views.login, {'template_name': 'mconfig/register.html'}, name='register'),
     url(r'^password_change/$', django.contrib.auth.views.password_change, 
         {'template_name': 'mconfig/password_change_form.html', 'post_change_redirect':'mconfig/password_change_done'}, name='password_change'),
     url(r'^.*?/password_change_done/$', django.contrib.auth.views.password_change_done, 

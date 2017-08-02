@@ -4,30 +4,47 @@
 <head>
 <title>{% trans "Drive configurator user register request" %}</title>
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-<link rel="stylesheet" type="text/css" href="/mconfig/static/mconfig/wizard.css" />
+<!--<link rel="stylesheet" type="text/css" href="/mconfig/static/mconfig/wizard.css" />
 <link rel="stylesheet" type="text/css" href="/mconfig/static/mconfig/style.css" />
+-->
 </head>
 <body>
+
+<table border="0"> 
+    <tr>
+	<th><a href="../start">Вернуться на стартовую страницу   </a></th>
+    <th><a href="../login">Войти</a></th>
+    <!--<th><a href="../../../create_user">Создать профайл</a></th>-->
+	<th><a href="../logout">Выйти</a></th>
+	<th> Пользователь: {{ user }} </th>
+    </tr>
+</table> 
+<p> Заполните форму и нажмите отправить: </p>
+
 <table class="mainContainer" style="border: 1px solid; padding: 10px;">
-	<tr>
-		<td class="main_area">					
-			<div id="main_area">
-				<form name="register_form" id="register_form" action="update" method="post" style="border: 1px solid; padding: 10px;">
-					{% csrf_token %}
-					<table>													
-						<tr>
-							<td>
-								<input id="name" type="text" name="Name"/>
-								<input id="organization" type="text" name="organization"/>
-								<input id="email" type="text" name="Email address"/>
-								<input id="password" type="password" name="Password"/>
-								<input type="submit" name="Submit"/>
-							</td>
-						</tr>
-					</table>					
-				</form>												
-  			</div>
-		</td>
+	<tr>	
+		<td>Имя:</td>
+		<td><input type="text" name "first_name"/></td>
+	</tr>	
+
+	<tr>	
+		<td>Фамилия:</td>
+		<td><input type="text" name "first_name"/></td>
+	</tr>
+	
+	<tr>	
+		<td>Электронная почта:</td>
+		<td><input type="text" name "first_name"/></td>
+	</tr>
+	
+	<tr>	
+		<td>Организация:</td>
+		<td><input type="text" name "first_name"/></td>
+	</tr>
+
+	<tr>	
+		<td><input type="submit" name="Submit"/></td>
+		
 	</tr>
 </table>
 </body>
