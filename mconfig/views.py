@@ -133,9 +133,9 @@ def send_mail(request, session):
     return show_question(session, request, wiz, {})
     #return serve(request, os.path.basename(path), os.path.dirname(path))
     
-def send_request(request, session):
+def send_request(request):
 
-    wiz, lock = sessions[int(session)]
+    #wiz, lock = sessions[int(session)]
     credentials = exchange.Credentials(username='U334081@danfoss.com', password='Kris1985')#Тут должен быть общий ящик, к которому есть доступ у Стаса и Андрея. 2. Чтобы работала отправка с моего ящика, нужно подставить пароль
 
     config = exchange.Configuration(server='outlook.office365.com', credentials=credentials)
@@ -144,7 +144,7 @@ def send_request(request, session):
    
     m = exchange.Message(
     account=account,
-    folder=account.sent,
+    #folder=account.sent,
     subject='Регистрация нового пользователя',
     body='',
     to_recipients=[exchange.Mailbox(email_address='U334081@danfoss.com')]
@@ -153,7 +153,7 @@ def send_request(request, session):
    
     m.send()
 
-    return show_question(session, request, wiz, {})
+    return config_start(request)
     
 class Reaper(threading.Thread):    
     #deletes inactive sessions after 1 day
@@ -437,19 +437,34 @@ def request_access(request, action):
             profile.save()        
             user.save()
             
-            msg = '''\
-<html>
-  <head></head>
-  <body>
-    Hello
-    {0} {1} from {2} has asked for VEDADrive configurator access.
-    To grant it please follow the <a href="http://pc0149941:8000/mconfig/create_user?email={3}">link</a> and click "Submit"
-  </body>
-</html>
-'''.format(request.POST['first_name'], request.POST['last_name'], request.POST['organization'], request.POST['email'])
+            credentials = exchange.Credentials(username='U334081@danfoss.com', password='Kris1985')#Тут должен быть общий ящик, к которому есть доступ у Стаса и Андрея. 2. Чтобы работала отправка с моего ящика, нужно подставить пароль
+
+            config = exchange.Configuration(server='outlook.office365.com', credentials=credentials)
+            account = exchange.Account(primary_smtp_address='U334081@danfoss.com', config=config, autodiscover=False, access_type=exchange.DELEGATE)
+            user = request.user
+            host=request.get_host()
+            m = exchange.Message(
+            account=account,
+            #folder=account.sent,
+            subject='Регистрация нового пользователя',
+            body=exchange.HTMLBody(_('''<html>
+          <head></head>
+             <body>
+             Hello
+            {0} {1} from {2} has asked for VEDADrive configurator access.
+            To grant it please follow the <a href="http://{4}/mconfig/create_user?email={3}">link</a> and click "Submit"
+            </body>
+            </html>''').format(request.POST['first_name'], request.POST['last_name'], request.POST['organization'], request.POST['email'],host)),
+            to_recipients=[exchange.Mailbox(email_address='U334081@danfoss.com')]
+            
+            )
+           
+            m.send()        
+            print (request.get_host())
+    
 
             text = '{0} {1} from {2} has asked for VEDADrive configurator access.\n To grant it go to http://pc0149941:8000/mconfig/create_user?email={3} and click "Submit"'.format(request.POST['first_name'], request.POST['last_name'], request.POST['organization'], request.POST['email'])                       
-            send_mail('localhost', 'pl@mydomain.org', 'manager@myconfirm.org', 'Mconfig registration request', msg, text)
+            #send_mail('localhost', 'pl@mydomain.org', 'manager@myconfirm.org', 'Mconfig registration request', msg, text)
             return HttpResponse('Registration request created, await confirmation email')
         else:
             return HttpResponse('Email already registered')            
@@ -528,20 +543,40 @@ def create_user(request, action):
 
         profile.save()        
         user.save()
-        return HttpResponse('User created OK')
-        msg = '''\
+        
+        credentials = exchange.Credentials(username='U334081@danfoss.com', password='Kris1985')#Тут должен быть общий ящик, к которому есть доступ у Стаса и Андрея. 2. Чтобы работала отправка с моего ящика, нужно подставить пароль
+
+        config = exchange.Configuration(server='outlook.office365.com', credentials=credentials)
+        account = exchange.Account(primary_smtp_address='U334081@danfoss.com', config=config, autodiscover=False, access_type=exchange.DELEGATE)
+        #user = request.user
+        host=request.get_host()
+        m = exchange.Message(
+        account=account,
+        #folder=account.sent,
+        subject='Регистрация нового пользователя',
+        body=exchange.HTMLBody(_('''
 <html>
   <head></head>
   <body>
     Hello
-    You have been given access to VEDADrive configurator. To access extended functions please follow the <a href="http://pc0149941:8000/mconfig/login">link</a>, use your email as login and "danfoss" as password.
+    You have been given access to VEDADrive configurator. To access extended functions please follow the <a href="http://{0}/mconfig/login">link</a>, use your email as login and "danfoss" as password.
   </body>
 </html>
-'''
+''').format(host)),
+        to_recipients=[exchange.Mailbox(email_address=user.email)]
+        
+        )
+       
+        m.send()        
+        
+        
+        
+        return HttpResponse('User created OK')
 
-        text = '''Hello
-        You have been given access to VEDADrive configurator. To access extended functions please go to http://pc0149941:8000/mconfig/login, use your email as login and "danfoss" as password.'''
-        send_mail('localhost', 'manager@myconfirm.org', request.POST['email'], 'Mconfig registration confirmation', msg, text)            
+
+        #text = '''Hello
+        #You have been given access to VEDADrive configurator. To access extended functions please go to http://pc0149941:8000/mconfig/login, use your email as login and "danfoss" as password.'''
+        #send_mail('localhost', 'manager@myconfirm.org', request.POST['email'], 'Mconfig registration confirmation', msg, text)            
         
         return HttpResponse('User created OK')
     
