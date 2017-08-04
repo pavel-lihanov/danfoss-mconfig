@@ -134,7 +134,7 @@ class MyDelivery(Delivery):
         elif corp.name=='DA03':
             price=10000
         else:
-            price='Уточните стоимость доставки у менеджера'
+            price=_('Ask the manager for more information')
         print('corp=')
         print(corp)
         return price, time        

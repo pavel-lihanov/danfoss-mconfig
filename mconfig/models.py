@@ -27,7 +27,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=60)
     organization = models.CharField(max_length=60)
     email = models.EmailField(unique=True)    
-    role = models.IntegerField()
+    role = models.IntegerField(default=2)
     registered = models.BooleanField()
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
@@ -38,6 +38,7 @@ class Order(models.Model):
             ("view_details", "Can see price details"),
             ("view_price", "Can view prices"),
             ("view_delivery", "Can view delivery time"),
+            ("view_options", "Can view delivery time"),
         )
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -48,26 +49,14 @@ class Order(models.Model):
     user = models.ForeignKey(User)
 
 class Base_price(models.Model):
-    class Meta:
-        permissions = (
-            ("view_all_orders", "Can see order list"),
-            ("view_details", "Can see price details"),
-            ("view_price", "Can view prices"),
-            ("view_delivery", "Can view delivery time"),
-        )
+ 
     #id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     nom_voltage=models.DecimalField(max_digits=12, decimal_places=3)
     current=models.DecimalField(max_digits=12, decimal_places=3)
     price=models.DecimalField(max_digits=12, decimal_places=3)
     
 class Option_prices(models.Model):
-    class Meta:
-        permissions = (
-            ("view_all_orders", "Can see order list"),
-            ("view_details", "Can see price details"),
-            ("view_price", "Can view prices"),
-            ("view_delivery", "Can view delivery time"),
-        )
+
     #id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     option=models.CharField(max_length=60)
     option_value=models.CharField(max_length=60)
@@ -75,13 +64,7 @@ class Option_prices(models.Model):
     calc_data=models.DecimalField(max_digits=12, decimal_places=3)
     
 class delivery_prices(models.Model):
-    class Meta:
-        permissions = (
-            ("view_all_orders", "Can see order list"),
-            ("view_details", "Can see price details"),
-            ("view_price", "Can view prices"),
-            ("view_delivery", "Can view delivery time"),
-        )
+
     current=models.DecimalField(max_digits=12, decimal_places=3)
     main_cab=models.CharField(max_length=60)
     price=models.DecimalField(max_digits=12, decimal_places=3)

@@ -7,18 +7,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-07-18 16:11+0300\n"
+"POT-Creation-Date: 2017-08-04 11:39+0300\n"
 "PO-Revision-Date: 2017-07-18 16:12+0300\n"
 "Last-Translator: \n"
 "Language: ru_RU\n"
 "Language-Team: \n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
-"X-Generator: Poedit 2.0.1\n"
+"Generated-By: Babel 2.4.0\n"
+
+#: delivery.py:137 mconfig/views.py:346
+msgid "Ask the manager for more information"
+msgstr "Уточните цену у менеджера"
 
 #: devices.py:1030
 msgid ""
@@ -36,172 +39,172 @@ msgstr "Воздушное"
 msgid "Liquid_cooled"
 msgstr "Жидкостное охлаждение"
 
-#: devices.py:1211
+#: devices.py:1212
 msgid "Motor type"
 msgstr "Тип двигателя"
 
-#: devices.py:1211 questions.py:86
+#: devices.py:1212 questions.py:86
 msgid "Induction"
 msgstr "Асинхронный"
 
-#: devices.py:1211 questions.py:87
+#: devices.py:1212 questions.py:87
 msgid "PMSM"
 msgstr "Синхронный"
 
-#: devices.py:1215
+#: devices.py:1216
 msgid "Supply frequency"
 msgstr "Частота питающей сети"
 
-#: devices.py:1219
+#: devices.py:1221
 msgid "Enclosure"
 msgstr "Корпус"
 
-#: devices.py:1223
+#: devices.py:1226
 msgid "Motor contol mode"
 msgstr "Режим управления двигателем"
 
-#: devices.py:1223 questions.py:122
+#: devices.py:1226 questions.py:122
 msgid "U/f control"
 msgstr "Скалярное"
 
-#: devices.py:1223 questions.py:123
+#: devices.py:1226 questions.py:123
 msgid "Vector control"
 msgstr "Векторное"
 
-#: devices.py:1227
+#: devices.py:1231
 msgid "Braking mode"
 msgstr "Режим торможения"
 
-#: devices.py:1227 questions.py:128
+#: devices.py:1231 questions.py:128
 msgid "Coasting stop"
 msgstr "Выбегом"
 
-#: devices.py:1227
+#: devices.py:1231
 msgid "Dynamic braking"
 msgstr "Динамическое"
 
-#: devices.py:1227 questions.py:130
+#: devices.py:1231 questions.py:130
 msgid "Recuperation"
 msgstr "Рекуперация"
 
-#: devices.py:1231
+#: devices.py:1236
 msgid "Cooling"
 msgstr "Охлаждение"
 
-#: devices.py:1231 questions.py:347
+#: devices.py:1236 questions.py:347
 msgid "Air"
 msgstr "Воздушное"
 
-#: devices.py:1231
+#: devices.py:1236
 msgid "Liquid"
 msgstr "Жидкостное"
 
-#: devices.py:1235
+#: devices.py:1241
 msgid "Power cell autobypass"
 msgstr "Автобайпас силовой ячейки"
 
-#: devices.py:1235 devices.py:1253 devices.py:1265
+#: devices.py:1241 devices.py:1260 devices.py:1272
 msgid "No"
 msgstr "Нет"
 
-#: devices.py:1235 devices.py:1253 devices.py:1265
+#: devices.py:1241 devices.py:1260 devices.py:1272
 msgid "Yes"
 msgstr "Да"
 
-#: devices.py:1238
+#: devices.py:1244
 msgid "Power option"
 msgstr "Силовая опция"
 
-#: devices.py:1238 devices.py:1245 devices.py:1249 questions.py:263
+#: devices.py:1244 devices.py:1252 devices.py:1256 questions.py:263
 #: questions.py:281 questions.py:314 questions.py:332
 msgid "None"
 msgstr "Нет"
 
-#: devices.py:1238
+#: devices.py:1244
 msgid "Manual bypass"
 msgstr "Ручной байпас"
 
-#: devices.py:1238 questions.py:282 questions.py:333
+#: devices.py:1244 questions.py:282 questions.py:333
 msgid "Autobypass"
 msgstr "Автобайпас"
 
-#: devices.py:1238
+#: devices.py:1244
 msgid "Multistart"
 msgstr "Мультистарт"
 
-#: devices.py:1238
+#: devices.py:1244
 msgid "Interchange"
 msgstr "Чередование двигателей"
 
-#: devices.py:1242
+#: devices.py:1248
 msgid "Number of motors"
 msgstr "Количество двигателей"
 
-#: devices.py:1245
+#: devices.py:1252
 msgid "Option B"
 msgstr "Опция B"
 
-#: devices.py:1245
+#: devices.py:1252
 msgid "Encoder board"
 msgstr "Плата энкодера"
 
-#: devices.py:1245 questions.py:245 questions.py:306
+#: devices.py:1252 questions.py:245 questions.py:306
 msgid "EtherNet IP"
 msgstr "EtherNet IP"
 
-#: devices.py:1245 questions.py:246 questions.py:307
+#: devices.py:1252 questions.py:246 questions.py:307
 msgid "ProfiBus DP"
 msgstr "ProfiBus DP"
 
-#: devices.py:1245 questions.py:247 questions.py:308
+#: devices.py:1252 questions.py:247 questions.py:308
 msgid "Modbus TCP/IP"
 msgstr "Modbus TCP/IP"
 
-#: devices.py:1249
+#: devices.py:1256
 msgid "Power transformer"
 msgstr "Трансформатор"
 
-#: devices.py:1253
+#: devices.py:1260
 msgid "PMSM exciter"
 msgstr "Возбудитель синхронного двигателя"
 
-#: devices.py:1257
+#: devices.py:1264
 msgid "Input mains location"
 msgstr "Ввод питающего кабеля"
 
-#: devices.py:1257 devices.py:1261 questions.py:216 questions.py:224
+#: devices.py:1264 devices.py:1268 questions.py:216 questions.py:224
 msgid "Top"
 msgstr "Сверху"
 
-#: devices.py:1257 devices.py:1261 questions.py:215 questions.py:223
+#: devices.py:1264 devices.py:1268 questions.py:215 questions.py:223
 msgid "Bottom"
 msgstr "Снизу"
 
-#: devices.py:1261
+#: devices.py:1268
 msgid "Motor cable location"
 msgstr "Вывод кабеля двигателя"
 
-#: devices.py:1265
+#: devices.py:1272
 msgid "Output reactor"
 msgstr "Выходной реактор"
 
-#: devices.py:1269
+#: devices.py:1276
 msgid "Service access"
 msgstr "Зона обслуживания"
 
-#: devices.py:1269 questions.py:232
+#: devices.py:1276 questions.py:232
 msgid "Front"
 msgstr "Одностороннее"
 
-#: devices.py:1269 questions.py:231
+#: devices.py:1276 questions.py:231
 msgid "Front and back"
 msgstr "Двустороннее"
 
-#: devices.py:1272
+#: devices.py:1279
 msgid "Motor voltage"
 msgstr "Напряжение"
 
-#: devices.py:1279
+#: devices.py:1286
 msgid "Power cells count"
 msgstr "Силовых ячеек на фазу"
 
@@ -501,6 +504,99 @@ msgstr "Заполните поле \"{0}\""
 msgid "No device matches current selection"
 msgstr "Нет устройств, соответствующих всем критериям"
 
+#: mconfig/views.py:194
+msgid "Hello"
+msgstr "Привет"
+
+#: mconfig/views.py:450
+msgid ""
+"<html>\n"
+"          <head></head>\n"
+"             <body>\n"
+"             Hello!\n"
+"            {0} {1} from {2} has asked for VEDADrive configurator access."
+"\n"
+"            To grant it please follow the <a "
+"href=\"http://{4}/mconfig/create_user?email={3}\">link</a> and click "
+"\"Submit\"\n"
+"            </body>\n"
+"            </html>"
+msgstr ""
+"<html>\n"
+"          <head></head>\n"
+"             <body>\n"
+"             Добрый день!\n"
+"            {0} {1} из {2} запрашивает доступ к конфигуратору VEDADRIVE.\n"
+"            чтобы предоставить доступ, нажмите нассылку <a "
+"href=\"http://{4}/mconfig/create_user?email={3}\">link</a> и нажмите "
+"\"Submit\"\n"
+"            </body>\n"
+"            </html>"
+
+#: mconfig/views.py:468
+msgid "Registration request created, await confirmation email"
+msgstr ""
+"Запрос на регистрацию отправлен администратору, ожидайте подтверждение по"
+" электронной почте"
+
+#: mconfig/views.py:560
+msgid ""
+"\n"
+"<html>\n"
+"  <head></head>\n"
+"  <body>\n"
+"    Hello!\n"
+"    You have been given access to VEDADrive configurator. To access "
+"extended functions please follow the <a "
+"href=\"http://{0}/mconfig/login\">link</a>, use your email as login and "
+"\"danfoss\" as password.\n"
+"  </body>\n"
+"</html>\n"
+msgstr ""
+"\n"
+"<html>\n"
+"  <head></head>\n"
+"  <body>\n"
+"    Добрый день!\n"
+"    Вы  получили доступ к конфигуратору VEDADrive. Чтобы получить доступ "
+"ко всем функциям перейдите по ссылке <a "
+"href=\"http://{0}/mconfig/login\">link</a>, введите свой email и пароль "
+"\"danfoss\" .\n"
+"  </body>\n"
+"</html>\n"
+
+#: mconfig/views.py:577 mconfig/views.py:584
+msgid "User created OK"
+msgstr "Пользователь успешно создан"
+
+#: mconfig/views.py:640
+msgid "Session not found or expired (field): {0}, have sessions {1}"
+msgstr ""
+
+#: mconfig/views.py:695
+msgid "Session not found or expired (next): {0}, have sessions {1}"
+msgstr ""
+
+#: mconfig/views.py:718
+msgid "Session not found or expired (prev): {0}, have sessions {1}"
+msgstr ""
+
+#: mconfig/views.py:734
+msgid "Session not found or expired(update): {0}, have sessions {1}"
+msgstr ""
+
+#: mconfig/views.py:749
+msgid "No device matches value {0} for field {1}"
+msgstr ""
+
+#: mconfig/views.py:753
+msgid "Invalid value {0} for field {1}"
+msgstr ""
+
+#: mconfig/views.py:775
+msgid "Session not found or expired (question): {0}, have sessions {1}"
+msgstr ""
+
 #: mconfig/templates/mconfig/logged_out.html:4
 #: mconfig/templates/mconfig/password_change_done.html:6
 #: mconfig/templates/mconfig/password_change_form.html:7
@@ -596,8 +692,8 @@ msgstr ""
 
 #: mconfig/templates/mconfig/password_reset_confirm.html:29
 msgid ""
-"The password reset link was invalid, possibly because it has already "
-"been used.  Please request a new password reset."
+"The password reset link was invalid, possibly because it has already been"
+" used.  Please request a new password reset."
 msgstr ""
 
 #: mconfig/templates/mconfig/password_reset_done.html:15
@@ -651,21 +747,82 @@ msgid "Reset my password"
 msgstr ""
 
 #: mconfig/templates/mconfig/question.html:5
-#: mconfig/templates/mconfig/question.html.bak:5
 msgid "Drive configurator"
 msgstr "Конфигуратор"
 
-#: mconfig/templates/mconfig/question.html:173
-#: mconfig/templates/mconfig/question.html.bak:167
+#: mconfig/templates/mconfig/question.html:178
 #: mconfig/templates/mconfig/result_unpriced.html:49
 msgid "Prev"
 msgstr "Назад"
 
-#: mconfig/templates/mconfig/question.html:179
-#: mconfig/templates/mconfig/question.html.bak:173
+#: mconfig/templates/mconfig/question.html:184
 msgid "Next"
 msgstr "Далее"
 
 #: mconfig/templates/mconfig/register.html:5
 msgid "Drive configurator user register request"
 msgstr "Запрос на регистрацию пользователя"
+
+#: mconfig/templates/mconfig/request_access.html:10
+msgid "Request configurator access"
+msgstr "Запрос доступа к конфигуратору"
+
+#: mconfig/templates/mconfig/request_access.html:12
+msgid "Please fill the form and click \"Submit\""
+msgstr "Пожалуйста, заполните форму и нажмите «Отправить»"
+
+#: mconfig/templates/mconfig/request_access.html:83
+msgid "Submit"
+msgstr "Отправить"
+
+#~ msgid "Уточните цену у менеджера"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "<html>\n"
+#~ "          <head></head>\n"
+#~ "             <body>\n"
+#~ "             Hello\n"
+#~ "            {0} {1} from {2} has "
+#~ "asked for VEDADrive configurator access.\n"
+#~ ""
+#~ "            To grant it please follow"
+#~ " the <a "
+#~ "href=\"http://{4}/mconfig/create_user?email={3}\">link</a> and"
+#~ " click \"Submit\"\n"
+#~ "            </body>\n"
+#~ "            </html>"
+#~ msgstr ""
+#~ "<html>\n"
+#~ "          <head></head>\n"
+#~ "             <body>\n"
+#~ "             Добрый день\n"
+#~ "            {0} {1} from {2} has "
+#~ "asked for VEDADrive configurator access.\n"
+#~ ""
+#~ "            To grant it please follow"
+#~ " the <a "
+#~ "href=\"http://{4}/mconfig/create_user?email={3}\">link</a> and"
+#~ " click \"Submit\"\n"
+#~ "            </body>\n"
+#~ "            </html>"
+
+#~ msgid ""
+#~ "\n"
+#~ "<html>\n"
+#~ "  <head></head>\n"
+#~ "  <body>\n"
+#~ "    Hello\n"
+#~ "    You have been given access to"
+#~ " VEDADrive configurator. To access extended"
+#~ " functions please follow the <a "
+#~ "href=\"http://{0}/mconfig/login\">link</a>, use your "
+#~ "email as login and \"danfoss\" as "
+#~ "password.\n"
+#~ "  </body>\n"
+#~ "</html>\n"
+#~ msgstr ""
+
+#~ msgid "Specify the price of the manager"
+#~ msgstr ""
+

@@ -343,7 +343,7 @@ class HTMLResult:
             except price.NotInPricelist:
                 return json.dumps({'package': package.view.as_json(),
                                     'price':None,
-                                    'reason': _('Уточните цену у менеджера'),
+                                    'reason': _('Ask the manager for more information'),
                                     })
         else:
             return json.dumps({'package': package.view.as_json(),
@@ -421,7 +421,7 @@ def request_access(request, action):
         context={}
         return HttpResponse(template.render(context, request))
     elif request.method == 'POST':
-        access_level = 2
+        #access_level = 2
         user = User.objects.filter(username=request.POST['email'])        
         user = user[0] if user else None
             
@@ -430,7 +430,7 @@ def request_access(request, action):
         
         if user is None and profile is None:
             user = User.objects.create_user(request.POST['email'], request.POST['email'], 'danfoss')
-            profile = Profile(first_name=request.POST['first_name'], last_name = request.POST['last_name'], organization=request.POST['organization'], email=request.POST['email'], role=access_level, registered=False)
+            profile = Profile(first_name=request.POST['first_name'], last_name = request.POST['last_name'], organization=request.POST['organization'], email=request.POST['email'],  registered=False)
             user.is_active = False
             user.profile = profile
             profile.user = user
@@ -450,7 +450,7 @@ def request_access(request, action):
             body=exchange.HTMLBody(_('''<html>
           <head></head>
              <body>
-             Hello
+             Hello!
             {0} {1} from {2} has asked for VEDADrive configurator access.
             To grant it please follow the <a href="http://{4}/mconfig/create_user?email={3}">link</a> and click "Submit"
             </body>
@@ -465,7 +465,7 @@ def request_access(request, action):
 
             text = '{0} {1} from {2} has asked for VEDADrive configurator access.\n To grant it go to http://pc0149941:8000/mconfig/create_user?email={3} and click "Submit"'.format(request.POST['first_name'], request.POST['last_name'], request.POST['organization'], request.POST['email'])                       
             #send_mail('localhost', 'pl@mydomain.org', 'manager@myconfirm.org', 'Mconfig registration request', msg, text)
-            return HttpResponse('Registration request created, await confirmation email')
+            return HttpResponse(_('Registration request created, await confirmation email'))
         else:
             return HttpResponse('Email already registered')            
     print ('user=',user)
@@ -517,28 +517,31 @@ def create_user(request, action):
         if access_level > 0:                               
             user.user_permissions.clear()
             if access_level == 1:
-                pass
-                #content_type = ContentType.objects.get_for_model(Order)    
-                #permission = Permission.objects.get(content_type=content_type, codename='view_price') 
-                #user.user_permissions.add(permission)
-                #permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
-                #user.user_permissions.add(permission)
+                
+                content_type = ContentType.objects.get_for_model(Order)    
+                permission = Permission.objects.get(content_type=content_type, codename='view_price') 
+                user.user_permissions.add(permission)
+                permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
+                user.user_permissions.add(permission)
+                permission = Permission.objects.get(content_type=content_type, codename='view_options')
+                user.user_permissions.add(permission)
+
             elif access_level == 2:
-                #content_type = ContentType.objects.get_for_model(Order)    
-                #permission = Permission.objects.get(content_type=content_type, codename='view_price')                 
-                #user.user_permissions.add(permission)
-                #permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
-                #user.user_permissions.add(permission)
-                pass
+                content_type = ContentType.objects.get_for_model(Order)    
+                permission = Permission.objects.get(content_type=content_type, codename='view_price')                 
+                user.user_permissions.add(permission)
+                permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
+                user.user_permissions.add(permission)
+                
             elif access_level == 3:
-                #content_type = ContentType.objects.get_for_model(Order)    
-                #permission = Permission.objects.get(content_type=content_type, codename='view_price')                 
-                #user.user_permissions.add(permission)
-                #permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
-                #user.user_permissions.add(permission)
-                #permission = Permission.objects.get(content_type=content_type, codename='view_details')
-                #user.user_permissions.add(permission)                
-                pass
+                content_type = ContentType.objects.get_for_model(Order)    
+                permission = Permission.objects.get(content_type=content_type, codename='view_price')                 
+                user.user_permissions.add(permission)
+                permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
+                user.user_permissions.add(permission)
+                permission = Permission.objects.get(content_type=content_type, codename='view_details')
+                user.user_permissions.add(permission)                
+                
         
 
         profile.save()        
@@ -558,7 +561,7 @@ def create_user(request, action):
 <html>
   <head></head>
   <body>
-    Hello
+    Hello!
     You have been given access to VEDADrive configurator. To access extended functions please follow the <a href="http://{0}/mconfig/login">link</a>, use your email as login and "danfoss" as password.
   </body>
 </html>
@@ -571,14 +574,14 @@ def create_user(request, action):
         
         
         
-        return HttpResponse('User created OK')
+        return HttpResponse(_('User created OK'))
 
 
         #text = '''Hello
         #You have been given access to VEDADrive configurator. To access extended functions please go to http://pc0149941:8000/mconfig/login, use your email as login and "danfoss" as password.'''
         #send_mail('localhost', 'manager@myconfirm.org', request.POST['email'], 'Mconfig registration confirmation', msg, text)            
         
-        return HttpResponse('User created OK')
+        return HttpResponse(_('User created OK'))
     
 def login(request):
     print('login')
@@ -634,7 +637,7 @@ def field(request, session):
     try:
         wiz, lock = sessions[int(session)]    
     except KeyError:
-        return HttpResponseNotFound('Session not found or expired (field): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
+        return HttpResponseNotFound(_('Session not found or expired (field): {0}, have sessions {1}'.format(int(session), list(sessions.keys()))))
 
     context = {}
     wiz.last_activity = datetime.datetime.now()
@@ -671,8 +674,8 @@ def question_refresh(request, session, _context={}, error=''):
     
     question = wiz.current_screen
     question.last_error = error
-    
-    data = question.view.as_json(show_details=request.user.is_superuser,show_price=request.user.is_superuser,show_options=request.user.is_superuser)
+    user = request.user
+    data = question.view.as_json(show_details=user.has_perm('mconfig.view_details'),show_price=user.has_perm('mconfig.view_price'),show_options=user.has_perm('mconfig.view_options'))
     return HttpResponse(data, content_type="application/json")    
     
 def show_question(session, request, wiz, context):   
@@ -689,7 +692,7 @@ def next_question(request, session):
     try:
         wiz, lock = sessions[int(session)]    
     except KeyError:
-        return HttpResponse('Session not found or expired (next): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
+        return HttpResponse(_('Session not found or expired (next): {0}, have sessions {1}'.format(int(session), list(sessions.keys()))))
 
     if not validate_request(request, wiz):
         return HttpResponseForbidden()
@@ -712,7 +715,7 @@ def prev_question(request, session):
     try:
         wiz, lock = sessions[int(session)]    
     except KeyError:
-        return HttpResponse('Session not found or expired (prev): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
+        return HttpResponse(_('Session not found or expired (prev): {0}, have sessions {1}'.format(int(session), list(sessions.keys()))))
 
     if not validate_request(request, wiz):
         return HttpResponseForbidden()
@@ -728,7 +731,7 @@ def update_question(request, session):
     try:
         wiz, lock = sessions[int(session)]    
     except KeyError:
-        return HttpResponse('Session not found or expired(update): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
+        return HttpResponse(_('Session not found or expired(update): {0}, have sessions {1}'.format(int(session), list(sessions.keys()))))
     
     if not validate_request(request, wiz):
         return HttpResponseForbidden()
@@ -769,7 +772,7 @@ def question(request, session):
     try:
         wiz, lock = sessions[int(session)]    
     except KeyError:
-        return HttpResponse('Session not found or expired (question): {0}, have sessions {1}'.format(int(session), list(sessions.keys())))
+        return HttpResponse(_('Session not found or expired (question): {0}, have sessions {1}'.format(int(session), list(sessions.keys()))))
         
     if not validate_request(request, wiz):
         return HttpResponseForbidden()

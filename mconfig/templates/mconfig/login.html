@@ -14,8 +14,9 @@
    <tr>
     <th><a href="../start">Вернуться на стартовую страницу   </a></th>
     <!--<th><a href="../create_user">Создать профайл   </a></th>-->
-	<th><a href="../logout">Выйти   </a></th>
-	<th> Пользователь: {{ user }} </th>
+		<!--{% if user.AnonymousUser%} <th><a href="../../../login">Войти</a</th>{% endif %}-->
+	{% if not user.is_authenticated%}<th><a href="../request_access">Отправить запрос на регистрацию</a></th>{% endif %}
+	{% if user.is_authenticated%}<th> Пользователь: {{ user }} </th>{% endif %}
    </tr>
 
 <table>
