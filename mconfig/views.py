@@ -525,6 +525,8 @@ def create_user(request, action):
                 user.user_permissions.add(permission)
                 permission = Permission.objects.get(content_type=content_type, codename='view_options')
                 user.user_permissions.add(permission)
+                permission = Permission.objects.get(content_type=content_type, codename='view_details')
+                user.user_permissions.add(permission)
 
             elif access_level == 2:
                 content_type = ContentType.objects.get_for_model(Order)    
