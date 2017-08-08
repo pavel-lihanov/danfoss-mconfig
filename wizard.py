@@ -692,7 +692,7 @@ class Wizard:
                     opts = self.get_options(cur)
                 else:
                     self.devs = decider.filter_devices(self.devs)
-                    print('Next_question: devs is now ', self.devs)
+                    #print('Next_question: devs is now ', self.devs)
                     cur.reset()
                     opts = self.get_options(cur)
                     cur.update(self.devs, opts)
@@ -702,8 +702,8 @@ class Wizard:
             raise
         
     def apply_filters_nosave(self, last=None, exclude=[], options={}, devices=None):
-        print('apply_filters_nosave() to ', last)
-        print('devices=', devices)
+        #print('apply_filters_nosave() to ', last)
+        #print('devices=', devices)
         #print('excluding', exclude)        
         applied = exclude[:]
         #transform is per-device, not global!
@@ -749,24 +749,26 @@ class Wizard:
             cur = cur.next
         return opts
         
-    def refresh_field(self, question, field):
+    def refresh_field(self, question, field):        
         opts = self.get_options(question)
         opts2 = self.get_options(question.next)
-            
         devs = self.apply_filters_nosave(question.next, exclude=field.get_rules(), options=opts, devices=self.devs)
-        
+        #print('refresh_field ', field, devs, opts)    
         if devs:
+            #print('filters(next): have some ', devs)
             for f in question.get_fields():
-                opts = self.get_options(question.next, exclude=(f, ))
-                devs2 = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts, devices=devs)                
-                print('after update ', f, 'devs2=', devs2)
+                opts = self.get_options(question.next, exclude=(f, field))                
+                devs2 = self.apply_filters_nosave(question.next, exclude=f.get_rules()+field.get_rules(), options=opts, devices=self.devs)
+                #print('Updating ', f, 'devs2=', devs2)
                 f.update(devs2, opts)
+                #print('Updated ', f)                
         else:
             #may happen if other fields in this question depend on options of this
+            #print('filters(next): none')
             devs = self.apply_filters_nosave(question.next, exclude=field.get_rules(), options=opts2)
             if devs:
                 for f in question.get_fields():
-                    opts = self.get_options(question.next, exclude=(f, ))
+                    opts = self.get_options(question.next, exclude=(f, field))
                     devs2 = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts, devices=devs)
                     f.update(devs2, opts)
             else:
