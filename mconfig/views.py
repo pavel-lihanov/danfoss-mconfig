@@ -219,6 +219,9 @@ class Decider:
         
     def select_choice(self, devices, choice):
         return choice.get_valid_choices(devices)
+        
+    def filter_devices(self, devices):
+        return self.select_devices(devices)
 
 settings = Settings()
 decider = Decider(settings)
@@ -703,7 +706,7 @@ def next_question(request, session):
     wiz.last_activity = datetime.datetime.now()
 
     try:
-        wiz.go_forward()
+        wiz.go_forward(decider)
     except wizard.ValidationError as ex:
         print('ValidationError', ex.message)
         context['error_message'] = ex.message        
@@ -781,12 +784,14 @@ def question(request, session):
         
     context = {}
     wiz.last_activity = datetime.datetime.now()
-    if request.method == 'GET':    
+    if request.method == 'GET':
         question = wiz.current_screen
+        print('Question before select, devs=', wiz.devs)
         question.select()
         #print(type(question), question.view.template)
-        opts = wiz.get_options(question)  
-        all_devs = wiz.apply_filters_nosave(question.next, options=opts)
+        opts = wiz.get_options(question)
+        print('Question, devs=', wiz.devs)
+        all_devs = wiz.apply_filters_nosave(question.next, options=opts)        
         devs = decider.select_devices(all_devs)
         template = loader.get_template(question.view.template)
         
