@@ -56,7 +56,9 @@ class Field:
         
     def validate(self):
         raise exception if wizard should not proceed with current value (e. g. required field with empty selection)
-    
+        
+    def reset(self):
+        reset value to default
     '''
     def __init__(self, name: str, internal_name: str, required: bool = False, **kwargs) -> None:
         self.name = name
@@ -140,6 +142,9 @@ class ChoiceField(Field):
         self.init_view(views, **kwargs)
         self.enabled = True
         
+    def reset(self):
+        self.selected = None
+        
     def is_valid(self, devs):
         res = 0
         self.update(devs)
@@ -201,8 +206,8 @@ class ChoiceField(Field):
         valid_choices = [c for c in self.choices.values() if c.enabled]
                 
         if not valid_choices:
-            #print('Field', self.name, 'no valid choices!')
-            #print([c for c in self.choices.values()])
+            print('Field', self.name, 'no valid choices!')
+            print([c for c in self.choices.values()])
             raise ValidationError(self.name)        
         
         mean_choices = [c for c in valid_choices if c.mean]     
@@ -302,6 +307,9 @@ class ValueField(Field):
         self.min = 0
         self.max = 0
         
+    def reset(self):
+        self.value = None
+
     def _force_select(self, choice):
         self.value = locale.atof(choice)
         
@@ -375,6 +383,9 @@ class StreetAddressField(Field):
         #coordinates
         self.location = None
         self.init_view(views, **kwargs)
+        
+    def reset(self):
+        self.value = None
  
     def select(self, choice, devs, opts):
         #print('StreetAddressField: selected', choice)
@@ -449,6 +460,10 @@ class CompoundField(Field):
     def is_valid(self, devs):
         return True
         
+    def reset(self):
+        for f in self.fields:
+            f.reset()
+        
 class OneOfManyField(Field):
     '''
     allows to select one field to fill
@@ -478,7 +493,10 @@ class OneOfManyField(Field):
         
     def update(self, devs, opts={}):
         pass
-
+        
+    def reset(self):
+        pass
+        
     def get_fields(self):
         return [self] + list(itertools.chain.from_iterable(f.get_fields() for f,e in self.fields if e))
 
@@ -534,6 +552,12 @@ class Result(Screen):
         
     def get_fields(self):
         return []
+        
+    def reset(self):
+        pass
+        
+    def update(self, devices, options):
+        pass
         
     @property
     def template(self):
@@ -614,7 +638,15 @@ class Question(Screen):
             return True
         except (ValueError, ValidationError):
             return False
-                
+            
+    def reset(self):
+        for f in self.get_fields():
+            f.reset()
+            
+    def update(self, devices, options):
+        for f in self.get_fields():
+            f.update(devices ,options)            
+
 class Wizard:
     def __init__(self, devices):
         print('Wizard.__init__()')
@@ -639,7 +671,7 @@ class Wizard:
         cur = self.current_screen.previous
         opts = self.get_options(cur)
         while cur is not None:
-            self.apply_filters(cur, options=opts)
+            self.apply_filters(cur, options=opts, devices=None)
             #self.current_screen = cur
             if not cur.is_valid(self.devs):
                 cur = cur.previous
@@ -647,32 +679,38 @@ class Wizard:
             else:
                 return cur
         
-    def next_question(self):
+    def next_question(self, decider):
         try:
             cur = self.current_screen.next
             opts = self.get_options(cur)
             #print('Next:', cur, opts)
             while cur is not None:
-                self.apply_filters(cur, options=opts)
-                if not cur.is_valid(self.devs):                    
+                self.apply_filters(cur, options=opts, devices=self.devs)
+                if not cur.is_valid(self.devs):
                     print('Question skipped(not valid)', cur)
                     cur = cur.next      
                     opts = self.get_options(cur)
                 else:
-                    #self.current_screen = cur
-                    #print('New cur is', cur)
+                    self.devs = decider.filter_devices(self.devs)
+                    print('Next_question: devs is now ', self.devs)
+                    cur.reset()
+                    opts = self.get_options(cur)
+                    cur.update(self.devs, opts)
                     return cur
         except:
             print('Exception in wizard.next_question()')
             raise
         
-    def apply_filters_nosave(self, last = None, exclude=[], options={}):
-        #print('apply_filters_nosave() to ', last)
+    def apply_filters_nosave(self, last=None, exclude=[], options={}, devices=None):
+        print('apply_filters_nosave() to ', last)
+        print('devices=', devices)
         #print('excluding', exclude)        
-        applied = exclude[:]        
+        applied = exclude[:]
         #transform is per-device, not global!
         #note: better do not use transforms at all
-        ds = [(d, rules.Transform()) for d in self.device_base]     
+        if devices is None:
+            devices = self.device_base
+        ds = [(d, rules.Transform()) for d in devices]     
         #print('Before filters', devs)
         cur = self.screens[0]
         while cur!=last:            
@@ -696,8 +734,8 @@ class Wizard:
         #print('After filters:', len(ds))
         return [d for d,t in ds]
         
-    def apply_filters(self, last = None, exclude=[], options={}):
-        self.devs = self.apply_filters_nosave(last, exclude, options)
+    def apply_filters(self, last = None, exclude=[], options={}, devices=None):
+        self.devs = self.apply_filters_nosave(last, exclude, options, devices)
         return self.devs
         
     def get_options(self, last_screen=None, exclude=()):
@@ -712,25 +750,25 @@ class Wizard:
         return opts
         
     def refresh_field(self, question, field):
-        devs = self.devs        
         opts = self.get_options(question)
         opts2 = self.get_options(question.next)
             
-        devs = self.apply_filters_nosave(question.next, exclude=field.get_rules(), options=opts)
+        devs = self.apply_filters_nosave(question.next, exclude=field.get_rules(), options=opts, devices=self.devs)
         
-        if devs:                
+        if devs:
             for f in question.get_fields():
                 opts = self.get_options(question.next, exclude=(f, ))
-                devs = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts)
-                f.update(devs, opts)
+                devs2 = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts, devices=devs)                
+                print('after update ', f, 'devs2=', devs2)
+                f.update(devs2, opts)
         else:
             #may happen if other fields in this question depend on options of this
             devs = self.apply_filters_nosave(question.next, exclude=field.get_rules(), options=opts2)
             if devs:
                 for f in question.get_fields():
                     opts = self.get_options(question.next, exclude=(f, ))
-                    devs = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts)
-                    f.update(devs, opts)
+                    devs2 = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts, devices=devs)
+                    f.update(devs2, opts)
             else:
                 print('WARNING: refresh_field(): empty devs for next')
             #field.undo()
@@ -755,30 +793,30 @@ class Wizard:
             raise
         #Value set, check if it compatible with other fields
         opts = self.get_options(question.next)
-        devs = self.apply_filters_nosave(question.next, exclude=field.get_rules(), options=opts)
+        devs = self.apply_filters_nosave(question.next, exclude=field.get_rules(), options=opts, devices=self.devs)
         #opts = self.get_options(question.next, exclude=(field, ))
         if devs:                
             for f in question.get_fields():                
                 opts = self.get_options(question.next, exclude=(f, ))
-                devs = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts)
-                if not devs:
+                devs2 = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts, devices=devs)
+                if not devs2:
                     print('Update will fail: no devs')
                     opts = self.get_options(question.next)
-                    devs = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts)
-                f.update(devs, opts)
+                    devs2 = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts)
+                f.update(devs2, opts)
         else:
             field.undo()
             question.last_error = _('No device matches current selection')
             raise NoMatches(_('No device matches current selection'))
         
-    def go_forward(self):
+    def go_forward(self, decider):
         question = self.current_screen
         try:
             question.validate()
         except ValidationError as ex:                
             question.last_error = ex.message
             raise            
-        question = self.next_question()
+        question = self.next_question(decider)
         self.current_screen = question         
         
     def go_back(self):
