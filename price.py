@@ -43,6 +43,7 @@ class Price:
             total = self.sale_price + self.delivery_cost
         else:
             total = self.sale_price
+        print ('self.delivery_cost=')
         print (self.delivery_cost)
         return total
     
