@@ -1,6 +1,6 @@
 <div class="">
 	<strong>{{ field.name }}</strong><br>
-	<input 	name="{{ field.name }}" 
+	<!--<input 	name="{{ field.name }}" 
 			id="{{ field.name }}"
 			class="sel-apl"
 			datalist="{{ field.name }}_list"
@@ -12,6 +12,31 @@
 			onchange="
 				postField('{{field.internal_name}}')
 			"/>
+			-->
+			
+			
+	<select  name="{{ field.name }}" 
+			id="{{ field.name }}"	
+			class="sel-apl" 
+			datalist="{{ field.name }}_list" 
+			autocomplete="off" 
+	        {% if not field.enabled %} disabled="disabled" {% endif %} 
+			value="{{ field.selected.text }}"
+			{% if not enabled %} disabled {% endif %}
+			style="width:100%; max-width: 308px; margin-top:7px;}" 
+            onchange="postField('{{field.name}}')" >
+			
+		{% for choice in field.choices.values %}
+			{% if choice.enabled %}
+				<option 
+					id="{{ field.name }}_{{ choice.text }}" 
+					value="{{ choice.text }}" 
+					{% if field.selected == choice %} selected {% endif %}>
+						{{ choice.text }}  
+				</option>
+			{% endif %}
+		{% endfor %}
+	</select>
 
 	{% if field.hint %}
 		<div class="help">
