@@ -821,6 +821,17 @@ class VEDADrive(Device):
         power_cell=res1['Силовых ячеек на фазу'] 
         return power_cell
         
+    def power_cell_auto(self):
+        assert(self.is_package)
+        Power_cell_auto=res1['Автобайпас силовой ячейки'] 
+        return Power_cell_auto
+    
+    def power_option(self):
+        assert(self.is_package)
+        power_option=res1['Силовая опция'] 
+        return power_option
+
+    
     def nom_current(self):
         assert(self.is_package)
         nom_current=self.attributes['nom_current'] 
@@ -923,106 +934,212 @@ class VEDADrive(Device):
         assert(self.power_cell)
         assert(self.nom_current)
         assert(self.kVA)
-        
-        doc = docx.Document('offer_template.docx')
-        par = get_bookmark_par_element(doc, "order_code")
-        #insert_text(par, self.order_code())
-        
-        #for b,g in self.bookmarks.items():
-        #    par = get_bookmark_par_element(doc, b)
-        #    insert_text(par, g())
-        #par=doc.add_heading('Введение',level=1)
-        #insert_text(par,self)
-        
-        #par = get_bookmark_par_element(doc, "price")
-        #insert_text(par, '{0:.2f}'.format(self.price.total))
-        
-        #par = get_bookmark_par_element(doc, "price1")
-        #insert_text(par, '{0:.2f}'.format(self.price.total))
-        
-        par = get_bookmark_par_element(doc, "order_code")
-        insert_text(par, self.order_code())
-        
-        par = get_bookmark_par_element(doc, "order_code1")
-        insert_text(par, self.order_code())
-        
-        par = get_bookmark_par_element(doc, "order_code2")
-        insert_text(par, self.order_code())
-        
-        par = get_bookmark_par_element(doc, "order_code3")
-        insert_text(par, self.order_code())
-        
-        par = get_bookmark_par_element(doc, "order_code4")
-        insert_text(par, self.order_code())
-        
-        par = get_bookmark_par_element(doc, "order_code5")
-        insert_text(par, self.order_code())
-        
-        #par = get_bookmark_par_element(doc, "corpus")
-        #insert_text(par, self.corpus())
-        #par = get_bookmark_par_element(doc, "order_code6")
-        #insert_text(par, self.order_code())
-        
-        par = get_bookmark_par_element(doc, "corpus1")
-        insert_text(par, self.corpus())
-        
-        par = get_bookmark_par_element(doc, "input_cable")
-        insert_text(par, self.input_cable())
-        
-        par = get_bookmark_par_element(doc, "output_cable")
-        insert_text(par, self.output_cable())
-        
-        par = get_bookmark_par_element(doc, "service")
-        insert_text(par, self.output_cable())
-        
-        
-        par = get_bookmark_par_element(doc, "opt_b")
-        if self.opt_b() == 'Нет':
-            insert_text(par, 'ModBus RTU')    
-        else:
-            insert_text(par, self.opt_b())
+        if self.power_option() =='Нет':
+            print('1=')
+            print(self.power_option())
+            doc = docx.Document('offer_template.docx')
+            par = get_bookmark_par_element(doc, "order_code")
+            #insert_text(par, self.order_code())
+            
+            #for b,g in self.bookmarks.items():
+            #    par = get_bookmark_par_element(doc, b)
+            #    insert_text(par, g())
+            #par=doc.add_heading('Введение',level=1)
+            #insert_text(par,self)
+            
+            #par = get_bookmark_par_element(doc, "price")
+            #insert_text(par, '{0:.2f}'.format(self.price.total))
+            
+            #par = get_bookmark_par_element(doc, "price1")
+            #insert_text(par, '{0:.2f}'.format(self.price.total))
+            
+            par = get_bookmark_par_element(doc, "order_code")
+            insert_text(par, self.order_code())
+            
+            par = get_bookmark_par_element(doc, "order_code1")
+            insert_text(par, self.order_code())
+            
+            par = get_bookmark_par_element(doc, "order_code2")
+            insert_text(par, self.order_code())
+            
+            par = get_bookmark_par_element(doc, "order_code3")
+            insert_text(par, self.order_code())
+            
+            par = get_bookmark_par_element(doc, "order_code4")
+            insert_text(par, self.order_code())
+            
+            par = get_bookmark_par_element(doc, "order_code5")
+            insert_text(par, self.order_code())
+            
+            par = get_bookmark_par_element(doc, "order_code6")
+            insert_text(par, self.order_code())
+            #par = get_bookmark_par_element(doc, "corpus")
+            #insert_text(par, self.corpus())
+            #par = get_bookmark_par_element(doc, "order_code6")
+            #insert_text(par, self.order_code())
+            
+            par = get_bookmark_par_element(doc, "corpus1")
+            insert_text(par, self.corpus())
+            
+            par = get_bookmark_par_element(doc, "input_cable")
+            insert_text(par, self.input_cable())
+            
+            par = get_bookmark_par_element(doc, "output_cable")
+            insert_text(par, self.output_cable())
+            
+            par = get_bookmark_par_element(doc, "service")
+            insert_text(par, self.output_cable())
+            
+            
+            par = get_bookmark_par_element(doc, "opt_b")
+            if self.opt_b() == 'Нет':
+                insert_text(par, 'ModBus RTU')    
+            else:
+                insert_text(par, self.opt_b())
 
-        par = get_bookmark_par_element(doc, "opt_b1")
-        if self.opt_b() == 'Нет':
-            insert_text(par, 'ModBus-встроен')    
+            par = get_bookmark_par_element(doc, "opt_b1")
+            if self.opt_b() == 'Нет':
+                insert_text(par, 'ModBus-встроен')    
+            else:
+                insert_text(par, self.opt_b()) 
+                
+            par = get_bookmark_par_element(doc, "power_cell")
+            insert_text(par,'{0:.0f}'.format(self.power_cell()*3)+' ( ' +'{0:.0f}'.format(self.power_cell())+' на одну фазу)')
+            #insert_text(par, ('{0:.0f}'.format(self.power_cell()*3)+'( '+ '{0:.0f}'.format(self.power_cell()) +' на одну фазу)'))        
+                
+            par = get_bookmark_par_element(doc, "output_voltage")
+            insert_text(par, ('{0:.0f}'.format(self.output_voltage()/1000)))        
+            
+            par = get_bookmark_par_element(doc, "input_voltage")
+            insert_text(par, ('{0:.0f}'.format(self.input_voltage()/1000))) 
+            
+            par = get_bookmark_par_element(doc, "output_voltage_trans")
+            insert_text(par,'{0:.0f}'.format(self.power_cell()*3)+' x 690')
+            
+            par = get_bookmark_par_element(doc, "diods")
+            insert_text(par,'{0:.0f}'.format(self.power_cell()*3*2))
+            
+            par = get_bookmark_par_element(doc, "nom_current")
+            insert_text(par,'690В, '+'{0:.0f}'.format(self.nom_current())+' A')
+            
+            par = get_bookmark_par_element(doc, "height")
+            insert_text(par,'{0:.0f}'.format(self.main_cabinet.height))
+            
+            par = get_bookmark_par_element(doc, "length")
+            insert_text(par,'{0:.0f}'.format(self.main_cabinet.length))
+            
+            par = get_bookmark_par_element(doc, "width")
+            insert_text(par,'{0:.0f}'.format(self.main_cabinet.width + sum([o.width for o in self.addons])))
+            
+            par = get_bookmark_par_element(doc, "weight")
+            insert_text(par,'{0:.0f}'.format(self.main_cabinet.weight(self) + sum([o.weight(self) for o in self.addons])))
+     
+            par = get_bookmark_par_element(doc, "kVA")
+            insert_text(par,'{0:.0f}'.format(self.kVA()))
+            doc.save(path) 
         else:
-            insert_text(par, self.opt_b()) 
+            print('2=')
+            print(self.power_option())
+            doc = docx.Document('offer_template_byp.docx')
+            par = get_bookmark_par_element(doc, "order_code")
+            #insert_text(par, self.order_code())
             
-        par = get_bookmark_par_element(doc, "power_cell")
-        insert_text(par,'{0:.0f}'.format(self.power_cell()*3)+' ( ' +'{0:.0f}'.format(self.power_cell())+' на одну фазу)')
-        #insert_text(par, ('{0:.0f}'.format(self.power_cell()*3)+'( '+ '{0:.0f}'.format(self.power_cell()) +' на одну фазу)'))        
+            #for b,g in self.bookmarks.items():
+            #    par = get_bookmark_par_element(doc, b)
+            #    insert_text(par, g())
+            #par=doc.add_heading('Введение',level=1)
+            #insert_text(par,self)
             
-        par = get_bookmark_par_element(doc, "output_voltage")
-        insert_text(par, ('{0:.0f}'.format(self.output_voltage()/1000)))        
+            #par = get_bookmark_par_element(doc, "price")
+            #insert_text(par, '{0:.2f}'.format(self.price.total))
+            
+            #par = get_bookmark_par_element(doc, "price1")
+            #insert_text(par, '{0:.2f}'.format(self.price.total))
+            
+            par = get_bookmark_par_element(doc, "order_code")
+            insert_text(par, self.order_code())
+            
+            par = get_bookmark_par_element(doc, "order_code1")
+            insert_text(par, self.order_code())
+            
+            par = get_bookmark_par_element(doc, "order_code2")
+            insert_text(par, self.order_code())
+            
+            par = get_bookmark_par_element(doc, "order_code3")
+            insert_text(par, self.order_code())
+            
+            par = get_bookmark_par_element(doc, "order_code4")
+            insert_text(par, self.order_code())
+            
+            par = get_bookmark_par_element(doc, "order_code5")
+            insert_text(par, self.order_code())
+            
+            par = get_bookmark_par_element(doc, "order_code6")
+            insert_text(par, self.order_code())
+            #par = get_bookmark_par_element(doc, "corpus")
+            #insert_text(par, self.corpus())
+            #par = get_bookmark_par_element(doc, "order_code6")
+            #insert_text(par, self.order_code())
+            
+            par = get_bookmark_par_element(doc, "corpus1")
+            insert_text(par, self.corpus())
+            
+            par = get_bookmark_par_element(doc, "input_cable")
+            insert_text(par, self.input_cable())
+            
+            par = get_bookmark_par_element(doc, "output_cable")
+            insert_text(par, self.output_cable())
+            
+            par = get_bookmark_par_element(doc, "service")
+            insert_text(par, self.output_cable())
+
+            par = get_bookmark_par_element(doc, "opt_b")
+            if self.opt_b() == 'Нет':
+                insert_text(par, 'ModBus RTU')    
+            else:
+                insert_text(par, self.opt_b())
+
+            par = get_bookmark_par_element(doc, "opt_b1")
+            if self.opt_b() == 'Нет':
+                insert_text(par, 'ModBus-встроен')    
+            else:
+                insert_text(par, self.opt_b()) 
+                
+            par = get_bookmark_par_element(doc, "power_cell")
+            insert_text(par,'{0:.0f}'.format(self.power_cell()*3)+' ( ' +'{0:.0f}'.format(self.power_cell())+' на одну фазу)')
+            #insert_text(par, ('{0:.0f}'.format(self.power_cell()*3)+'( '+ '{0:.0f}'.format(self.power_cell()) +' на одну фазу)'))        
+                
+            par = get_bookmark_par_element(doc, "output_voltage")
+            insert_text(par, ('{0:.0f}'.format(self.output_voltage()/1000)))        
+            
+            par = get_bookmark_par_element(doc, "input_voltage")
+            insert_text(par, ('{0:.0f}'.format(self.input_voltage()/1000))) 
+            
+            par = get_bookmark_par_element(doc, "output_voltage_trans")
+            insert_text(par,'{0:.0f}'.format(self.power_cell()*3)+' x 690')
+            
+            par = get_bookmark_par_element(doc, "diods")
+            insert_text(par,'{0:.0f}'.format(self.power_cell()*3*2))
+            
+            par = get_bookmark_par_element(doc, "nom_current")
+            insert_text(par,'690В, '+'{0:.0f}'.format(self.nom_current())+' A')
+            
+            par = get_bookmark_par_element(doc, "height")
+            insert_text(par,'{0:.0f}'.format(self.main_cabinet.height))
+            
+            par = get_bookmark_par_element(doc, "length")
+            insert_text(par,'{0:.0f}'.format(self.main_cabinet.length))
+            
+            par = get_bookmark_par_element(doc, "width")
+            insert_text(par,'{0:.0f}'.format(self.main_cabinet.width + sum([o.width for o in self.addons])))
+            
+            par = get_bookmark_par_element(doc, "weight")
+            insert_text(par,'{0:.0f}'.format(self.main_cabinet.weight(self) + sum([o.weight(self) for o in self.addons])))
+     
+            par = get_bookmark_par_element(doc, "kVA")
+            insert_text(par,'{0:.0f}'.format(self.kVA()))
         
-        par = get_bookmark_par_element(doc, "input_voltage")
-        insert_text(par, ('{0:.0f}'.format(self.input_voltage()/1000))) 
-        
-        par = get_bookmark_par_element(doc, "output_voltage_trans")
-        insert_text(par,'{0:.0f}'.format(self.power_cell()*3)+' x 690')
-        
-        par = get_bookmark_par_element(doc, "diods")
-        insert_text(par,'{0:.0f}'.format(self.power_cell()*3*2))
-        
-        par = get_bookmark_par_element(doc, "nom_current")
-        insert_text(par,'690В, '+'{0:.0f}'.format(self.nom_current())+' A')
-        
-        par = get_bookmark_par_element(doc, "height")
-        insert_text(par,'{0:.0f}'.format(self.main_cabinet.height))
-        
-        par = get_bookmark_par_element(doc, "length")
-        insert_text(par,'{0:.0f}'.format(self.main_cabinet.length))
-        
-        par = get_bookmark_par_element(doc, "width")
-        insert_text(par,'{0:.0f}'.format(self.main_cabinet.width + sum([o.width for o in self.addons])))
-        
-        par = get_bookmark_par_element(doc, "weight")
-        insert_text(par,'{0:.0f}'.format(self.main_cabinet.weight(self) + sum([o.weight(self) for o in self.addons])))
- 
-        par = get_bookmark_par_element(doc, "kVA")
-        insert_text(par,'{0:.0f}'.format(self.kVA()))
-        
-        doc.save(path)        
+            doc.save(path)        
         
     def short_descr(self):
         sacc = self.options._opts['Service access'].display_choices[self.options['Service access']]
