@@ -790,7 +790,7 @@ def question(request, session):
         question.select()
         #print(type(question), question.view.template)
         opts = wiz.get_options(question)
-        print('Question, devs=', wiz.devs)
+        #print('Question, devs=', wiz.devs)
         all_devs = wiz.apply_filters_nosave(question.next, options=opts)        
         devs = decider.select_devices(all_devs)
         template = loader.get_template(question.view.template)
