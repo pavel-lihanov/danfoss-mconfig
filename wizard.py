@@ -25,9 +25,9 @@ class NoMatches(Exception):
     pass
     
 class InvalidView:
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
         print('Warning: no view was provided')
-        print(self, kwargs)
+        print(self, args, kwargs)
 
 class Field:
     '''
@@ -836,3 +836,6 @@ class Wizard:
                 #print('new screen', new_scr)
                 new_scr.select()
                 self.current_screen = new_scr
+    
+
+    
