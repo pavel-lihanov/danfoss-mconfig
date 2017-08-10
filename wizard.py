@@ -9,6 +9,7 @@ import itertools
 from typing import Sequence, Any
 import devices
 import price
+import traceback
 
 from django.utils.translation import ugettext as _
 from mconfig.models import User, Order
@@ -78,7 +79,7 @@ class Field:
         creates view for field, expects dict of view factories
         '''
         if self.__class__ in views:
-            print(self, 'has view', views[self.__class__])
+            #print(self, 'has view', views[self.__class__])
             #views[self.__class__].__init__(self, **kwargs)
             #print(views[self.__class__])
             self.view = views[self.__class__](self, **kwargs)
@@ -174,7 +175,7 @@ class ChoiceField(Field):
     def update(self, devs, opts={}):
         #print('Field.update() ', self)
         #print(self.choices)
-        #check what choices are valid for subset of devices     
+        #check what choices are valid for subset of devices
         for choice in self.choices.values():
             #newdevs = [d for d in filter(choice.rule.apply, devs)]
             #NOTE: choices should not save their transforms
@@ -189,7 +190,7 @@ class ChoiceField(Field):
             newdevs = self.filter(devs, choice.rule, topts)
             choice.enabled = len(newdevs) > 0
             #if not choice.enabled:
-            #    print('Disabled (no devs)', choice, choice.rule, topts)
+            #    print('Disabled (no devs)', choice, choice.rule, topts, devs)
                 
             #print('Update: choice', choice, choice.enabled)            
             #print(choice.options)
@@ -757,7 +758,7 @@ class Wizard:
         if devs:
             #print('filters(next): have some ', devs)
             for f in question.get_fields():
-                opts = self.get_options(question.next, exclude=(f, field))                
+                opts = self.get_options(question.next, exclude=(f, field))
                 devs2 = self.apply_filters_nosave(question.next, exclude=f.get_rules()+field.get_rules(), options=opts, devices=self.devs)
                 #print('Updating ', f, 'devs2=', devs2)
                 f.update(devs2, opts)
@@ -798,7 +799,8 @@ class Wizard:
         devs = self.apply_filters_nosave(question.next, exclude=field.get_rules(), options=opts, devices=self.devs)
         #opts = self.get_options(question.next, exclude=(field, ))
         if devs:                
-            for f in question.get_fields():                
+            for f in question.get_fields():
+                '''
                 opts = self.get_options(question.next, exclude=(f, ))
                 devs2 = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts, devices=devs)
                 if not devs2:
@@ -806,6 +808,8 @@ class Wizard:
                     opts = self.get_options(question.next)
                     devs2 = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts)
                 f.update(devs2, opts)
+                '''
+                self.refresh_field(question, f)
         else:
             field.undo()
             question.last_error = _('No device matches current selection')

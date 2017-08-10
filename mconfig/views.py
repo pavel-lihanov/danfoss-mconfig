@@ -786,7 +786,7 @@ def question(request, session):
     wiz.last_activity = datetime.datetime.now()
     if request.method == 'GET':
         question = wiz.current_screen
-        print('Question before select, devs=', wiz.devs)
+        #print('Question before select, devs=', wiz.devs)
         question.select()
         #print(type(question), question.view.template)
         opts = wiz.get_options(question)
