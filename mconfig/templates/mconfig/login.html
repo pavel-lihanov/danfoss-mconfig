@@ -1,3 +1,7 @@
+
+{% load i18n static %}
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
+
 {% if next %}
     {% if user.is_authenticated %}
     <p>Your account doesn't have access to this page. To proceed,
@@ -20,6 +24,7 @@
    </tr>
 
 <table>
+<h3>{% trans 'Enter login and password' %}</h3>
 <tr>
     <td>{{ form.username.label_tag }}</td>
     <td>{{ form.username }}</td>
@@ -30,6 +35,6 @@
 </tr>
 </table>
 
-<input type="submit" value="login" />
+<input type="submit" value="{% trans 'login'%}" />
 <input type="hidden" name="next" value="{{ next }}" />
 </form>

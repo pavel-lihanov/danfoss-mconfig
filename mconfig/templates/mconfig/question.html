@@ -144,8 +144,9 @@ $( document ).ready(function() {
     <tr>
    		{% if not user.is_authenticated%} <th><a href="../../../login">Войти</a></th>{% endif %}
     <!--<th><a href="../../../create_user">Создать профайл</a></th>-->
-	{% if  user.is_authenticated%}<th><a href="../../../logout">Выйти</a></th>{% endif %}
+	{% if  user.is_authenticated%}<th><a href="../../../password_change">Изменить пароль</a></th>{% endif %}
 	{% if not user.is_authenticated%}<th><a href="../../../request_access">Отправить запрос на регистрацию</a></th>{% endif %}
+	{% if  user.is_authenticated%}<th><a href="../../../logout">Выйти</a></th>{% endif %}
 	{% if user.is_authenticated%}<th> Пользователь: {{ user }} </th>{% endif %}
     </tr>
 	</table> 

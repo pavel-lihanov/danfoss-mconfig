@@ -54,6 +54,11 @@ from exchangelib import FileAttachment
 from django.contrib import messages
 
 
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import render, redirect
+
 #import rpdb2
 #rpdb2.start_embedded_debugger('123qwe')
 
@@ -82,6 +87,27 @@ lock = threading.Lock()
     #s = smtplib.SMTP(server)
     #s.sendmail(from_, to, msg.as_string())
     #s.quit()
+    
+    
+def change_password(request):
+    '''
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  
+            messages.success(request,_( 'Your password was successfully updated!'))
+            return redirect('mconfig:change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'mconfig/change_password.html', {
+        'form': form
+    })
+    '''
+    return config_start(request)
+
 def send_mail(request, session):
 
     wiz, lock = sessions[int(session)]
@@ -132,6 +158,34 @@ def send_mail(request, session):
     
     return show_question(session, request, wiz, {})
     #return serve(request, os.path.basename(path), os.path.dirname(path))
+
+'''
+def send_mail(request, session):
+
+    me = 'vedadrive@drives.ru'
+    you = request.user.email
+    smtp_server = 'smtp.ht-systems.ru'
+    port=25
+    username='vedadrive@drives.ru'
+    password='eqhr9WW!&'
+
+    msg = MIMEText('Message e-mail')
+    msg['Subject'] = 'The contents of '
+    msg['From'] = me
+    msg['To'] = you
+
+    #s = smtplib.SMTP_ssl() 
+    #зависает на этом месте хз почему, с 25 тоже зависает с 465 ошибка вываливается
+    print('подключение')
+    s=smtplib.SMTP('smtp.ht-systems.ru')
+    server.ehlo()
+    s.starttls()
+    s.login(username,password)
+    s.sendmail(me, [you], msg.as_string())
+    
+    s.quit()
+    return show_question(session, request, wiz, {})
+'''
     
 def send_request(request):
 
@@ -533,9 +587,13 @@ def create_user(request, action):
 
             elif access_level == 2:
                 content_type = ContentType.objects.get_for_model(Order)    
-                permission = Permission.objects.get(content_type=content_type, codename='view_price')                 
+                permission = Permission.objects.get(content_type=content_type, codename='view_price') 
                 user.user_permissions.add(permission)
                 permission = Permission.objects.get(content_type=content_type, codename='view_delivery')
+                user.user_permissions.add(permission)
+                permission = Permission.objects.get(content_type=content_type, codename='view_options')
+                user.user_permissions.add(permission)
+                permission = Permission.objects.get(content_type=content_type, codename='view_details')
                 user.user_permissions.add(permission)
                 
             elif access_level == 3:

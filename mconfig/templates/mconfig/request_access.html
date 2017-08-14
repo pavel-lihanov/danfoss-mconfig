@@ -1,4 +1,5 @@
-{% load i18n %}
+{% load i18n static %}
+<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
 <table border="0">
   
    <tr>
@@ -7,7 +8,7 @@
 
 <table>
 
-<h1>{% trans 'Request configurator access' %}</h1>
+<h3>{% trans 'Request configurator access' %}</h3>
 
 {% trans 'Please fill the form and click "Submit"' %}
 <form name="request_access_form" id="request_access_form" action="do" method="post" style="border: 1px solid; padding: 10px;">

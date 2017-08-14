@@ -164,4 +164,86 @@ if __name__=="__main__":
         res='test4 not passed'
         k.append(res)
     
+    #P400KU1
+    code=test_case('6kV','40','6kV  50Hz','50')
+    print(code)
+    if code=='VD-P400KU1F530ASX040AXAX1BXCXDX11EXD':
+        res='test5 passed' 
+        k.append(res)
+    else:
+        res='test5 not passed'
+        k.append(res)
+    
+    #P315KU1
+    code=test_case('6kV','31','6kV  50Hz','50')
+    print(code)
+    if code=='VD-P315KU1F530ASX031AXAX1BXCXDX11EXD':
+        res='test6 passed' 
+        k.append(res)
+    else:
+        res='test6 not passed'
+        k.append(res)
     print (k)
+    
+    
+    #P500KU1
+    code=test_case('6kV','48','6kV  50Hz','50')
+    print(code)
+    if code=='VD-P500KU1F530ASX048AXAX1BXCXDX11EXD':
+        res='test7 passed' 
+        k.append(res)
+    else:
+        res='test7 not passed'
+        k.append(res)
+        
+        
+    #P630KU1
+    code=test_case('6kV','61','6kV  50Hz','50')
+    print(code)
+    if code=='VD-P630KU1F530ASX061AXAX1BXCXDX11EXD':
+        res='test8 passed' 
+        k.append(res)
+    else:
+        res='test8 not passed'
+        k.append(res)
+        
+        
+    #PP800KU1
+    code=test_case('6kV','77','6kV  50Hz','50')
+    print(code)
+    if code=='VD-P800KU1F530ASX077AXAX1BXCXDX11EXD':
+        res='test9 passed' 
+        k.append(res)
+    else:
+        res='test9 not passed'
+        k.append(res)
+        
+        
+        
+    #P1250U1    
+    code=test_case('6kV','130','6kV  50Hz','50')
+    print(code)
+    if code=='VD-P1250U1F530ASX130AXAX1BXCXDX11EXD':
+        res='test10 passed' 
+        k.append(res)
+    else:
+        res='test10 not passed'
+        k.append(res)
+    
+    #P7900U1    
+    code=test_case('6kV','750','6kV  50Hz','50')
+    print(code)
+    if code=='VD-P7900U1F530ASX750AXAX1BXCXDX11EXD':
+        res='test11 passed' 
+        k.append(res)
+    else:
+        res='test11 not passed'
+        k.append(res)
+    
+    
+    
+    print (k)
+    
+    
+    
+    
