@@ -111,7 +111,10 @@ def change_password(request):
 def send_mail(request, session):
 
     wiz, lock = sessions[int(session)]
-    credentials = exchange.Credentials(username='U334081@danfoss.com', password='Kris1985')#Тут должен быть общий ящик, к которому есть доступ у Стаса и Андрея. 2. Чтобы работала отправка с моего ящика, нужно подставить пароль
+    f = open('pass.txt', 'r')
+    password=f.read()
+    print (password)
+    credentials = exchange.Credentials(username='U334081@danfoss.com', password=password)#Тут должен быть общий ящик, к которому есть доступ у Стаса и Андрея. 2. Чтобы работала отправка с моего ящика, нужно подставить пароль
 
     config = exchange.Configuration(server='outlook.office365.com', credentials=credentials)
     account = exchange.Account(primary_smtp_address='U334081@danfoss.com', config=config, autodiscover=False, access_type=exchange.DELEGATE)
