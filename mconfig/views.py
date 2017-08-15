@@ -113,7 +113,8 @@ def send_mail(request, session):
     wiz, lock = sessions[int(session)]
     f = open('pass.txt', 'r')
     password=f.read()
-    print (password)
+    #print ('password=',password)
+    print('path=',os.getcwd())
     credentials = exchange.Credentials(username='U334081@danfoss.com', password=password)#Тут должен быть общий ящик, к которому есть доступ у Стаса и Андрея. 2. Чтобы работала отправка с моего ящика, нужно подставить пароль
 
     config = exchange.Configuration(server='outlook.office365.com', credentials=credentials)
