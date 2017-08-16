@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2017-08-04 11:39+0300\n"
+"POT-Creation-Date: 2017-08-16 09:21+0300\n"
 "PO-Revision-Date: 2017-07-18 16:12+0300\n"
 "Last-Translator: \n"
 "Language: ru_RU\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.4.0\n"
 
-#: delivery.py:137 mconfig/views.py:346
+#: delivery.py:137 mconfig/views.py:407
 msgid "Ask the manager for more information"
 msgstr "Уточните цену у менеджера"
 
-#: devices.py:1030
+#: devices.py:1147
 msgid ""
 "VEDADRIVE Uin={0}kV, Uout={5}kV, {1}A {6} cells per phase, {2}, {3} {4} "
 "service access"
@@ -31,180 +31,180 @@ msgstr ""
 "VEDADRIVE Uin={0}кВ, Uout={5}кВ, {1}A {6} ячеек на фазу, {2}, {3}, {4} "
 "обслуживание"
 
-#: devices.py:1033
+#: devices.py:1150
 msgid "Air-cooled"
 msgstr "Воздушное"
 
-#: devices.py:1033
+#: devices.py:1150
 msgid "Liquid_cooled"
 msgstr "Жидкостное охлаждение"
 
-#: devices.py:1212
+#: devices.py:1329
 msgid "Motor type"
 msgstr "Тип двигателя"
 
-#: devices.py:1212 questions.py:86
+#: devices.py:1329 questions.py:86
 msgid "Induction"
 msgstr "Асинхронный"
 
-#: devices.py:1212 questions.py:87
+#: devices.py:1329 questions.py:87
 msgid "PMSM"
 msgstr "Синхронный"
 
-#: devices.py:1216
+#: devices.py:1333
 msgid "Supply frequency"
 msgstr "Частота питающей сети"
 
-#: devices.py:1221
+#: devices.py:1338
 msgid "Enclosure"
 msgstr "Корпус"
 
-#: devices.py:1226
+#: devices.py:1343
 msgid "Motor contol mode"
 msgstr "Режим управления двигателем"
 
-#: devices.py:1226 questions.py:122
+#: devices.py:1343 questions.py:122
 msgid "U/f control"
 msgstr "Скалярное"
 
-#: devices.py:1226 questions.py:123
+#: devices.py:1343 questions.py:123
 msgid "Vector control"
 msgstr "Векторное"
 
-#: devices.py:1231
+#: devices.py:1348
 msgid "Braking mode"
 msgstr "Режим торможения"
 
-#: devices.py:1231 questions.py:128
+#: devices.py:1348 questions.py:128
 msgid "Coasting stop"
 msgstr "Выбегом"
 
-#: devices.py:1231
+#: devices.py:1348
 msgid "Dynamic braking"
 msgstr "Динамическое"
 
-#: devices.py:1231 questions.py:130
+#: devices.py:1348 questions.py:130
 msgid "Recuperation"
 msgstr "Рекуперация"
 
-#: devices.py:1236
+#: devices.py:1353
 msgid "Cooling"
 msgstr "Охлаждение"
 
-#: devices.py:1236 questions.py:347
+#: devices.py:1353 questions.py:347
 msgid "Air"
 msgstr "Воздушное"
 
-#: devices.py:1236
+#: devices.py:1353
 msgid "Liquid"
 msgstr "Жидкостное"
 
-#: devices.py:1241
+#: devices.py:1358
 msgid "Power cell autobypass"
 msgstr "Автобайпас силовой ячейки"
 
-#: devices.py:1241 devices.py:1260 devices.py:1272
+#: devices.py:1358 devices.py:1377 devices.py:1389
 msgid "No"
 msgstr "Нет"
 
-#: devices.py:1241 devices.py:1260 devices.py:1272
+#: devices.py:1358 devices.py:1377 devices.py:1389
 msgid "Yes"
 msgstr "Да"
 
-#: devices.py:1244
+#: devices.py:1361
 msgid "Power option"
 msgstr "Силовая опция"
 
-#: devices.py:1244 devices.py:1252 devices.py:1256 questions.py:263
+#: devices.py:1361 devices.py:1369 devices.py:1373 questions.py:263
 #: questions.py:281 questions.py:314 questions.py:332
 msgid "None"
 msgstr "Нет"
 
-#: devices.py:1244
+#: devices.py:1361
 msgid "Manual bypass"
 msgstr "Ручной байпас"
 
-#: devices.py:1244 questions.py:282 questions.py:333
+#: devices.py:1361 questions.py:282 questions.py:333
 msgid "Autobypass"
 msgstr "Автобайпас"
 
-#: devices.py:1244
+#: devices.py:1361
 msgid "Multistart"
 msgstr "Мультистарт"
 
-#: devices.py:1244
+#: devices.py:1361
 msgid "Interchange"
 msgstr "Чередование двигателей"
 
-#: devices.py:1248
+#: devices.py:1365
 msgid "Number of motors"
 msgstr "Количество двигателей"
 
-#: devices.py:1252
+#: devices.py:1369
 msgid "Option B"
 msgstr "Опция B"
 
-#: devices.py:1252
+#: devices.py:1369
 msgid "Encoder board"
 msgstr "Плата энкодера"
 
-#: devices.py:1252 questions.py:245 questions.py:306
+#: devices.py:1369 questions.py:245 questions.py:306
 msgid "EtherNet IP"
 msgstr "EtherNet IP"
 
-#: devices.py:1252 questions.py:246 questions.py:307
+#: devices.py:1369 questions.py:246 questions.py:307
 msgid "ProfiBus DP"
 msgstr "ProfiBus DP"
 
-#: devices.py:1252 questions.py:247 questions.py:308
+#: devices.py:1369 questions.py:247 questions.py:308
 msgid "Modbus TCP/IP"
 msgstr "Modbus TCP/IP"
 
-#: devices.py:1256
+#: devices.py:1373
 msgid "Power transformer"
 msgstr "Трансформатор"
 
-#: devices.py:1260
+#: devices.py:1377
 msgid "PMSM exciter"
 msgstr "Возбудитель синхронного двигателя"
 
-#: devices.py:1264
+#: devices.py:1381
 msgid "Input mains location"
 msgstr "Ввод питающего кабеля"
 
-#: devices.py:1264 devices.py:1268 questions.py:216 questions.py:224
+#: devices.py:1381 devices.py:1385 questions.py:216 questions.py:224
 msgid "Top"
 msgstr "Сверху"
 
-#: devices.py:1264 devices.py:1268 questions.py:215 questions.py:223
+#: devices.py:1381 devices.py:1385 questions.py:215 questions.py:223
 msgid "Bottom"
 msgstr "Снизу"
 
-#: devices.py:1268
+#: devices.py:1385
 msgid "Motor cable location"
 msgstr "Вывод кабеля двигателя"
 
-#: devices.py:1272
+#: devices.py:1389
 msgid "Output reactor"
 msgstr "Выходной реактор"
 
-#: devices.py:1276
+#: devices.py:1393
 msgid "Service access"
 msgstr "Зона обслуживания"
 
-#: devices.py:1276 questions.py:232
+#: devices.py:1393 questions.py:232
 msgid "Front"
 msgstr "Одностороннее"
 
-#: devices.py:1276 questions.py:231
+#: devices.py:1393 questions.py:231
 msgid "Front and back"
 msgstr "Двустороннее"
 
-#: devices.py:1279
+#: devices.py:1396
 msgid "Motor voltage"
 msgstr "Напряжение"
 
-#: devices.py:1286
+#: devices.py:1403
 msgid "Power cells count"
 msgstr "Силовых ячеек на фазу"
 
@@ -496,19 +496,19 @@ msgstr "Ж/д"
 msgid "Enter delivery address"
 msgstr "Введите адрес доставки"
 
-#: wizard.py:223 wizard.py:362 wizard.py:416
+#: wizard.py:229 wizard.py:371 wizard.py:428
 msgid "Field {0} is required"
 msgstr "Заполните поле \"{0}\""
 
-#: wizard.py:771 wizard.py:772
+#: wizard.py:815 wizard.py:816
 msgid "No device matches current selection"
 msgstr "Нет устройств, соответствующих всем критериям"
 
-#: mconfig/views.py:194
+#: mconfig/views.py:252
 msgid "Hello"
 msgstr "Привет"
 
-#: mconfig/views.py:450
+#: mconfig/views.py:511
 msgid ""
 "<html>\n"
 "          <head></head>\n"
@@ -533,13 +533,13 @@ msgstr ""
 "            </body>\n"
 "            </html>"
 
-#: mconfig/views.py:468
+#: mconfig/views.py:529
 msgid "Registration request created, await confirmation email"
 msgstr ""
 "Запрос на регистрацию отправлен администратору, ожидайте подтверждение по"
 " электронной почте"
 
-#: mconfig/views.py:560
+#: mconfig/views.py:627
 msgid ""
 "\n"
 "<html>\n"
@@ -565,41 +565,39 @@ msgstr ""
 "  </body>\n"
 "</html>\n"
 
-#: mconfig/views.py:577 mconfig/views.py:584
+#: mconfig/views.py:644 mconfig/views.py:651
 msgid "User created OK"
 msgstr "Пользователь успешно создан"
 
-#: mconfig/views.py:640
+#: mconfig/views.py:707
 msgid "Session not found or expired (field): {0}, have sessions {1}"
 msgstr ""
 
-#: mconfig/views.py:695
+#: mconfig/views.py:762
 msgid "Session not found or expired (next): {0}, have sessions {1}"
 msgstr ""
 
-#: mconfig/views.py:718
+#: mconfig/views.py:785
 msgid "Session not found or expired (prev): {0}, have sessions {1}"
 msgstr ""
 
-#: mconfig/views.py:734
+#: mconfig/views.py:801
 msgid "Session not found or expired(update): {0}, have sessions {1}"
 msgstr ""
 
-#: mconfig/views.py:749
+#: mconfig/views.py:816
 msgid "No device matches value {0} for field {1}"
 msgstr ""
 
-#: mconfig/views.py:753
+#: mconfig/views.py:820
 msgid "Invalid value {0} for field {1}"
 msgstr ""
 
-#: mconfig/views.py:775
+#: mconfig/views.py:842
 msgid "Session not found or expired (question): {0}, have sessions {1}"
 msgstr ""
 
 #: mconfig/templates/mconfig/logged_out.html:4
-#: mconfig/templates/mconfig/password_change_done.html:6
-#: mconfig/templates/mconfig/password_change_form.html:7
 #: mconfig/templates/mconfig/password_reset_complete.html:6
 #: mconfig/templates/mconfig/password_reset_confirm.html:6
 #: mconfig/templates/mconfig/password_reset_done.html:6
@@ -615,45 +613,33 @@ msgstr ""
 msgid "Log in again"
 msgstr ""
 
-#: mconfig/templates/mconfig/password_change_done.html:3
-#: mconfig/templates/mconfig/password_change_form.html:4
-msgid "Documentation"
-msgstr "Документация"
+#: mconfig/templates/mconfig/login.html:27
+msgid "Enter login and password"
+msgstr "Введите свой логин(еmail) и пароль"
 
-#: mconfig/templates/mconfig/password_change_done.html:3
-#: mconfig/templates/mconfig/password_change_form.html:4
-msgid "Change password"
-msgstr ""
+#: mconfig/templates/mconfig/login.html:38
+msgid "login"
+msgstr "Войти"
 
-#: mconfig/templates/mconfig/password_change_done.html:3
-#: mconfig/templates/mconfig/password_change_form.html:4
-msgid "Log out"
-msgstr ""
-
-#: mconfig/templates/mconfig/password_change_done.html:7
-#: mconfig/templates/mconfig/password_change_form.html:8
-msgid "Password change"
-msgstr ""
-
-#: mconfig/templates/mconfig/password_change_done.html:14
+#: mconfig/templates/mconfig/password_change_done.html:5
 msgid "Your password was changed."
 msgstr ""
 
-#: mconfig/templates/mconfig/password_change_form.html:21
+#: mconfig/templates/mconfig/password_change_form.html:22
 msgid "Please correct the error below."
 msgstr ""
 
-#: mconfig/templates/mconfig/password_change_form.html:21
+#: mconfig/templates/mconfig/password_change_form.html:22
 msgid "Please correct the errors below."
 msgstr ""
 
-#: mconfig/templates/mconfig/password_change_form.html:26
+#: mconfig/templates/mconfig/password_change_form.html:27
 msgid ""
 "Please enter your old password, for security's sake, and then enter your "
 "new password twice so we can verify you typed it in correctly."
 msgstr ""
 
-#: mconfig/templates/mconfig/password_change_form.html:54
+#: mconfig/templates/mconfig/password_change_form.html:57
 #: mconfig/templates/mconfig/password_reset_confirm.html:24
 msgid "Change my password"
 msgstr ""
@@ -750,12 +736,12 @@ msgstr ""
 msgid "Drive configurator"
 msgstr "Конфигуратор"
 
-#: mconfig/templates/mconfig/question.html:178
+#: mconfig/templates/mconfig/question.html:179
 #: mconfig/templates/mconfig/result_unpriced.html:49
 msgid "Prev"
 msgstr "Назад"
 
-#: mconfig/templates/mconfig/question.html:184
+#: mconfig/templates/mconfig/question.html:185
 msgid "Next"
 msgstr "Далее"
 
@@ -763,15 +749,15 @@ msgstr "Далее"
 msgid "Drive configurator user register request"
 msgstr "Запрос на регистрацию пользователя"
 
-#: mconfig/templates/mconfig/request_access.html:10
+#: mconfig/templates/mconfig/request_access.html:11
 msgid "Request configurator access"
 msgstr "Запрос доступа к конфигуратору"
 
-#: mconfig/templates/mconfig/request_access.html:12
+#: mconfig/templates/mconfig/request_access.html:13
 msgid "Please fill the form and click \"Submit\""
 msgstr "Пожалуйста, заполните форму и нажмите «Отправить»"
 
-#: mconfig/templates/mconfig/request_access.html:83
+#: mconfig/templates/mconfig/request_access.html:84
 msgid "Submit"
 msgstr "Отправить"
 
@@ -824,5 +810,17 @@ msgstr "Отправить"
 #~ msgstr ""
 
 #~ msgid "Specify the price of the manager"
+#~ msgstr ""
+
+#~ msgid "Documentation"
+#~ msgstr "Документация"
+
+#~ msgid "Change password"
+#~ msgstr ""
+
+#~ msgid "Log out"
+#~ msgstr "Выйти"
+
+#~ msgid "Password change"
 #~ msgstr ""
 

@@ -114,18 +114,14 @@ $( document ).ready(function() {
 				</div>
 
 			
-
-		</div>
-		<div id="reason" >
+					<div id="tab"  >
 		
-		</div>
-		<div id="tab">
-		<div class="tab" >
+		<div class="tab"  >
 		  <button class="tablinks" onclick="openCity(event, 'description')" id="defaultOpen">Описание</button>
 		  <button class="tablinks" onclick="openCity(event, 'documentation')">Документация</button>
 		</div>
 
-		<div id="description" class="tabcontent">
+		<div id="description" class="tabcontent" style="display:none" >
 		  <span onclick="this.parentElement.style.display='none'" class="topright">x</span>
 			<p>
 				{% for package in question.packages %}
@@ -135,7 +131,7 @@ $( document ).ready(function() {
 			</p>
 		</div>
 
-		<div id="documentation" class="tabcontent">
+		<div id="documentation" class="tabcontent" style="display:none" >
 		  <span onclick="this.parentElement.style.display='none'" class="topright">x</span>
 
 		 	 <p><a href="../../../static/VEDADRIVE_manual.pdf" download>Руководство по эксплуатации VEDADRIVE</a></p> 
@@ -164,7 +160,16 @@ $( document ).ready(function() {
 	// Get the element with id="defaultOpen" and click on it
 	document.getElementById("defaultOpen").click();
 	</script>
-		<div class="btn-controls">	
+
+		</div>
+		<div id="reason" >
+		
+		</div>
+
+	
+
+	</div>
+			<div class="btn-controls">	
         <form action="prev" id="prev_form" method="post" style="display: inline; float: left; padding: 10px;">
 	    {% csrf_token %}
 		
@@ -172,11 +177,7 @@ $( document ).ready(function() {
 		
         </form>	
 		</div>
-		<div class="clear"></div>
-
-	</div>
-	
-
+	<div class="clear"></div>
 
 </div>
 
