@@ -179,14 +179,11 @@ class CanUseBypassRule:
     def apply(self, device, transform, options):
         #print('CanUseBypassRule.apply()')
         if 'mains_voltage' in options:
-            #print(device.attributes['voltage'], options['motor_voltage'], type(device.attributes['voltage']), type(options['motor_voltage']))
-            #print(device.attributes['voltage'] == options['motor_voltage'])
-            #if device.attributes['voltage'] != options['motor_voltage']:
-            #    print('CanUseBypassRule.apply(): False', device.attributes['voltage'], '!=', options['motor_voltage'])
             return device.attributes['voltage'] == options['mains_voltage']
         else:
-            #print('CanUseBypassRule.apply(): False (no mains_voltage)')            
-            return False
+            #return False
+            #this means we haven't selected mains voltage
+            return True
     
 class OptionIfGreater:
     def __init__(self, getter, value, option, values):
