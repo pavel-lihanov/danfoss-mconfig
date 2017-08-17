@@ -81,6 +81,7 @@ function hideError(){
 }
 
 function updateQuestion() {
+
 	var f;
 	if (this.readyState == 4 && this.status == 200) {						
 		data = JSON.parse(this.responseText);		
@@ -94,6 +95,7 @@ function updateQuestion() {
 			var fo = findField(data.fields[f].data.name);
 			if(!fo){
 				fo = findField(data.fields[f].data.internal_name);
+
 			}
 			if(fo && (data.error || !this.soft_update)){
 				fo.update(data.fields[f]);
