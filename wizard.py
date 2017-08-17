@@ -772,9 +772,12 @@ class Wizard:
             devs = self.apply_filters_nosave(question.next, exclude=field.get_rules(), options=opts2)
             if devs:
                 for f in question.get_fields():
-                    opts = self.get_options(question.next, exclude=(f, field))
-                    devs2 = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts, devices=devs)
-                    f.update(devs2, opts)
+                    if f != field:
+                        opts = self.get_options(question.next, exclude=(f, field))
+                        devs3 = self.apply_filters_nosave(question.next, exclude=f.get_rules(), options=opts, devices=devs)
+                        if not devs3:
+                            print('Empty devs for field.update() ', field, f, opts)
+                        f.update(devs3, opts)
             else:
                 print('WARNING: refresh_field(): empty devs for next')
             #field.undo()
