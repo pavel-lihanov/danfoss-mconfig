@@ -111,7 +111,7 @@ class MyDelivery(Delivery):
         '''
         
         time = 10
-        corp=package.get_frame()
+        corp=package.main_cabinet
         nom_cur=Base_price.objects.filter(nom_voltage=package.attributes['voltage']/1000,current=package.attributes['nom_current']).values('current')    
         for i in nom_cur:
             cur=i['current']

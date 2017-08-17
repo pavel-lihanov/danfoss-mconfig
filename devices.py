@@ -21,6 +21,9 @@ class NotInPricelist(Exception):
     pass
 '''
 
+class NoCabinet(Exception):
+    pass
+
 def get_bookmark_par_element(document, bookmark_name):
     """
     Return the named bookmark element
@@ -146,7 +149,31 @@ class VEDADrive(Device):
         
         def therm_loss(self, device):
             return self.size_dependent[device.attributes['kVA']].therm_loss
-
+            
+    class UnknownFrame(Frame):
+        def __init__(self):
+            pass
+                
+        def weight(self, device):
+            raise ValueError('Unknown weight')
+            
+        def therm_loss(self, device):
+            raise ValueError('Unknown therm_loss')
+        @property    
+        def height(self):
+            raise ValueError('Unknown height')
+            
+        @property    
+        def length(self):
+            raise ValueError('Unknown length')   
+        @property     
+        def width (self):
+            raise ValueError('Unknown width') 
+             
+    class UnknownMainCabinet(UnknownFrame):
+        @property
+        def name(self):
+            return 'Unknown'
         
     class C(Frame):
         _type = 'C'
@@ -640,15 +667,22 @@ class VEDADrive(Device):
         @classmethod
         def matches(cls, package):            
             if package.options['power_option'] == 'Autobypass':
-                if package.main_cabinet.length <= 1400:
-                    frame = VEDADrive.AB01
-                else:
-                    frame = VEDADrive.AB02
-                fr = cls(frame.width, frame.length, frame.size_name)
-                fr.height = package.main_cabinet.height                
-                return fr
+                try:
+                    if package.main_cabinet.length <= 1400:
+                        frame = VEDADrive.AB01
+                    else:
+                        frame = VEDADrive.AB02
+                    
+                    fr = cls(frame.width, frame.length, frame.size_name)
+                    fr.height = package.main_cabinet.height                
+                    return fr
+                except:
+                    return
             else:
                 return None
+                
+    class ABXX(Autobypass, UnknownFrame):
+        pass
                 
     AB01 = Autobypass(1000, 1400, name='01')
     AB02 = Autobypass(1000, 1600, name='02')
@@ -865,7 +899,7 @@ class VEDADrive(Device):
             if frame:
                 print('Frame: {0}'.format(frame))
                 return frame
-        raise ValueError('No matching frame')
+        raise NoCabinet('{0}: not found cabinet'.format(self))
         
     def get_addons(self):
         res = []
@@ -910,9 +944,13 @@ class VEDADrive(Device):
         pkg = VEDADrive(self.name, self.attributes, new_options, package=True)
         
         pkg.power_module = pkg.get_power_module()
-        pkg.main_cabinet = pkg.get_frame()
+        try:
+            pkg.main_cabinet = pkg.get_frame()            
+        except NoCabinet:
+            pkg.main_cabinet = VEDADrive.UnknownMainCabinet()
+           
         pkg.addons = pkg.get_addons()
-        
+
         return pkg
        
     def calculate_price(self):
@@ -1023,18 +1061,32 @@ class VEDADrive(Device):
             par = get_bookmark_par_element(doc, "nom_current")
             insert_text(par,'690В, '+'{0:.0f}'.format(self.nom_current())+' A')
             
+            
             par = get_bookmark_par_element(doc, "height")
-            insert_text(par,'{0:.0f}'.format(self.main_cabinet.height))
+            if type(par) is float:
+                insert_text(par,'{0:.0f}'.format(self.main_cabinet.height))
+            else:
+                 insert_text(par,' ')
             
             par = get_bookmark_par_element(doc, "length")
-            insert_text(par,'{0:.0f}'.format(self.main_cabinet.length))
+            if type(par) is float:
+                insert_text(par,'{0:.0f}'.format(self.main_cabinet.length))
+            else:
+                insert_text(par,' ')
+            
             
             par = get_bookmark_par_element(doc, "width")
-            insert_text(par,'{0:.0f}'.format(self.main_cabinet.width + sum([o.width for o in self.addons])))
-            
+            if type(par) is float:
+                insert_text(par,'{0:.0f}'.format(self.main_cabinet.width + sum([o.width for o in self.addons])))
+            else:
+                insert_text(par,' ')
+                
+                
             par = get_bookmark_par_element(doc, "weight")
-            insert_text(par,'{0:.0f}'.format(self.main_cabinet.weight(self) + sum([o.weight(self) for o in self.addons])))
-     
+            if type(par) is float:
+                insert_text(par,'{0:.0f}'.format(self.main_cabinet.weight(self) + sum([o.weight(self) for o in self.addons])))
+            else:
+                insert_text(par,' ')
             par = get_bookmark_par_element(doc, "kVA")
             insert_text(par,'{0:.0f}'.format(self.kVA()))
             doc.save(path) 

@@ -310,6 +310,31 @@ class VEDADriveView:
     
     def as_json(self):
         if self.show_options:    
+            try:
+                w = self.package.width
+            except ValueError:
+                w = None
+ 
+            try:
+                h=self.package.height
+            except  ValueError:
+                h = None
+            
+            try:
+                l=self.package.length
+            except  ValueError:
+                l = None
+            
+            try:
+                wh=self.package.weight
+            except  ValueError:
+                wh = None
+            
+            try:
+                ls= self.package.therm_loss
+            except  ValueError:
+                ls = None
+            
             return {    
                         'name': self.package.name,
                         'order_code': self.package.order_code(),
@@ -318,11 +343,11 @@ class VEDADriveView:
                             'options': self.package.display_options(),
                             'main_cabinet': self.package.main_cabinet.name,
                             'addons': '+'.join([o.name for o in self.package.addons]),
-                            'width': self.package.width,
-                            'height': self.package.height,
-                            'length': self.package.length,
-                            'weight': self.package.weight,
-                            'therm_loss': self.package.therm_loss,
+                            'width': w,
+                            'height': h,
+                            'length': l,
+                            'weight': wh,
+                            'therm_loss': ls,
                         },
                     }
         else:
