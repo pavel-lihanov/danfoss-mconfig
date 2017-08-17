@@ -102,7 +102,7 @@ class LoadQuestion(wizard.Question):
                                                                     wizard.Choice(_('None/External'), rules.OptionRule('PMSM exciter', 'No'), options = {'PMSM exciter': 'No'}), 
                                                                     wizard.Choice(_('Built-in'), rules.OptionRule('PMSM exciter', 'Yes'), options = {'PMSM exciter': 'Yes', 'motor_type': 'PM'}), 
                                                         ), 
-                                                        devs, views, hint='', **kwargs)
+                                                        devs, views, hint='mconfig/hints/exciter.html', **kwargs)
                                                         
         self.nominal_current_field = wizard.ValueField(_('Input nominal current'), 'input_nom_current', rules.CurrentRule(self.get_nom_current), views, required=True, hint='', **kwargs)
         
@@ -129,7 +129,7 @@ class LoadQuestion(wizard.Question):
                                             #wizard.Choice(_('Dynamic braking'), rules.OptionRule('brake_mode', 'Dynamic'), options = {'brake_mode': 'Dynamic'}),
                                             wizard.Choice(_('Recuperation'), rules.OptionRule('brake_mode', 'Recuperation'), options = {'brake_mode': 'Recuperation', 'Service access':'Front and back'}),
                                         ), 
-                                    devs, views, hint='',**kwargs
+                                    devs, views, hint='mconfig/hints/braking_mode.html',**kwargs
                                     ),
                                     
                         wizard.ChoiceField(_('Select multimotor mode'), 'select_multimotor_mode',
@@ -142,7 +142,7 @@ class LoadQuestion(wizard.Question):
                                             #wizard.Choice(_('Interchange, 4 motor'), rules.OptionRule('power_option', 'Interchange'), options = {'power_option': 'Interchange', 'multi_motors':4}),
 
                                         ), 
-                                    devs, views, hint='',**kwargs
+                                    devs, views, hint='mconfig/hints/multimotor.html',**kwargs
                                     )                                                            
                                     
                                     ]
@@ -185,7 +185,7 @@ class PlacementQuestion(wizard.Question):
                                             wizard.Choice(_('6kV  50Hz'), rules.TrueRule(), options = {'input_freq': 50, 'mains_voltage':6000}),
                                             wizard.Choice(_('10kV 50Hz'), rules.TrueRule(), options = {'input_freq': 50, 'mains_voltage':10000}),
                                         ), 
-                                    devs, views, required = True, hint='mconfig/hints/drive_voltage.html',**kwargs
+                                    devs, views, required = True, hint='',**kwargs
                                     ),
         
                         wizard.ChoiceField(_('Select enclosure'), 'select_enclosure', (   
@@ -215,7 +215,7 @@ class PlacementQuestion(wizard.Question):
                                             OptionChoice(_('Bottom'), 'Input mains location', 'Bottom'),
                                             OptionChoice(_('Top'), 'Input mains location', 'Top'),
                                         ), 
-                                    devs, views, hint='mconfig/hints/power_mains.html',**kwargs
+                                    devs, views, hint='',**kwargs
                                     ),
                         
                         wizard.ChoiceField(_('Select motor mains location'), 'select_motor_mains',
@@ -223,7 +223,7 @@ class PlacementQuestion(wizard.Question):
                                             OptionChoice(_('Bottom'), 'Motor cable location', 'Bottom'),
                                             OptionChoice(_('Top'), 'Motor cable location', 'Top'),
                                         ), 
-                                    devs, views,hint='mconfig/hints/motor_mains.html', **kwargs
+                                    devs, views,hint='', **kwargs
                                     ),
 
                         wizard.ChoiceField(_('Select service access'), 'select_service_access',
@@ -231,7 +231,7 @@ class PlacementQuestion(wizard.Question):
                                             OptionChoice(_('Front and back'), 'Service access', 'Front and back'),
                                             OptionChoice(_('Front'), 'Service access', 'Front'),
                                         ), 
-                                    devs, views, hint='mconfig/hints/service_access.html', **kwargs
+                                    devs, views, hint='', **kwargs
                                     ),
                                     
                         MotorCableLenField(_('Input motor cable len'), 'input_cable_len', rules.OptionIfGreater(self.get_cable_len, 800, 'Output reactor', ('No', 'Yes')), 
@@ -246,7 +246,7 @@ class PlacementQuestion(wizard.Question):
                                                             wizard.Choice(_('ProfiBus DP'), rules.OptionRule('fieldbus', 'ProfiBus DP'), options={'fieldbus':'ProfiBus DP'}),
                                                             wizard.Choice(_('Modbus TCP/IP'), rules.OptionRule('fieldbus', 'Modbus TCP/IP'), options={'fieldbus':'Modbus TCP/IP'}),
                                                         ), 
-                                                        devs, views, hint='mconfig/hints/fieldbus.html', **kwargs),
+                                                        devs, views, hint='', **kwargs),
                                                         
                         wizard.ChoiceField(_('Select power cell count'), 'select_power_cells',
                                         (                                               
@@ -287,7 +287,7 @@ class PlacementQuestion(wizard.Question):
                                                             ),
                                             #OptionChoice(_('Autobypass'), 'power_cell_autobypass', 'Yes'),
                                         ), 
-                                    devs, views, hint='mconfig/hints/power_cell_bypass.html',**kwargs
+                                    devs, views, hint='',**kwargs
                                     ),                        
                                     
                                     ]        

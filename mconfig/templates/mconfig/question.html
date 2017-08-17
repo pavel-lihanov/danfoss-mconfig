@@ -87,7 +87,7 @@ function updateQuestion() {
 			setButtonState(document.getElementById("next_button"), data.next_enabled);
 			setButtonState(document.getElementById("prev_button"), data.prev_enabled);
 			
-			if(data.error && !this.soft_update){
+			if(data.error /*&& !this.soft_update*/){
 				showError(data.error);
 			} else {
 				hideError();

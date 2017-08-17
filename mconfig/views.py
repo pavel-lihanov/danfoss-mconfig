@@ -840,7 +840,7 @@ def question(request, session):
     try:
         wiz, lock = sessions[int(session)]    
     except KeyError:
-        return HttpResponse(_('Session not found or expired (question): {0}, have sessions {1}'.format(int(session), list(sessions.keys()))))
+        return HttpResponse(_('Session not found or expired (question): {0}, have sessions {1} <br> <a href="../../../start">Вернуться на стартовую страницу   </a>'.format(int(session), list(sessions.keys()))))
         
     if not validate_request(request, wiz):
         return HttpResponseForbidden()
