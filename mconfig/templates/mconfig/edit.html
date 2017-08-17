@@ -7,7 +7,9 @@
 		type="text"  
 		name="{{ field.name }}" 
 		id="{{ field.name }}" 
-		onchange="{postField('{{field.name}}')}"/>
+		onchange="{postField('{{field.name}}', false)}"
+		oninput="{postField('{{field.name}}', true)}"
+	/>
 		
 {% if field.hint %}
 	<div class="help">

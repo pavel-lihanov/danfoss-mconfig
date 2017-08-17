@@ -245,6 +245,7 @@ class Reaper(threading.Thread):
 if check_for_language('ru'):
     print('Has Russian')
     activate('ru')
+    locale.setlocale(locale.LC_ALL, 'ru')
 else:
     print('No Russian, sorry')
     

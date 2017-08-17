@@ -21,6 +21,7 @@
   integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
   crossorigin="anonymous">
 </script>
+<script src="https://unpkg.com/vue"></script>
 </head>
 
 <body>
@@ -67,6 +68,18 @@ function setButtonState(button, state) {
 	}
 }
 
+function showError(text){
+	err_panel.text = text;
+}
+
+function showInProgress(){
+	err_panel.text = "";
+}
+
+function hideError(){	
+	err_panel.text = "";
+}
+
 function updateQuestion() {
 		var f;
 		if (this.readyState == 4 && this.status == 200) {						
@@ -74,12 +87,10 @@ function updateQuestion() {
 			setButtonState(document.getElementById("next_button"), data.next_enabled);
 			setButtonState(document.getElementById("prev_button"), data.prev_enabled);
 			
-			if(data.error){
-				document.getElementById("err_text").innerHTML = data.error;
-				document.getElementById("err_panel").style.display="block";
-			}else{
-				document.getElementById("err_text").innerHTML = "";
-				document.getElementById("err_panel").style.display="none";				
+			if(data.error && !this.soft_update){
+				showError(data.error);
+			} else {
+				hideError();
 			}					
 			
 			for(f=0;f<data.fields.length;f++){
@@ -91,28 +102,28 @@ function updateQuestion() {
 					fo.update(data.fields[f]);
 				}				
 			}
-		} else {
-			document.getElementById("err_panel").style.display="block";
-			document.getElementById("err_text").innerHTML = "Server error";		
+		} else if (this.readyState < 4){
+			showInProgress();
+		} else if (this.readyState != 200) {
+			showError("Server error");
 		}
 		document.getElementById("progress").innerHTML="Update done";
 }
 
-function postField(field){
-	var xhttp = new XMLHttpRequest();				
+function postField(field, soft){	
+	var xhttp = new XMLHttpRequest();			
+	xhttp.ontimeout = function(e) {
+		err_panel.text = "Timeout";
+	}
 	xhttp.onreadystatechange = updateQuestion;
+	xhttp.soft_update = soft;
 	
-	document.getElementById("progress").innerHTML="Updating...";
-	/*
-	document.getElementById("err_panel").style.display="block";
-	document.getElementById("err_text").innerHTML = "Processing";		
-	*/
 	xhttp.open('POST', 'update', true);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	var csrftoken = getCookie('csrftoken');
 	xhttp.setRequestHeader("X-CSRFToken", csrftoken);
 	var f = findField(field);	
-	xhttp.send('Current_field='+field+'&'+field+'='+document.getElementById(f.name).value);
+	xhttp.send('Current_field='+field+'&'+field+'='+document.getElementById(f.name).value+'&+ts='+new Date().getTime());
 }
 
 $( document ).ready(function() {
@@ -153,7 +164,7 @@ $( document ).ready(function() {
 <h1>Конфигуратор высоковольтного привода</h1>
 
 
-<div class="error-msg">
+<!-- <div class="error-msg">
 
 <div id="err_panel" class="w3-panel w3-orange w3-card-8" {% if error_message %}style="display:block;"{%else%}style="display:none;"{%endif%}>
 	<span class="w3-closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
@@ -161,7 +172,17 @@ $( document ).ready(function() {
 </div>
 
 </div>
-
+ -->
+ 
+<div id="error_message">
+	<span v-if="visible" class="w3-closebtn" onclick="this.parentElement.style.display='none'">
+		&times;
+	</span>
+	<p v-if="visible">
+		[< text >]
+	</p>
+</div>
+ 
 <div id="main_area">
 
 <form name="question_form" id="question_form" action="update" method="post">
@@ -191,6 +212,21 @@ $( document ).ready(function() {
 </div>
 </div>
 </div>
+
+<script>
+	var err_panel = new Vue({
+		delimiters: ["[<", ">]"],
+		el: '#error_message',
+		data: {			
+			text: "",			
+		},
+		computed: {
+			visible: function () {			  
+			  return this.text != "";
+			}
+		}
+	})
+</script>
 
 <script type="text/javascript">
 var fields = [];
