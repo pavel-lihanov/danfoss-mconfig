@@ -311,6 +311,7 @@ class ValueField(Field):
         
     def reset(self):
         self.value = None
+        self.text_value = ''
 
     def _force_select(self, choice):
         self.value = locale.atof(choice)

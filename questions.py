@@ -134,9 +134,9 @@ class LoadQuestion(wizard.Question):
                                     
                         wizard.ChoiceField(_('Select multimotor mode'), 'select_multimotor_mode',
                                         (   wizard.Choice(_('No multimotor'), rules.TrueRule(), options = {'multi_motors': 1}),  #if no multimotor user can select autobypass
-                                            wizard.Choice(_('Multistart, 2 motors'), rules.OptionRule('power_option', 'Multistart'), options = {'power_option': 'Multistart', 'multi_motors':2}),
-                                            wizard.Choice(_('Multistart, 3 motors'), rules.OptionRule('power_option', 'Multistart'), options = {'power_option': 'Multistart', 'multi_motors':3}),
-                                            wizard.Choice(_('Multistart, 4 motors'), rules.OptionRule('power_option', 'Multistart'), options = {'power_option': 'Multistart', 'multi_motors':4}),                                            
+                                            wizard.Choice(_('Multistart, 2 motors'), rules.OptionRule('power_option', 'Multistart'), options = {'power_option': 'Multistart', 'multi_motors':2, 'Output reactor':'Yes'}),
+                                            wizard.Choice(_('Multistart, 3 motors'), rules.OptionRule('power_option', 'Multistart'), options = {'power_option': 'Multistart', 'multi_motors':3, 'Output reactor':'Yes'}),
+                                            wizard.Choice(_('Multistart, 4 motors'), rules.OptionRule('power_option', 'Multistart'), options = {'power_option': 'Multistart', 'multi_motors':4, 'Output reactor':'Yes'}),
                                             #wizard.Choice(_('Interchange, 2 motors'), rules.OptionRule('power_option', 'Interchange'), options = {'power_option': 'Interchange', 'multi_motors':2}),
                                             #wizard.Choice(_('Interchange, 3 motor'), rules.OptionRule('power_option', 'Interchange'), options = {'power_option': 'Interchange', 'multi_motors':3}),
                                             #wizard.Choice(_('Interchange, 4 motor'), rules.OptionRule('power_option', 'Interchange'), options = {'power_option': 'Interchange', 'multi_motors':4}),

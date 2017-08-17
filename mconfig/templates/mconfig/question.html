@@ -81,36 +81,39 @@ function hideError(){
 }
 
 function updateQuestion() {
-		var f;
-		if (this.readyState == 4 && this.status == 200) {						
-			data = JSON.parse(this.responseText);
-			setButtonState(document.getElementById("next_button"), data.next_enabled);
-			setButtonState(document.getElementById("prev_button"), data.prev_enabled);
-			
-			if(data.error /*&& !this.soft_update*/){
-				showError(data.error);
-			} else {
-				hideError();
-			}					
-			
-			for(f=0;f<data.fields.length;f++){
-				var fo = findField(data.fields[f].data.name);
-				if(!fo){
-					fo = findField(data.fields[f].data.internal_name);
-				}
-				if(fo){
-					fo.update(data.fields[f]);
-				}				
+
+	var f;
+	if (this.readyState == 4 && this.status == 200) {						
+		data = JSON.parse(this.responseText);		
+		if(data.error){
+			showError(data.error);
+		} else {
+			hideError();
+		}					
+		
+		for(f=0;f<data.fields.length;f++){
+			var fo = findField(data.fields[f].data.name);
+			if(!fo){
+				fo = findField(data.fields[f].data.internal_name);
+
 			}
-		} else if (this.readyState < 4){
-			showInProgress();
-		} else if (this.readyState != 200) {
-			showError("Server error");
+			if(fo && (data.error || !this.soft_update)){
+				fo.update(data.fields[f]);
+			}				
 		}
-		document.getElementById("progress").innerHTML="Update done";
+	} else if (this.readyState < 4){
+		showInProgress();
+	} else if (this.readyState != 200) {
+		showError("Server error");
+	}
+	
+	setButtonState(document.getElementById("next_button"), data.next_enabled);
+	setButtonState(document.getElementById("prev_button"), data.prev_enabled);	
 }
 
 function postField(field, soft){	
+	setButtonState(document.getElementById("next_button"), false);	
+
 	var xhttp = new XMLHttpRequest();			
 	xhttp.ontimeout = function(e) {
 		err_panel.text = "Timeout";
