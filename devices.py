@@ -743,7 +743,7 @@ class VEDADrive(Device):
                 if frame:                    
                     fr = cls(frame.width, frame.length, frame.size_name)
                     fr.height = package.main_cabinet.height
-                    return fr
+                    return fr                    
                 else:
                     return None
             else:
