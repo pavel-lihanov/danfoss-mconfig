@@ -85,7 +85,8 @@ class Device:
         return pr
         
     def __repr__(self):
-        return 'Device: {0}\n\tattrs{1}\n\toptions{2}\n'.format(self.name, self.attributes, self.options)
+        #return 'Device: {0}\n\tattrs{1}\n\toptions{2}\n'.format(self.name, self.attributes, self.options)
+        return self.name
         
     def typecode(self):
         return ''

@@ -304,6 +304,7 @@ class ValueField(Field):
         Field.__init__(self, name, internal_name, **kwargs)
         self.rule = rule
         self.value = None
+        self.text_value = ''
         self.init_view(views, **kwargs)
         self.min = 0
         self.max = 0
@@ -313,33 +314,34 @@ class ValueField(Field):
 
     def _force_select(self, choice):
         self.value = locale.atof(choice)
+        self.text_value = choice
         
     def select(self, choice, devs, opts):
-        #print('ValueField.select() from', len(devs), 'devices')
         self.old = self.value
+        self.old_text = self.text_value
         try:
             self.value = locale.atof(choice)
-            #self.value = float(choice)
-            #print('{0} selected in {1}'.format(self.value, self))
+            self.text_value = choice
         except ValueError:
-            print('Invalid value: {0}'.format(choice))
-            raise
-            #return devs
+            if choice=='':
+                self.value = None
+                self.text_value = choice
+            else:
+                print('Invalid value: {0}'.format(choice))
+                raise                
         
-        #newdevs = [d for d in filter(self.rule.apply, devs)]
-        #transform = rules.Transform()
-        #newdevs = [d for d in devs if self.rule.apply(d, transform)]
         newdevs = self.filter(devs, opts)
         if newdevs:
             for s in self.on_changed:
                 s(self)        
             return newdevs
         else:
-            self.value = self.old
+            self.undo()
             raise NoMatches('') 
 
     def undo(self):
         self.value = self.old
+        self.text_value = self.old_text
         #print('ValueField.undo(): value is now', self.old)
             
     def filter(self, devs, opts):
@@ -352,7 +354,7 @@ class ValueField(Field):
         return [self.rule]
     
     def __repr__(self):
-        return '{0}: {1}'.format(self.name, self.value)
+        return '{0}: {1}'.format(self.name, self.text_value)
         
     def hint(self):
         return ''

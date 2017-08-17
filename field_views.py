@@ -58,7 +58,7 @@ class HTMLEditMixin:
                            'enabled': True,
                             'data': {   'name': self.field.name, 
                                         'internal_name': self.field.internal_name, 
-                                        'value': self.field.value, 
+                                        'value': self.field.text_value, 
                                     }
                           }                        
 
