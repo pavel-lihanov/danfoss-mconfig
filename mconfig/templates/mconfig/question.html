@@ -24,7 +24,9 @@
 <script src="https://unpkg.com/vue"></script>
 </head>
 
+
 <body>
+<script src="/mconfig/static/mconfig/components.js"></script>
 
 <script type='text/javascript'>
 function csrfSafeMethod(method) {
@@ -81,15 +83,11 @@ function hideError(){
 }
 
 function updateQuestion() {
-
-	var f;
+	var f, next_ena=false, prev_ena=false;
 	if (this.readyState == 4 && this.status == 200) {						
-		data = JSON.parse(this.responseText);		
-		if(data.error){
-			showError(data.error);
-		} else {
-			hideError();
-		}					
+		data = JSON.parse(this.responseText);
+		next_ena = data.next_enabled;
+		prev_ena = data.prev_enabled;
 		
 		for(f=0;f<data.fields.length;f++){
 			var fo = findField(data.fields[f].data.name);
@@ -99,7 +97,12 @@ function updateQuestion() {
 			}
 			if(fo && (data.error || !this.soft_update)){
 				fo.update(data.fields[f]);
-			}				
+				if(fo.comp && fo == this.field){
+					fo.comp.error = data.error;
+				}
+			} else if(fo.comp){
+				fo.comp.error = data.error;
+			}
 		}
 	} else if (this.readyState < 4){
 		showInProgress();
@@ -107,19 +110,55 @@ function updateQuestion() {
 		showError("Server error");
 	}
 	
-	setButtonState(document.getElementById("next_button"), data.next_enabled);
-	setButtonState(document.getElementById("prev_button"), data.prev_enabled);	
+	setButtonState(document.getElementById("next_button"), next_ena);
+	setButtonState(document.getElementById("prev_button"), prev_ena);	
+}
+
+function findField2(root, name){
+	var f;
+	for(f=0;f<root.$children.length;f++){
+		if(root.$children[f].mName==name){
+			return root.$children[f];
+		}
+	}
+	return null;
+}
+
+function updateQuestion2() {
+	var f, next_ena=false, prev_ena=false;
+	if (this.readyState == 4 && this.status == 200) {
+		data = JSON.parse(this.responseText);
+		next_ena = data.next_enabled;
+		prev_ena = data.prev_enabled;
+				
+		for(f=0;f<data.fields.length;f++){
+			var fo = findField2(root, data.fields[f].data.name);
+			if(fo){
+				fo.update(data.fields[f].data);				
+			}
+		}
+	} else if (this.readyState < 4){
+		showInProgress();
+	} else if (this.readyState != 200) {
+		showError("Server error");
+	}
+	
+	setButtonState(document.getElementById("next_button"), next_ena);
+	setButtonState(document.getElementById("prev_button"), prev_ena);	
 }
 
 function postField(field, soft){	
 	setButtonState(document.getElementById("next_button"), false);	
-
+	var f = findField(field);
+	
 	var xhttp = new XMLHttpRequest();			
 	xhttp.ontimeout = function(e) {
 		err_panel.text = "Timeout";
 	}
+	
 	xhttp.onreadystatechange = updateQuestion;
 	xhttp.soft_update = soft;
+	xhttp.field = f;
 	
 	xhttp.open('POST', 'update', true);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -129,15 +168,30 @@ function postField(field, soft){
 	xhttp.send('Current_field='+field+'&'+field+'='+document.getElementById(f.name).value+'&+ts='+new Date().getTime());
 }
 
+function postFieldValue(comp, soft){	
+	setButtonState(document.getElementById("next_button"), false);		
+	
+	var xhttp = new XMLHttpRequest();			
+	xhttp.ontimeout = function(e) {
+		err_panel.text = "Timeout";
+	}
+	
+	xhttp.onreadystatechange = updateQuestion2;
+	xhttp.soft_update = soft;	
+	xhttp.field = comp;
+	
+	xhttp.open('POST', 'update', true);
+	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	var csrftoken = getCookie('csrftoken');
+	xhttp.setRequestHeader("X-CSRFToken", csrftoken);	
+	xhttp.send('Current_field='+comp.mName+'&'+comp.mName+'='+comp.mValue+'&+ts='+new Date().getTime());
+}
+
 $( document ).ready(function() {
 	//so we don't depend on templates to fill in the values
 	var xhttp = new XMLHttpRequest();				
 	xhttp.onreadystatechange = updateQuestion;
 
-	/*
-	document.getElementById("err_panel").style.display="block";
-	document.getElementById("err_text").innerHTML = "Processing";		
-	*/
 	xhttp.open('GET', 'refresh', true);
 	xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');	
 	xhttp.send();
@@ -149,74 +203,57 @@ $( document ).ready(function() {
 <div id="progress" {% if not show_debug %}style="display:none;"{% endif %}>
 </div>
 
-<!-- <form action="logout" id="logout_form" method="post" style="display: inline; float: left; padding: 10px;">
-	{% csrf_token %}
-	<button type="button" {% if not question.can_proceed %}disabled="disabled"{% endif %} onclick="document.getElementById('logout_form').submit()">Logout</button>
-</form>
- -->
 	<table border="0">
     <tr>
-   		{% if not user.is_authenticated%} <th><a href="../../../login">Войти</a></th>{% endif %}
-    <!--<th><a href="../../../create_user">Создать профайл</a></th>-->
-	{% if  user.is_authenticated%}<th><a href="../../../password_change">Изменить пароль</a></th>{% endif %}
-	{% if not user.is_authenticated%}<th><a href="../../../request_access">Отправить запрос на регистрацию</a></th>{% endif %}
-	{% if  user.is_authenticated%}<th><a href="../../../logout">Выйти</a></th>{% endif %}
-	{% if user.is_authenticated%}<th> Пользователь: {{ user }} </th>{% endif %}
+  		{% if not user.is_authenticated%} <th><a href="../../../login">Войти</a></th>{% endif %}    
+		{% if  user.is_authenticated%}<th><a href="../../../password_change">Изменить пароль</a></th>{% endif %}
+		{% if not user.is_authenticated%}<th><a href="../../../request_access">Отправить запрос на регистрацию</a></th>{% endif %}
+		{% if  user.is_authenticated%}<th><a href="../../../logout">Выйти</a></th>{% endif %}
+		{% if user.is_authenticated%}<th> Пользователь: {{ user }} </th>{% endif %}
     </tr>
 	</table> 
 <h1>Конфигуратор высоковольтного привода</h1>
 
+<div id=vue-root>
+	<div id="error_message">
+		<span v-if="visible" class="w3-closebtn" onclick="this.parentElement.style.display='none'">
+			&times;
+		</span>
+		<p v-if="visible">
+			[< text >]
+		</p>
+	</div>
 
-<!-- <div class="error-msg">
+	<div id="main_area">
+		<form name="question_form" id="question_form" action="update" method="post">
+			{% csrf_token %}
+			{% for field in question.fields %}									
+				{% include field.view.template with field=field enabled=True only %}
+			{% endfor %}	
+			<input type="text" style="display:none" id="Current_field" name="Current_field" value=""/>
+		</form>
 
-<div id="err_panel" class="w3-panel w3-orange w3-card-8" {% if error_message %}style="display:block;"{%else%}style="display:none;"{%endif%}>
-	<span class="w3-closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
-	<p id="err_text"><strong>{{ error_message }}</strong></p>
+		<div class="btn-controls">		
+			<form action="prev" id="prev_form" method="post" style="display: inline; float: left; padding: 10px;">
+				{% csrf_token %}
+				<button class="prev" type="button" id="prev_button" {% if not question.previous %}disabled="disabled"{% endif %} onclick="document.getElementById('prev_form').submit()">{% trans 'Prev' %}</button>
+			</form>
+			
+			
+			<form action="next" id="next_form" method="post" style="display: inline; float: left; padding: 10px;">
+				{% csrf_token %}		
+				<button class="next" type="button" id="next_button" {% if not question.can_proceed %}disabled="disabled"{% endif %} onclick="document.getElementById('next_form').submit()">{% trans 'Next' %}</button>
+			</form>										
+		</div>
+		<div class="clear"></div>
+	</div>
 </div>
-
 </div>
- -->
- 
-<div id="error_message">
-	<span v-if="visible" class="w3-closebtn" onclick="this.parentElement.style.display='none'">
-		&times;
-	</span>
-	<p v-if="visible">
-		[< text >]
-	</p>
-</div>
- 
-<div id="main_area">
-
-<form name="question_form" id="question_form" action="update" method="post">
-	{% csrf_token %}
-	{% for field in question.fields %}									
-		{% include field.view.template with field=field enabled=True only %}																									
-	{% endfor %}			
-		
-	<input type="text" style="display:none" id="Current_field" name="Current_field" value=""/>
-</form>				
-		
-<div class="btn-controls">		
-	<form action="prev" id="prev_form" method="post" style="display: inline; float: left; padding: 10px;">
-		{% csrf_token %}
-		<button class="prev" type="button" id="prev_button" {% if not question.previous %}disabled="disabled"{% endif %} onclick="document.getElementById('prev_form').submit()">{% trans 'Prev' %}</button>
-	</form>
-	
-	
-	<form action="next" id="next_form" method="post" style="display: inline; float: left; padding: 10px;">
-		{% csrf_token %}
-		<button class="next" type="button" id="next_button" {% if not question.can_proceed %}disabled="disabled"{% endif %} onclick="document.getElementById('next_form').submit()">{% trans 'Next' %}</button>
-	</form>										
 </div>
 
-<div class="clear"></div>
-
-</div>
-</div>
-</div>
 
 <script>
+	var root = new Vue({el: '#vue-root'});	
 	var err_panel = new Vue({
 		delimiters: ["[<", ">]"],
 		el: '#error_message',
@@ -233,10 +270,11 @@ $( document ).ready(function() {
 
 <script type="text/javascript">
 var fields = [];
+{% comment %}
 {% for field in question.fields %}
 	fields = fields.concat({{field.internal_name}}_create());
 {% endfor %}
-
+{% endcomment %}
 function findField(name) {
 	for(f in fields){
 		if(fields[f].name == name || fields[f].internal_name == name){
@@ -246,6 +284,5 @@ function findField(name) {
 	return null;
 }
 </script>
-
 </body>
 </html>

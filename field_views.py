@@ -60,7 +60,7 @@ class HTMLEditMixin:
                                         'internal_name': self.field.internal_name, 
                                         'value': self.field.text_value, 
                                     }
-                          }                        
+                          } 
 
 class HTMLStreetAddressMixin:
     def __init__(self, field, **kwargs):

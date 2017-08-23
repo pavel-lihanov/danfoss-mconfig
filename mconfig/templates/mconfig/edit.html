@@ -1,59 +1,8 @@
-{% load i18n %}
- 
-<div class="choice-field">
-	<label>{{ field.name }}</label>
-	<input 
-		class="w3-input" 
-		type="text"  
-		name="{{ field.name }}" 
-		id="{{ field.name }}" 
-		onchange="{postField('{{field.name}}', false)}"
-		oninput="{postField('{{field.name}}', true)}"
-	/>
-		
-{% if field.hint %}
-	<div class="help">
-		<i class="icon-help">?</i>
-		<div class="help-popup">
-			<i class="help-popup-ctrl" ></i>
-			{% include field.hint %}
-		</div>
-	</div>
-{% endif %}
-</div>
-
-<script>
-function {{field.internal_name}}_enable(enable) {
-	//console.log('{{field.internal_name}}_enable', enable);
-	document.getElementById('{{field.name}}').disabled = !enable;
-}
-
-function {{field.internal_name}}_update(data) {
-	//console.log(data);
-	/*
-	var field_node = data.getElementsByTagName('Field')[0];
-	var value_node = field_node.getElementsByTagName('value')[0];
-	if(value_node.childNodes.length!=0){		
-		var elem = document.getElementById('{{field.name}}');
-		if(value_node.childNodes[0].nodeValue!='None'){
-			elem.value = value_node.childNodes[0].nodeValue;
-		} else {
-			elem.value = '';
-		}
-	} else {
-		elem.value = '';
-	}
-	*/
-	var elem = document.getElementById('{{field.name}}');
-	elem.value = data.data.value;
-}
-
-function {{field.internal_name}}_create() {
-	return [
-			{name: "{{field.name}}", 
-			internal_name: "{{field.internal_name}}", 
-			update: {{field.internal_name}}_update, 
-			enable: {{field.internal_name}}_enable},
-			];
-}
-</script>
+<mconfig-edit
+	m-name="{{field.name}}"
+	m-enabled="{{field.enabled}}"
+	m-hint={% if field.hint %} "{% include field.hint %}" {% else %} "" {% endif %}
+	m-value="{{field.value}}"
+	m-error=""
+>
+</mconfig-edit>
